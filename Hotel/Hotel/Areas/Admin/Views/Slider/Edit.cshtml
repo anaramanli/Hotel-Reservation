@@ -1,0 +1,53 @@
+﻿@model UpdateSliderAdminVM
+
+<div class="card">
+    <div class="card-body">
+        <form method="post" enctype="multipart/form-data">
+            <input type="hidden" asp-for="Id" />
+
+            <div class="mb-3">
+                <label asp-for="Title" class="form-label">Title</label>
+                <input asp-for="Title" class="form-control">
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="ImageFile" class="form-label">Image</label>
+                <input asp-for="ImageFile" type="file" accept="image/*" class="form-control">
+                <span asp-validation-for="ImageFile" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <img src="~/assets/imgs/@Model.ImageUrl" width="100px" />
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('form').submit(function (event) {
+            event.preventDefault(); 
+
+            var formData = new FormData(this);
+
+            $.ajax({
+                url: $(this).attr('action'),
+                type: $(this).attr('method'), 
+                data: formData, 
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    toastr.success('Successfully edited');
+
+                    window.location.href = '/Admin/Slider/Index';
+                },
+                error: function (xhr, status, error) {
+                    toastr.error('An error occurred while editing');
+                }
+            });
+        });
+    });
+</script>
+

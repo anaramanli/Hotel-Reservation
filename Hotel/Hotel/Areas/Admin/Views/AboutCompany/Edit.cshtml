@@ -1,0 +1,107 @@
+﻿@model ACEditAdminVM
+
+@{
+    ViewData["Title"] = "Edit About Company";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Edit" enctype="multipart/form-data" method="post">
+
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CeoName" class="control-label"></label>
+                <input asp-for="CeoName" class="form-control" />
+                <span asp-validation-for="CeoName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CeoSignature" class="control-label"></label>
+                <input asp-for="CeoSignature" class="form-control" />
+                <span asp-validation-for="CeoSignature" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Icon" class="control-label"></label>
+                <input asp-for="Icon" class="form-control" />
+                <span asp-validation-for="Icon" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ImageUrlOne" class="control-label"></label>
+                <input asp-for="ImageUrlOne" type="file" class="form-control" />
+                <span asp-validation-for="ImageUrlOne" class="text-danger"></span>
+                <img src="~/assets/imgs/@Model.ImageUrlOne" width="100px" class="mt-2" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ImageUrlTwo" class="control-label"></label>
+                <input asp-for="ImageUrlTwo" type="file" class="form-control" />
+                <span asp-validation-for="ImageUrlTwo" class="text-danger"></span>
+                <img src="~/assets/imgs/@Model.ImageUrlTwo" width="100px" class="mt-2" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="LatestVideos" class="control-label"></label>
+                <input asp-for="LatestVideos" class="form-control" />
+                <span asp-validation-for="LatestVideos" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="OurServiceOne" class="control-label"></label>
+                <input asp-for="OurServiceOne" class="form-control" />
+                <span asp-validation-for="OurServiceOne" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="OurServiceTwo" class="control-label"></label>
+                <input asp-for="OurServiceTwo" class="form-control" />
+                <span asp-validation-for="OurServiceTwo" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ServiceDescriptionOne" class="control-label"></label>
+                <input asp-for="ServiceDescriptionOne" class="form-control" />
+                <span asp-validation-for="ServiceDescriptionOne" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ServiceDescriptionTwo" class="control-label"></label>
+                <input asp-for="ServiceDescriptionTwo" class="form-control" />
+                <span asp-validation-for="ServiceDescriptionTwo" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CeoImage" class="control-label"></label>
+                <input asp-for="CeoImage" type="file" class="form-control" />
+                <span asp-validation-for="CeoImage" class="text-danger"></span>
+                <img src="~/assets/imgs/@Model.CeoImageUrl" width="100px" class="mt-2" />
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation/1.19.3/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+}

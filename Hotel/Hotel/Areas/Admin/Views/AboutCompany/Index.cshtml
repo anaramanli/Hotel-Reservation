@@ -1,0 +1,162 @@
+﻿@using Hotel.ViewModels.AboutCompany
+@model List<AboutCompanyGetAdminVM>
+
+<div class="card w-100">
+    <div class="card-body p-4">
+        <div style="display:flex; justify-content:flex-end">
+            @if (Model.Count == 0)
+            {
+                <a asp-action="Create" class="btn btn-primary">Create</a>
+            }
+        </div>
+        <h5 class="card-title fw-semibold mb-4">About Company</h5>
+        <div class="table-responsive">
+            <table class="table text-nowrap mb-0 align-middle">
+                <thead class="text-dark fs-4">
+                    <tr>
+                        <th class="border-bottom-0">
+                            <h6 class="fw-semibold mb-0">Id</h6>
+                        </th>
+                        <th class="border-bottom-0">
+                            <h6 class="fw-semibold mb-0">Title</h6>
+                        </th>
+                        <th class="border-bottom-0">
+                            <h6 class="fw-semibold mb-0">CeoName</h6>
+                        </th>
+                        <th class="border-bottom-0">
+                            <h6 class="fw-semibold mb-0">CeoSignature</h6>
+                        </th>
+                        <th class="border-bottom-0">
+                            <h6 class="fw-semibold mb-0">Icon</h6>
+                        </th>
+                        <th class="border-bottom-0">
+                            <h6 class="fw-semibold mb-0">ImageUrlOne</h6>
+                        </th>
+                        <th class="border-bottom-0">
+                            <h6 class="fw-semibold mb-0">ImageUrlTwo</h6>
+                        </th>
+                        <th class="border-bottom-0">
+                            <h6 class="fw-semibold mb-0">LatestVideos</h6>
+                        </th>
+                        <th class="border-bottom-0">
+                            <h6 class="fw-semibold mb-0">OurServiceOne</h6>
+                        </th>
+                        <th class="border-bottom-0">
+                            <h6 class="fw-semibold mb-0">OurServiceTwo</h6>
+                        </th>
+                        <th class="border-bottom-0">
+                            <h6 class="fw-semibold mb-0">ServiceDescriptionOne</h6>
+                        </th>
+                        <th class="border-bottom-0">
+                            <h6 class="fw-semibold mb-0">ServiceDescriptionTwo</h6>
+                        </th>
+                        <th class="border-bottom-0">
+                            <h6 class="fw-semibold mb-0">CeoImage</h6>
+                        </th>
+                        <th class="border-bottom-0">
+                            <h6 class="fw-semibold mb-0">Action</h6>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Count == 0)
+                    {
+                        <tr>
+                            <td colspan="14" class="text-center">No entries available. Please create a new entry.</td>
+                        </tr>
+                    }
+                    else
+                    {
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="border-bottom-0"><h6 class="fw-semibold mb-0">@item.Id</h6></td>
+                                <td class="border-bottom-0"><h6 class="fw-semibold mb-0">@item.Title</h6></td>
+                                <td class="border-bottom-0"><h6 class="fw-semibold mb-0">@item.CeoName</h6></td>
+                                <td class="border-bottom-0"><img src="~/assets/imgs/@item.CeoSignatureUrl" width="50px" /></td>
+                                <td class="border-bottom-0"><h6 class="fw-semibold mb-0">@item.Icon</h6></td>
+                                <td class="border-bottom-0"><img src="~/assets/imgs/@item.ImageUrlOne" width="50px" /></td>
+                                <td class="border-bottom-0"><img src="~/assets/imgs/@item.ImageUrlTwo" width="50px" /></td>
+                                <td class="border-bottom-0"><h6 class="fw-semibold mb-0">@item.LatestVideos</h6></td>
+                                <td class="border-bottom-0"><h6 class="fw-semibold mb-0">@item.OurServiceOne</h6></td>
+                                <td class="border-bottom-0"><h6 class="fw-semibold mb-0">@item.OurServiceTwo</h6></td>
+                                <td class="border-bottom-0"><h6 class="fw-semibold mb-0">@item.ServiceDescriptionOne</h6></td>
+                                <td class="border-bottom-0"><h6 class="fw-semibold mb-0">@item.ServiceDescriptionTwo</h6></td>
+                                <td class="border-bottom-0"><img src="~/assets/imgs/@item.CeoImageUrl" width="50px" /></td>
+                                <td class="border-bottom-0">
+                                    <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                                    <a class="btn btn-danger delete" asp-action="Delete" data-id="@item.Id">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section styles {
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
+}
+
+@section scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        $(document).ready(function () {
+            toastr.options = {
+                "closeButton": false,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": true,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            };
+
+            $('.delete').on('click', function (event) {
+                event.preventDefault();
+
+                var compId = $(this).data('id');
+
+                Swal.fire({
+                    title: "Are you sure you want to delete?",
+                    text: "You won't be able to revert this!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#d33",
+                    cancelButtonColor: "#3085d6",
+                    confirmButtonText: "Yes, delete it!"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: `/Admin/AboutCompany/Delete/${compId}`,
+                            type: 'GET',
+                            headers: {
+                                'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
+                            },
+                            success: function (response) {
+                                toastr.success("About Company entry deleted successfully");
+                                $(`a[data-id="${compId}"]`).closest('tr').remove();
+                            },
+                            error: function (error) {
+                                toastr.error("Failed to delete About Company entry");
+                            }
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+}

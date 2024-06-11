@@ -1,0 +1,96 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\User\\Desktop\\Hotel\\Hotel\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A26D0BEC-5CDC-4CF9-B39B-455D68CBAF01}|Hotel\\Hotel.csproj|c:\\users\\user\\desktop\\hotel\\hotel\\hotel\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A26D0BEC-5CDC-4CF9-B39B-455D68CBAF01}|Hotel\\Hotel.csproj|solutionrelative:hotel\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A26D0BEC-5CDC-4CF9-B39B-455D68CBAF01}|Hotel\\Hotel.csproj|c:\\users\\user\\desktop\\hotel\\hotel\\hotel\\areas\\admin\\controllers\\aboutcompanycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A26D0BEC-5CDC-4CF9-B39B-455D68CBAF01}|Hotel\\Hotel.csproj|solutionrelative:hotel\\areas\\admin\\controllers\\aboutcompanycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A26D0BEC-5CDC-4CF9-B39B-455D68CBAF01}|Hotel\\Hotel.csproj|c:\\users\\user\\desktop\\hotel\\hotel\\hotel\\areas\\admin\\controllers\\slidercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A26D0BEC-5CDC-4CF9-B39B-455D68CBAF01}|Hotel\\Hotel.csproj|solutionrelative:hotel\\areas\\admin\\controllers\\slidercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A26D0BEC-5CDC-4CF9-B39B-455D68CBAF01}|Hotel\\Hotel.csproj|c:\\users\\user\\desktop\\hotel\\hotel\\hotel\\viewmodels\\aboutcompany\\aceditadminvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A26D0BEC-5CDC-4CF9-B39B-455D68CBAF01}|Hotel\\Hotel.csproj|solutionrelative:hotel\\viewmodels\\aboutcompany\\aceditadminvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 5,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{6324226f-61b6-4f28-92ee-18d4b5fe1e48}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ACEditAdminVM.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\Hotel\\Hotel\\Hotel\\ViewModels\\AboutCompany\\ACEditAdminVM.cs",
+              "RelativeDocumentMoniker": "Hotel\\ViewModels\\AboutCompany\\ACEditAdminVM.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\Hotel\\Hotel\\Hotel\\ViewModels\\AboutCompany\\ACEditAdminVM.cs",
+              "RelativeToolTip": "Hotel\\ViewModels\\AboutCompany\\ACEditAdminVM.cs",
+              "ViewState": "AQIAACAAAAAAAAAAAAAuwAgAAAAVAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-11T14:10:06.355Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "SliderController.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\Hotel\\Hotel\\Hotel\\Areas\\Admin\\Controllers\\SliderController.cs",
+              "RelativeDocumentMoniker": "Hotel\\Areas\\Admin\\Controllers\\SliderController.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\Hotel\\Hotel\\Hotel\\Areas\\Admin\\Controllers\\SliderController.cs",
+              "RelativeToolTip": "Hotel\\Areas\\Admin\\Controllers\\SliderController.cs",
+              "ViewState": "AQIAAGEAAAAAAAAAAAA0wAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-11T14:03:42.381Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AboutCompanyController.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\Hotel\\Hotel\\Hotel\\Areas\\Admin\\Controllers\\AboutCompanyController.cs",
+              "RelativeDocumentMoniker": "Hotel\\Areas\\Admin\\Controllers\\AboutCompanyController.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\Hotel\\Hotel\\Hotel\\Areas\\Admin\\Controllers\\AboutCompanyController.cs",
+              "RelativeToolTip": "Hotel\\Areas\\Admin\\Controllers\\AboutCompanyController.cs",
+              "ViewState": "AQIAANEAAAAAAAAAAAAQwOsAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-11T13:53:47.042Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\Hotel\\Hotel\\Hotel\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "Hotel\\Views\\Home\\Index.cshtml",
+              "ToolTip": "C:\\Users\\User\\Desktop\\Hotel\\Hotel\\Hotel\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "Hotel\\Views\\Home\\Index.cshtml",
+              "ViewState": "AQIAAFEAAAAAAAAAAADwv14AAABYAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-06-11T13:41:03.63Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
