@@ -1,0 +1,114 @@
+﻿@model List<GetCategoryAdminVM>
+<div class="card w-100">
+    <div class="card-body p-4">
+        <div style="display:flex; justify-content:flex-end">
+            <a asp-action="Create" class="btn btn-primary">Create</a>
+        </div>
+        <h5 class="card-title fw-semibold mb-4">Sliders</h5>
+        <div class="table-responsive">
+            <table class="table text-nowrap mb-0 align-middle">
+                <thead class="text-dark fs-4">
+                    <tr>
+                        <th class="border-bottom-0">
+                            <h6 class="fw-semibold mb-0">Id</h6>
+                        </th>
+                        <th class="border-bottom-0">
+                            <h6 class="fw-semibold mb-0">Category Name</h6>
+                        </th>
+                        <th class="border-bottom-0">
+                            <h6 class="fw-semibold mb-0">Action</h6>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="border-bottom-0"><h6 class="fw-semibold mb-0">@item.Id</h6></td>
+                            <td class="border-bottom-0">
+                                <h6 class="fw-semibold mb-1">@item.CategoryName</h6>
+                            </td>
+                            <td class="border-bottom-0">
+                                <a class="btn btn-danger delete" category-id="@item.Id" href="#">Delete</a>
+                                <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section styles {
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
+}
+
+@section scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        $(document).ready(function () {
+            toastr.options = {
+                "closeButton": false,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": true,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            };
+
+            let deleteBtns = document.querySelectorAll(".delete");
+
+            deleteBtns.forEach(btn => {
+                btn.addEventListener("click", (event) => {
+                    event.preventDefault();
+
+                    let categoryId = btn.getAttribute("category-id");
+
+                    Swal.fire({
+                        title: "Are you sure you want to delete?",
+                        text: "You won't be able to revert this!",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#d33",
+                        cancelButtonColor: "#3085d6",
+                        confirmButtonText: "Yes, delete it!"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            fetch(`/Admin/Category/Delete/${categoryId}`, {
+                                method: "POST",
+                                headers: {
+                                    'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
+                                }
+                            })
+                                .then(response => {
+                                    if (response.ok) {
+                                        toastr["success"]("Category deleted successfully");
+                                        btn.closest("tr").remove();
+                                    } else {
+                                        toastr["error"]("Failed to delete category");
+                                    }
+                                })
+                                .catch(error => {
+                                    console.error("Error:", error);
+                                    toastr["error"]("An error occurred while deleting the slider");
+                                });
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+}
