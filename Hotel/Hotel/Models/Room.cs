@@ -11,7 +11,10 @@ namespace Hotel.Models
         public string ImageUrl { get; set; }
         public TimeOnly CheckIn { get; set; } = new TimeOnly(6,00);
         // Relation
-        public Category Category { get; set; }
-        public RoomStatus RoomStatus { get; set; }
+        public int CategoryId { get; set; }
+        public int RoomStatusId { get; set; }
+
+        public Category? Category { get; set; }
+        public RoomStatus? RoomStatus { get; set; }
     }
 }

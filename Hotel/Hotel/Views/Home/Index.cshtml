@@ -85,31 +85,31 @@
 <!-- About Area start -->
 <section class="about-area pt-130 rpt-100 rel">
     <div class="container">
-        @foreach (var item in Model.AboutCompanies)
+        @if (Model.AboutCompanies.Any())
         {
-        <div class="row align-items-center">
-            <div class="col-lg-6">
-                <div class="about-image-part rmb-55">
-                    <div class="top-part">
-                        <img src="~/assets/imgs/@item.ImageUrlOne" alt="About">
-                        <div class="icon wow fadeInLeft delay-0-2s"><i class="@item.Icon"></i></div>
-                    </div>
-                    <div class="bottom-part">
-                        <a href="@item.LatestVideos" class="mfp-iframe video-play-text wow fadeInRight delay-0-2s">
-                            <i class="fal fa-play"></i>
-                            <span><b>Watch Latest</b><br> <i>Videos</i></span>
-                        </a>
-                            <img src="~/assets/imgs/@item.ImageUrlTwo" alt="About">
+            var firstItem = Model.AboutCompanies.First();
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="about-image-part rmb-55">
+                        <div class="top-part">
+                            <img src="~/assets/imgs/@firstItem.ImageUrlOne" alt="About">
+                            <div class="icon wow fadeInLeft delay-0-2s"><i class="@firstItem.Icon"></i></div>
+                        </div>
+                        <div class="bottom-part">
+                            <a href="@firstItem.LatestVideos" class="mfp-iframe video-play-text wow fadeInRight delay-0-2s">
+                                <i class="fal fa-play"></i>
+                                <span><b>Watch Latest</b><br> <i>Videos</i></span>
+                            </a>
+                            <img src="~/assets/imgs/@firstItem.ImageUrlTwo" alt="About">
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="about-content-part">
-                    
+                <div class="col-lg-6">
+                    <div class="about-content-part">
                         <div class="section-title mb-35 wow fadeInUp delay-0-2s">
                             <span class="sub-title mb-15">About Company</span>
-                            <h2>@item.Title</h2>
-                            <p>@item.Description</p>
+                            <h2>@firstItem.Title</h2>
+                            <p>@firstItem.Description</p>
                         </div>
                         <div class="feature-list wow fadeInUp delay-0-3s">
                             <div class="feature-item">
@@ -117,8 +117,8 @@
                                     <i class="flaticon-check-mark"></i>
                                 </div>
                                 <div class="content">
-                                    <h5>@item.OurServiceOne</h5>
-                                    <p>@item.ServiceDescriptionOne</p>
+                                    <h5>@firstItem.OurServiceOne</h5>
+                                    <p>@firstItem.ServiceDescriptionOne</p>
                                 </div>
                             </div>
                             <div class="feature-item">
@@ -126,27 +126,28 @@
                                     <i class="flaticon-check-mark"></i>
                                 </div>
                                 <div class="content">
-                                    <h5>@item.OurServiceTwo</h5>
-                                    <p>@item.ServiceDescriptionTwo</p>
+                                    <h5>@firstItem.OurServiceTwo</h5>
+                                    <p>@firstItem.ServiceDescriptionTwo</p>
                                 </div>
                             </div>
                         </div>
                         <div class="about-author wow fadeInUp delay-0-4s">
                             <div class="author">
-                                <img src="~/assets/imgs/@item.CeoImageUrl" alt="Author">
+                                <img src="~/assets/imgs/@firstItem.CeoImageUrl" alt="Author">
                             </div>
                             <div class="description">
-                                <h5>@item.CeoName</h5>
+                                <h5>@firstItem.CeoName</h5>
                                 <span>CEO & Founder</span>
                             </div>
                             <div class="signature">
-                                <img src="~/assets/imgs/@item.CeoSignatureUrl" alt="Signature">
+                                <img src="~/assets/imgs/@firstItem.CeoSignatureUrl" alt="Signature">
                             </div>
                         </div>
+                    </div>
                 </div>
             </div>
-        </div>
-            }
+        }
+
     </div>
     <div class="bg-lines for-bg-white">
         <span></span><span></span>

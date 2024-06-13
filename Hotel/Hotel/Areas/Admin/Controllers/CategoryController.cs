@@ -1,15 +1,24 @@
 ﻿using Hotel.DAL;
 using Hotel.Models;
 using Hotel.ViewModels.Category;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Hotel.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class CategoryController(HotelDBContext _context, IWebHostEnvironment _env) : Controller
+    public class CategoryController : Controller
     {
+        private readonly HotelDBContext _context;
+        private readonly IWebHostEnvironment _env;
+
+        public CategoryController(HotelDBContext context, IWebHostEnvironment env)
+        {
+            _context = context;
+            _env = env;
+        }
+
         // GET: CategoryController
         public async Task<IActionResult> Index(int page = 0)
         {
@@ -26,9 +35,8 @@ namespace Hotel.Areas.Admin.Controllers
             return View(data);
         }
 
-
         // GET: CategoryController/Create
-        public ActionResult Create()
+        public IActionResult Create()
         {
             return View();
         }
@@ -40,7 +48,7 @@ namespace Hotel.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (!_context.Categories.Any(c => c.CategoryName == vm.CategoryName))
+                if (!await _context.Categories.AnyAsync(c => c.CategoryName == vm.CategoryName))
                 {
                     Category category = new Category
                     {
@@ -63,28 +71,44 @@ namespace Hotel.Areas.Admin.Controllers
 
             TempData["CreateStatus"] = "failure";
             return View(vm);
-
         }
 
         // GET: CategoryController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int? id)
         {
-            return View();
+            if (id == null) return BadRequest();
+
+            var category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == id);
+
+            if (category == null) return NotFound();
+
+            var vm = new EditCategoryAdminVM
+            {
+                Id = category.Id,
+                CategoryName = category.CategoryName,
+            };
+            return View(vm);
         }
 
         // POST: CategoryController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<IActionResult> Edit(int id, EditCategoryAdminVM vm)
         {
-            try
+            if (id != vm.Id)
+                return BadRequest();
+            if (ModelState.IsValid)
             {
+                var category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == id);
+
+                if (category == null) return NotFound();
+                category.CategoryName = vm.CategoryName;
+                category.ModifiedAt = DateTime.Now;
+                _context.Update(category);
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            catch
-            {
-                return View();
-            }
+            return View(vm);
         }
 
         // GET: CategoryController/Delete/5
@@ -101,7 +125,5 @@ namespace Hotel.Areas.Admin.Controllers
 
             return RedirectToAction(nameof(Index));
         }
-
-
     }
 }
