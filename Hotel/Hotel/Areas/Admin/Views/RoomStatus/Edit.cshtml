@@ -1,0 +1,16 @@
+﻿@model EditRoomStatusAdminVM
+<div class="page-content">
+	<div class="card">
+		<div class="card-body">
+			<form method="post" enctype="multipart/form-data">
+
+				<div class="mb-3">
+					<label asp-for="StatusName" class="form-label">Status Name</label>
+					<input asp-for="StatusName" class="form-control">
+					<span asp-validation-for="StatusName" class="text-danger"></span>
+				</div>
+				<button type="submit" class="btn btn-primary" id="createBtn">Submit</button>
+			</form>
+		</div>
+	</div>
+</div>

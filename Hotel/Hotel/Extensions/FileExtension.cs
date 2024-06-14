@@ -1,20 +1,32 @@
 ﻿namespace Hotel.Extensions
 {
-    public static class FileExtension
+    public static class FileExtensions
     {
         public static bool IsValidType(this IFormFile file, string type)
         {
-            return file.ContentType.Contains(type);
+            return file.ContentType.StartsWith(type);
         }
-        public static bool IsValidLength(this IFormFile file, int kb) => file.Length <= kb * 1024;
 
-        public static async Task<string> SaveFileAsync(this IFormFile file, string path)
+        public static bool IsValidLength(this IFormFile file, long maxSize)
         {
-            string ext = Path.GetExtension(file.FileName);
-            string newName = Path.GetRandomFileName();
-            await using FileStream fs = new FileStream(Path.Combine(path, newName + ext), FileMode.Create);
-            await file.CopyToAsync(fs);
-            return (newName + ext);
+            return file.Length <= maxSize * 1024;
+        }
+
+        public static async Task<string> SaveFileAsync(this IFormFile file, string uploadPath)
+        {
+            var fileName = Path.GetFileNameWithoutExtension(file.FileName)
+                          + "_"
+                          + Path.GetRandomFileName().Substring(0, 8)
+                          + Path.GetExtension(file.FileName);
+
+            var filePath = Path.Combine(uploadPath, fileName);
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
+
+            return fileName;
         }
     }
 }

@@ -8,7 +8,9 @@ namespace Hotel.Models
         public string Name { get; set; }
         public string Description { get; set; }
         public decimal Price { get; set; }
-        public string ImageUrl { get; set; }
+        public int Rating { get; set; }
+        public int Beds { get; set; }
+        public int Bathrooms { get; set; }
         public TimeOnly CheckIn { get; set; } = new TimeOnly(6,00);
         // Relation
         public int CategoryId { get; set; }
@@ -16,5 +18,7 @@ namespace Hotel.Models
 
         public Category? Category { get; set; }
         public RoomStatus? RoomStatus { get; set; }
+
+        public ICollection<RoomImage> Images { get; set; } = new List<RoomImage>();
     }
 }

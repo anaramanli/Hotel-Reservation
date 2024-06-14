@@ -6025,12 +6025,36 @@
       "PackagePath": "staticwebassets\\assets\\imgs\\5hulxqs0.1zp.jpg"
     },
     {
+      "Id": "C:\\Users\\User\\Desktop\\Hotel\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\The-Details-That-Matter-Top-Things-Every-Luxury-Hotel-Room-Should-Have_5vh34c21.png",
+      "PackagePath": "staticwebassets\\assets\\imgs\\The-Details-That-Matter-Top-Things-Every-Luxury-Hotel-Room-Should-Have_5vh34c21.png"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\Hotel\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\The-Details-That-Matter-Top-Things-Every-Luxury-Hotel-Room-Should-Have_p2oxgdrx.png",
+      "PackagePath": "staticwebassets\\assets\\imgs\\The-Details-That-Matter-Top-Things-Every-Luxury-Hotel-Room-Should-Have_p2oxgdrx.png"
+    },
+    {
       "Id": "C:\\Users\\User\\Desktop\\Hotel\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\a3qodcdh.v2x.jpg",
       "PackagePath": "staticwebassets\\assets\\imgs\\a3qodcdh.v2x.jpg"
     },
     {
       "Id": "C:\\Users\\User\\Desktop\\Hotel\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\ab5utavl.o2o.jpg",
       "PackagePath": "staticwebassets\\assets\\imgs\\ab5utavl.o2o.jpg"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\Hotel\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\about-author_vnyluul5.jpg",
+      "PackagePath": "staticwebassets\\assets\\imgs\\about-author_vnyluul5.jpg"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\Hotel\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\about1_a4xdf1zd.jpg",
+      "PackagePath": "staticwebassets\\assets\\imgs\\about1_a4xdf1zd.jpg"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\Hotel\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\about2_fvodpicw.jpg",
+      "PackagePath": "staticwebassets\\assets\\imgs\\about2_fvodpicw.jpg"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\Hotel\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\about2_ndgtvheh.jpg",
+      "PackagePath": "staticwebassets\\assets\\imgs\\about2_ndgtvheh.jpg"
     },
     {
       "Id": "C:\\Users\\User\\Desktop\\Hotel\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\au551spj.tma.jpg",
@@ -6109,6 +6133,10 @@
       "PackagePath": "staticwebassets\\assets\\imgs\\hbvbalmy.bjv.png"
     },
     {
+      "Id": "C:\\Users\\User\\Desktop\\Hotel\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\hynzmpbg.nui.jpg",
+      "PackagePath": "staticwebassets\\assets\\imgs\\hynzmpbg.nui.jpg"
+    },
+    {
       "Id": "C:\\Users\\User\\Desktop\\Hotel\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\jtt5esb5.bnn.jpg",
       "PackagePath": "staticwebassets\\assets\\imgs\\jtt5esb5.bnn.jpg"
     },
@@ -6171,6 +6199,158 @@
     {
       "Id": "C:\\Users\\User\\Desktop\\Hotel\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\rbdnubvu.tmq.png",
       "PackagePath": "staticwebassets\\assets\\imgs\\rbdnubvu.tmq.png"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\Hotel\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\room1_0uu4qxa1.jpg",
+      "PackagePath": "staticwebassets\\assets\\imgs\\room1_0uu4qxa1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\Hotel\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\room1_4dnwzn5j.jpg",
+      "PackagePath": "staticwebassets\\assets\\imgs\\room1_4dnwzn5j.jpg"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\Hotel\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\room1_5q21lm2o.jpg",
+      "PackagePath": "staticwebassets\\assets\\imgs\\room1_5q21lm2o.jpg"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\Hotel\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\room1_fordbovq.jpg",
+      "PackagePath": "staticwebassets\\assets\\imgs\\room1_fordbovq.jpg"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\Hotel\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\room1_hkcdjotl.jpg",
+      "PackagePath": "staticwebassets\\assets\\imgs\\room1_hkcdjotl.jpg"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\Hotel\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\room1_qxn4blnf.jpg",
+      "PackagePath": "staticwebassets\\assets\\imgs\\room1_qxn4blnf.jpg"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\Hotel\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\room2_4igpjai5.jpg",
+      "PackagePath": "staticwebassets\\assets\\imgs\\room2_4igpjai5.jpg"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\Hotel\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\room2_b1kaimeu.jpg",
+      "PackagePath": "staticwebassets\\assets\\imgs\\room2_b1kaimeu.jpg"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\Hotel\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\room2_h2dorxqn.jpg",
+      "PackagePath": "staticwebassets\\assets\\imgs\\room2_h2dorxqn.jpg"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\Hotel\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\room2_tjlpbxlk.jpg",
+      "PackagePath": "staticwebassets\\assets\\imgs\\room2_tjlpbxlk.jpg"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\Hotel\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\room2_w4oimyli.jpg",
+      "PackagePath": "staticwebassets\\assets\\imgs\\room2_w4oimyli.jpg"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\Hotel\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\room3_1tvvuepo.jpg",
+      "PackagePath": "staticwebassets\\assets\\imgs\\room3_1tvvuepo.jpg"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\Hotel\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\room3_3fpbggzp.jpg",
+      "PackagePath": "staticwebassets\\assets\\imgs\\room3_3fpbggzp.jpg"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\Hotel\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\room3_4esza2xq.jpg",
+      "PackagePath": "staticwebassets\\assets\\imgs\\room3_4esza2xq.jpg"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\Hotel\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\room3_f5gyiit4.jpg",
+      "PackagePath": "staticwebassets\\assets\\imgs\\room3_f5gyiit4.jpg"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\Hotel\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\room3_mm2pbuza.jpg",
+      "PackagePath": "staticwebassets\\assets\\imgs\\room3_mm2pbuza.jpg"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\Hotel\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\room3_ujbmztiu.jpg",
+      "PackagePath": "staticwebassets\\assets\\imgs\\room3_ujbmztiu.jpg"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\Hotel\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\room3_zitniltg.jpg",
+      "PackagePath": "staticwebassets\\assets\\imgs\\room3_zitniltg.jpg"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\Hotel\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\room4_33i0orgh.jpg",
+      "PackagePath": "staticwebassets\\assets\\imgs\\room4_33i0orgh.jpg"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\Hotel\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\room4_b1fyelal.jpg",
+      "PackagePath": "staticwebassets\\assets\\imgs\\room4_b1fyelal.jpg"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\Hotel\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\room4_gssd522p.jpg",
+      "PackagePath": "staticwebassets\\assets\\imgs\\room4_gssd522p.jpg"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\Hotel\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\room4_oysppbc3.jpg",
+      "PackagePath": "staticwebassets\\assets\\imgs\\room4_oysppbc3.jpg"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\Hotel\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\room4_xwnxvcal.jpg",
+      "PackagePath": "staticwebassets\\assets\\imgs\\room4_xwnxvcal.jpg"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\Hotel\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\room4_yk4yc4gj.jpg",
+      "PackagePath": "staticwebassets\\assets\\imgs\\room4_yk4yc4gj.jpg"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\Hotel\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\room4_zhfwpxdh.jpg",
+      "PackagePath": "staticwebassets\\assets\\imgs\\room4_zhfwpxdh.jpg"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\Hotel\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\room5_boxdghxf.jpg",
+      "PackagePath": "staticwebassets\\assets\\imgs\\room5_boxdghxf.jpg"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\Hotel\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\room5_fkgiuzkp.jpg",
+      "PackagePath": "staticwebassets\\assets\\imgs\\room5_fkgiuzkp.jpg"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\Hotel\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\room5_j2li3ppg.jpg",
+      "PackagePath": "staticwebassets\\assets\\imgs\\room5_j2li3ppg.jpg"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\Hotel\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\room5_jc4zti4h.jpg",
+      "PackagePath": "staticwebassets\\assets\\imgs\\room5_jc4zti4h.jpg"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\Hotel\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\room5_jdsbnucw.jpg",
+      "PackagePath": "staticwebassets\\assets\\imgs\\room5_jdsbnucw.jpg"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\Hotel\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\room5_mquvv0hx.jpg",
+      "PackagePath": "staticwebassets\\assets\\imgs\\room5_mquvv0hx.jpg"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\Hotel\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\room5_t2garcmd.jpg",
+      "PackagePath": "staticwebassets\\assets\\imgs\\room5_t2garcmd.jpg"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\Hotel\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\room5_uhg0nap0.jpg",
+      "PackagePath": "staticwebassets\\assets\\imgs\\room5_uhg0nap0.jpg"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\Hotel\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\room6_10tdtg4m.jpg",
+      "PackagePath": "staticwebassets\\assets\\imgs\\room6_10tdtg4m.jpg"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\Hotel\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\room6_d1uovvvn.jpg",
+      "PackagePath": "staticwebassets\\assets\\imgs\\room6_d1uovvvn.jpg"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\Hotel\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\room6_llxjvxgk.jpg",
+      "PackagePath": "staticwebassets\\assets\\imgs\\room6_llxjvxgk.jpg"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\Hotel\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\room6_ryv24pww.jpg",
+      "PackagePath": "staticwebassets\\assets\\imgs\\room6_ryv24pww.jpg"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\Hotel\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\room6_vycyo1dj.jpg",
+      "PackagePath": "staticwebassets\\assets\\imgs\\room6_vycyo1dj.jpg"
     },
     {
       "Id": "C:\\Users\\User\\Desktop\\Hotel\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\sta0bfdv.oo3.jpg",

@@ -13,11 +13,14 @@ namespace Hotel.Controllers
             List<Slider> sliders = await _context.Sliders
                 .Where(s=> !s.IsDeleted).ToListAsync();
             List<AboutCompany> companies = await _context.AboutCompanies
+                .Where(ac => !ac.IsDeleted).ToListAsync(); 
+            List<Room> rooms = await _context.Rooms.Include(r=> r.Images).Include(r=> r.Category)
                 .Where(ac => !ac.IsDeleted).ToListAsync();
             HomeVM homeVM = new HomeVM
             {
                 Sliders = sliders,
                 AboutCompanies = companies,
+                Rooms = rooms
             };
             return View(homeVM);  
         }

@@ -1,15 +1,24 @@
 ﻿using Hotel.DAL;
 using Hotel.Models;
 using Hotel.ViewModels.RoomStatus;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Hotel.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class RoomStatusController(HotelDBContext _context) : Controller
+    public class RoomStatusController : Controller
     {
+        private readonly HotelDBContext _context;
+
+        public RoomStatusController(HotelDBContext context)
+        {
+            _context = context;
+        }
+
         // GET: RoomStatusController
         public async Task<IActionResult> Index(int page = 0)
         {
@@ -17,11 +26,18 @@ namespace Hotel.Areas.Admin.Controllers
             var totalItems = await _context.RoomStatuses.CountAsync();
             ViewBag.MaxPage = (int)Math.Ceiling((double)totalItems / pageSize);
             ViewBag.CurrentPage = page;
-            var data = await _context.RoomStatuses.Skip(page * pageSize).Take(pageSize)
-                .Select(r=> new GetRoomStatusAdminVM{
-                Id = r.Id,
-                StatusName = r.StatusName,
-            }).ToListAsync();
+
+            var data = await _context.RoomStatuses
+                .OrderBy(r => r.Id)
+                .Skip(page * pageSize)
+                .Take(pageSize)
+                .Select(r => new GetRoomStatusAdminVM
+                {
+                    Id = r.Id,
+                    StatusName = r.StatusName,
+                })
+                .ToListAsync();
+
             return View(data);
         }
 
@@ -65,40 +81,101 @@ namespace Hotel.Areas.Admin.Controllers
         }
 
         // GET: RoomStatusController/Edit/5
-        public async Task<IActionResult> Edit(int id)
+        public async Task<IActionResult> Edit(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return BadRequest();
+            }
+
+            var status = await _context.RoomStatuses.FirstOrDefaultAsync(c => c.Id == id);
+
+            if (status == null)
+            {
+                return NotFound();
+            }
+
+            var vm = new EditRoomStatusAdminVM
+            {
+                Id = status.Id,
+                StatusName = status.StatusName
+            };
+
+            return View(vm);
         }
 
         // POST: RoomStatusController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, IFormCollection collection)
+        public async Task<IActionResult> Edit(int id, EditRoomStatusAdminVM vm)
         {
-            try
+            if (id != vm.Id)
             {
-                return RedirectToAction(nameof(Index));
+                return BadRequest();
             }
-            catch
+
+            if (ModelState.IsValid)
             {
-                return View();
+                try
+                {
+                    var status = await _context.RoomStatuses.FindAsync(id);
+
+                    if (status == null)
+                    {
+                        return NotFound();
+                    }
+
+                    status.StatusName = vm.StatusName;
+                    status.ModifiedAt = DateTime.Now;
+
+                    _context.Update(status);
+                    await _context.SaveChangesAsync();
+
+                    TempData["EditStatus"] = "success";
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!RoomStatusExists(id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
             }
+
+            TempData["EditStatus"] = "failure";
+            return View(vm);
         }
 
         // GET: RoomStatusController/Delete/5
         public async Task<IActionResult> Delete(int id)
         {
-            if (id == null || id < 1) return BadRequest();
+            if (id < 1)
+            {
+                return BadRequest();
+            }
 
             var data = await _context.RoomStatuses.FirstOrDefaultAsync(r => r.Id == id);
 
-            if (data == null) return NotFound();
+            if (data == null)
+            {
+                return NotFound();
+            }
 
-            _context.Remove(data);
+            _context.RoomStatuses.Remove(data);
             await _context.SaveChangesAsync();
 
+            TempData["DeleteStatus"] = "success";
             return RedirectToAction(nameof(Index));
         }
 
+        private bool RoomStatusExists(int id)
+        {
+            return _context.RoomStatuses.Any(e => e.Id == id);
+        }
     }
 }

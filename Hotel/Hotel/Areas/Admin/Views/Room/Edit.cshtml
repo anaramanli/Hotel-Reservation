@@ -1,0 +1,100 @@
+﻿@model Hotel.ViewModels.Room.EditRoomAdminVM
+
+@{
+    ViewData["Title"] = "Edit Room";
+}
+
+<div class="page-content">
+    <form asp-action="Edit" method="post" enctype="multipart/form-data">
+        <h2>Edit Room</h2>
+
+        <div class="form-group" style="margin-top: 0.3%;">
+            <label asp-for="RoomNumber" class="control-label"></label>
+            <input asp-for="RoomNumber" class="form-control" />
+            <span asp-validation-for="RoomNumber" class="text-danger"></span>
+        </div>
+        <div class="form-group" style="margin-top: 1%;">
+            <label asp-for="Name" class="control-label"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-group" style="margin-top: 1%;">
+            <label asp-for="Description" class="control-label"></label>
+            <textarea asp-for="Description" class="form-control"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+        <div class="form-group" style="margin-top: 1%;">
+            <label asp-for="Price" class="control-label"></label>
+            <input asp-for="Price" class="form-control" />
+            <span asp-validation-for="Price" class="text-danger"></span>
+        </div>
+        <div class="form-group" style="margin-top: 1%;">
+            <label asp-for="Bathrooms" class="control-label"></label>
+            <input asp-for="Bathrooms" class="form-control" />
+            <span asp-validation-for="Bathrooms" class="text-danger"></span>
+        </div>
+        <div class="form-group" style="margin-top: 1%;">
+            <label asp-for="Beds" class="control-label"></label>
+            <input asp-for="Beds" class="form-control" />
+            <span asp-validation-for="Beds" class="text-danger"></span>
+        </div>
+        <div class="form-group" style="margin-top: 1%;">
+            <label asp-for="Rating" class="control-label"></label>
+            <input asp-for="Rating" class="form-control" />
+            <span asp-validation-for="Rating" class="text-danger"></span>
+        </div>
+        <div class="form-group" style="margin-top: 1%;">
+            <label class="control-label">Current Images</label>
+            <div id="current-images-container" style="display:flex; overflow:auto">
+                @foreach (var imageUrl in Model.ImageUrls)
+                {
+                    <div class="current-image-item">
+                        <img src="~/assets/imgs/@imageUrl" class="img-thumbnail" style="max-width: 200px; max-height: 200px; margin: 10px;" />
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="form-group" style="margin-top: 1%;">
+            <label asp-for="ImageFiles" class="control-label">New Images</label>
+            <input asp-for="ImageFiles" type="file" class="form-control" multiple />
+            <span asp-validation-for="ImageFiles" class="text-danger"></span>
+        </div>
+        <div class="form-group" style="margin-top: 1%;">
+            <label asp-for="CheckIn" class="control-label"></label>
+            <input asp-for="CheckIn" class="form-control" />
+            <span asp-validation-for="CheckIn" class="text-danger"></span>
+        </div>
+        <div class="form-group" style="margin-top: 1%;">
+            <label asp-for="CategoryId" class="control-label"></label>
+            <select asp-for="CategoryId" class="form-control" asp-items="@(new SelectList(Model.Categories, "Id", "CategoryName"))"></select>
+            <span asp-validation-for="CategoryId" class="text-danger"></span>
+        </div>
+        <div class="form-group" style="margin-top: 1%;">
+            <label asp-for="RoomStatusId" class="control-label"></label>
+            <select asp-for="RoomStatusId" class="form-control" asp-items="@(new SelectList(Model.RoomStatuses, "Id", "StatusName"))"></select>
+            <span asp-validation-for="RoomStatusId" class="text-danger"></span>
+        </div>
+        <div class="form-group" style="margin-top: 3%;">
+            <input type="submit" value="Save Changes" class="btn btn-primary" />
+        </div>
+    </form>
+</div>
+
+@* @section Scripts {
+    <script>
+        // JavaScript ile mevcut resimlerin önizlenmesi
+        $(document).ready(function () {
+            // ImageUrls listesindeki mevcut resimlerin önizlenmesi
+        @foreach (var imageUrl in Model.ImageUrls)
+        {
+            <text>
+                    $('#current-images-container').append(
+                        `<div class="current-image-item">
+                                    <img src="~/assets/imgs/@imageUrl" class="img-thumbnail" style="max-width: 200px; max-height: 200px; margin: 10px;" />
+                                </div>`
+                    );
+            </text>
+        }
+                });
+    </script>
+} *@

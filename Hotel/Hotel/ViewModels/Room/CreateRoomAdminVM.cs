@@ -13,10 +13,16 @@ namespace Hotel.ViewModels.Room
         [Required]
         [DataType(DataType.Currency)]
         public decimal Price { get; set; }
+        [Required]
+        public int Rating { get; set; }
+        [Required]
+        public int Beds { get; set; }
+        [Required]
+        public int Bathrooms { get; set; }
 
         [Required]
         //public string ImageUrl { get; set; }
-        public IFormFile ImageFile { get; set; }
+        public List<IFormFile> ImageFiles { get; set; }
         [Required]
         public TimeOnly CheckIn { get; set; } = new TimeOnly(6, 00);
 

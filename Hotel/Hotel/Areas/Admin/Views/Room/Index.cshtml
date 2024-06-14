@@ -4,15 +4,17 @@
 	ViewData["Title"] = "Room List";
 }
 
-<h2>Room List</h2>
+
 <div class="page-content">
 	<div class="card-body p-4">
+		<h2>Room List</h2>
 		<div style="display:flex; justify-content:flex-end">
 			<a asp-action="Create" class="btn btn-primary">Create</a>
 		</div>
 		<table class="table table-bordered">
 			<thead>
 				<tr>
+					<th>Id</th>
 					<th>Room Number</th>
 					<th>Name</th>
 					<th>Description</th>
@@ -20,6 +22,9 @@
 					<th>Check-In Time</th>
 					<th>Category</th>
 					<th>Room Status</th>
+					<th>Rating</th>
+					<th>Beds</th>
+					<th>Bathrooms</th>
 					<th>Actions</th>
 				</tr>
 			</thead>
@@ -27,6 +32,7 @@
 				@foreach (var room in Model)
 				{
 					<tr>
+						<td>@room.Id</td>
 						<td>@room.RoomNumber</td>
 						<td>@room.Name</td>
 						<td>@room.Description</td>
@@ -34,6 +40,9 @@
 						<td>@room.CheckIn.ToString("HH:mm")</td>
 						<td>@room.CategoryName</td>
 						<td>@room.RoomStatusName</td>
+						<td>@room.Rating</td>
+						<td>@room.Beds</td>
+						<td>@room.Bathrooms</td>
 						<td class="border-bottom-0">
 							<a class="btn btn-danger delete" category-id="@room.Id" href="#">Delete</a>
 							<a class="btn btn-warning" asp-action="Edit" asp-route-id="@room.Id">Edit</a>
@@ -95,7 +104,7 @@
 						confirmButtonText: "Yes, delete it!"
 					}).then((result) => {
 						if (result.isConfirmed) {
-							fetch(`/Admin/Category/Delete/${categoryId}`, {
+							fetch(`/Admin/Room/Delete/${categoryId}`, {
 								method: "POST",
 								headers: {
 									'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
@@ -103,15 +112,15 @@
 							})
 								.then(response => {
 									if (response.ok) {
-										toastr["success"]("Category deleted successfully");
+										toastr["success"]("Room deleted successfully");
 										btn.closest("tr").remove();
 									} else {
-										toastr["error"]("Failed to delete category");
+										toastr["error"]("Failed to delete Room");
 									}
 								})
 								.catch(error => {
 									console.error("Error:", error);
-									toastr["error"]("An error occurred while deleting the slider");
+									toastr["error"]("An error occurred while deleting the Room");
 								});
 						}
 					});
