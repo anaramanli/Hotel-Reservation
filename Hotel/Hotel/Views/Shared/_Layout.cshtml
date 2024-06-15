@@ -37,6 +37,8 @@
 <body>
         @await Component.InvokeAsync("Header")
         @RenderBody()
-        @await Component.InvokeAsync("Footer")
+    @await Component.InvokeAsync("Footer")
+    <!-- Scripts Section -->
+    @RenderSection("Scripts", required: false)
 </body>
 </html>

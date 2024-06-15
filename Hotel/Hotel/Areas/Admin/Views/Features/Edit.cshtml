@@ -1,0 +1,66 @@
+﻿@model Hotel.ViewModels.Features.EditFeatureAdminVM
+
+@{
+    ViewBag.Title = "Edit Feature";
+}
+<div class="page-content">
+    <h2>Edit Feature</h2>
+
+    <form asp-action="Edit" method="post">
+        <div class="form-group">
+            <label asp-for="ProjectsComplete" class="control-label"></label>
+            <input asp-for="ProjectsComplete" class="form-control" />
+            <span asp-validation-for="ProjectsComplete" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="LuxuryRooms" class="control-label"></label>
+            <input asp-for="LuxuryRooms" class="form-control" />
+            <span asp-validation-for="LuxuryRooms" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Beaches" class="control-label"></label>
+            <input asp-for="Beaches" class="form-control" />
+            <span asp-validation-for="Beaches" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="RegularGuests" class="control-label"></label>
+            <input asp-for="RegularGuests" class="form-control" />
+            <span asp-validation-for="RegularGuests" class="text-danger"></span>
+        </div>
+
+
+        <div class="form-group">
+            <label asp-for="FitnessCenter" class="control-label"></label>
+            <input asp-for="FitnessCenter" class="form-control" />
+            <span asp-validation-for="FitnessCenter" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Jacuzzi" class="control-label"></label>
+            <input asp-for="Jacuzzi" class="form-control" />
+            <span asp-validation-for="Jacuzzi" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="SwimmingPool" class="control-label"></label>
+            <input asp-for="SwimmingPool" class="form-control" />
+            <span asp-validation-for="SwimmingPool" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="SPATreatments" class="control-label"></label>
+            <input asp-for="SPATreatments" class="form-control" />
+            <span asp-validation-for="SPATreatments" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="FoodRestaurants" class="control-label"></label>
+            <input asp-for="FoodRestaurants" class="form-control" />
+            <span asp-validation-for="FoodRestaurants" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Transportation" class="control-label"></label>
+            <input asp-for="Transportation" class="form-control" />
+            <span asp-validation-for="Transportation" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Create" class="btn btn-primary" />
+        </div>
+    </form>
+</div>

@@ -48,7 +48,7 @@
 							<div class="slider-content">
 								<span class="sub-title"><i class="fal fa-arrow-right"></i> Welcome to Caspian Horizon</span>
 								<h1>@item.Title</h1>
-								<a href="room-grid.html" class="theme-btn">Explore Our Rooms <i class="far fa-angle-right"></i></a>
+								<a asp-action="Index" asp-controller="Room" class="theme-btn">Explore Our Rooms <i class="far fa-angle-right"></i></a>
 							</div>
 						</div>
 						<div class="col-xl-8">
@@ -168,7 +168,7 @@
 				</div>
 			</div>
 			<div class="col-lg-4 text-lg-end">
-				<a class="theme-btn mb-40 wow fadeInRight delay-0-2s" href="room-grid.html">Explore Rooms <i class="fal fa-angle-right"></i></a>
+				<a class="theme-btn mb-40 wow fadeInRight delay-0-2s" asp-action="Index" asp-controller="Room">Explore Rooms <i class="fal fa-angle-right"></i></a>
 			</div>
 		</div>
 		<div class="row">
@@ -236,30 +236,34 @@
 	<div class="counter-area pb-110 rpb-80 rel z-1">
 		<div class="container">
 			<div class="row gap-70">
-				<div class="col-xl-3 col-lg-4 col-sm-6">
-					<div class="counter-item counter-text-wrap wow fadeInUp delay-0-2s">
-						<span class="count-text" data-speed="3000" data-stop="49">0</span>
-						<span class="counter-title">Projects complete</span>
+				@if (Model.Features.Any())
+				{
+					var firstItem = Model.Features.First();
+					<div class="col-xl-3 col-lg-4 col-sm-6">
+						<div class="counter-item counter-text-wrap wow fadeInUp delay-0-2s">
+							<span class="count-text" data-speed="3000" data-stop="@firstItem.ProjectsComplete">0</span>
+							<span class="counter-title">Projects complete</span>
+						</div>
 					</div>
-				</div>
-				<div class="col-xl-3 col-lg-4 col-sm-6">
-					<div class="counter-item counter-text-wrap wow fadeInUp delay-0-3s">
-						<span class="count-text" data-speed="3000" data-stop="305">0</span>
-						<span class="counter-title">Luxury Rooms</span>
+					<div class="col-xl-3 col-lg-4 col-sm-6">
+						<div class="counter-item counter-text-wrap wow fadeInUp delay-0-3s">
+							<span class="count-text" data-speed="3000" data-stop="@firstItem.LuxuryRooms">0</span>
+							<span class="counter-title">Luxury Rooms</span>
+						</div>
 					</div>
-				</div>
-				<div class="col-xl-3 col-lg-4 col-sm-6">
-					<div class="counter-item counter-text-wrap wow fadeInUp delay-0-4s">
-						<span class="count-text" data-speed="3000" data-stop="68">0</span>
-						<span class="counter-title">Beaches</span>
+					<div class="col-xl-3 col-lg-4 col-sm-6">
+						<div class="counter-item counter-text-wrap wow fadeInUp delay-0-4s">
+							<span class="count-text" data-speed="3000" data-stop="@firstItem.Beaches">0</span>
+							<span class="counter-title">Beaches</span>
+						</div>
 					</div>
-				</div>
-				<div class="col-xl-3 col-lg-4 col-sm-6">
-					<div class="counter-item counter-text-wrap wow fadeInUp delay-0-5s">
-						<span class="count-text" data-speed="3000" data-stop="654">0</span>
-						<span class="counter-title">Regular Guests</span>
+					<div class="col-xl-3 col-lg-4 col-sm-6">
+						<div class="counter-item counter-text-wrap wow fadeInUp delay-0-5s">
+							<span class="count-text" data-speed="3000" data-stop="@firstItem.RegularGuests">0</span>
+							<span class="counter-title">Regular Guests</span>
+						</div>
 					</div>
-				</div>
+				}
 			</div>
 		</div>
 	</div>
@@ -268,72 +272,77 @@
 	<section class="features-area pb-65 rpb-35 rel z-1">
 		<div class="container">
 			<div class="row text-white">
-				<div class="col-xl-4 col-md-6">
-					<div class="feature-item style-two wow fadeInUp delay-0-2s">
-						<div class="icon">
-							<i class="flaticon-stationary-bike"></i>
-						</div>
-						<div class="content">
-							<h4><a href="room-details.html">Fitness Center</a></h4>
-							<p>At vero eos accusamus eustonis simos duc blanditiis praesente tatum</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-xl-4 col-md-6">
-					<div class="feature-item style-two wow fadeInUp delay-0-4s">
-						<div class="icon">
-							<i class="flaticon-jacuzzi"></i>
-						</div>
-						<div class="content">
-							<h4><a href="room-details.html">Jacuzzi</a></h4>
-							<p>Libero tempore cum soluta to eligende optio cumque impedit quo minus</p>
+				@if (Model.Features.Any())
+				{
+					var firstItem = Model.Features.First();
+					<div class="col-xl-4 col-md-6">
+						<div class="feature-item style-two wow fadeInUp delay-0-2s">
+							<div class="icon">
+								<i class="flaticon-stationary-bike"></i>
+							</div>
+							<div class="content">
+								<h4><a href="room-details.html">Fitness Center</a></h4>
+								<p>@firstItem.FitnessCenter</p>
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class="col-xl-4 col-md-6">
-					<div class="feature-item style-two wow fadeInUp delay-0-6s">
-						<div class="icon">
-							<i class="flaticon-swim"></i>
-						</div>
-						<div class="content">
-							<h4><a href="room-details.html">Swimming Pool</a></h4>
-							<p>Blinded by desirec that cannot foresies the pain and trouble bounde</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-xl-4 col-md-6">
-					<div class="feature-item style-two wow fadeInUp delay-0-2s">
-						<div class="icon">
-							<i class="flaticon-relax"></i>
-						</div>
-						<div class="content">
-							<h4><a href="room-details.html">SPA Treatments</a></h4>
-							<p>At vero eos accusamus eustonis simos duc blanditiis praesente tatum</p>
+					<div class="col-xl-4 col-md-6">
+						<div class="feature-item style-two wow fadeInUp delay-0-4s">
+							<div class="icon">
+								<i class="flaticon-jacuzzi"></i>
+							</div>
+							<div class="content">
+								<h4><a href="room-details.html">Jacuzzi</a></h4>
+								<p>@firstItem.Jacuzzi</p>
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class="col-xl-4 col-md-6">
-					<div class="feature-item style-two wow fadeInUp delay-0-4s">
-						<div class="icon">
-							<i class="flaticon-restaurant"></i>
-						</div>
-						<div class="content">
-							<h4><a href="room-details.html">Food & Restaurants</a></h4>
-							<p>At vero eos accusamus eustonis simos duc blanditiis praesente tatum</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-xl-4 col-md-6">
-					<div class="feature-item style-two wow fadeInUp delay-0-6s">
-						<div class="icon">
-							<i class="flaticon-restaurant"></i>
-						</div>
-						<div class="content">
-							<h4><a href="room-details.html">Transportation</a></h4>
-							<p>At vero eos accusamus eustonis simos duc blanditiis praesente tatum</p>
+					<div class="col-xl-4 col-md-6">
+						<div class="feature-item style-two wow fadeInUp delay-0-6s">
+							<div class="icon">
+								<i class="flaticon-swim"></i>
+							</div>
+							<div class="content">
+								<h4><a href="room-details.html">Swimming Pool</a></h4>
+								<p>@firstItem.Jacuzzi</p>
+
+							</div>
 						</div>
 					</div>
-				</div>
+					<div class="col-xl-4 col-md-6">
+						<div class="feature-item style-two wow fadeInUp delay-0-2s">
+							<div class="icon">
+								<i class="flaticon-relax"></i>
+							</div>
+							<div class="content">
+								<h4><a href="room-details.html">SPA Treatments</a></h4>
+								<p>@firstItem.SPATreatments</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-4 col-md-6">
+						<div class="feature-item style-two wow fadeInUp delay-0-4s">
+							<div class="icon">
+								<i class="flaticon-restaurant"></i>
+							</div>
+							<div class="content">
+								<h4><a href="room-details.html">Food & Restaurants</a></h4>
+								<p>@firstItem.FoodRestaurants</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-4 col-md-6">
+						<div class="feature-item style-two wow fadeInUp delay-0-6s">
+							<div class="icon">
+								<i class="flaticon-restaurant"></i>
+							</div>
+							<div class="content">
+								<h4><a href="room-details.html">Transportation</a></h4>
+								<p>@firstItem.Transportation</p>
+							</div>
+						</div>
+					</div>
+				}
 			</div>
 		</div>
 	</section>
@@ -363,173 +372,3 @@
 </div>
 <!-- Video Area end -->
 
-<!-- Testimonials Area start -->
-<section class="testimonials-area py-130 rpy-100 rel z-1 bg-color-and-shapes bgc-black">
-	<div class="container">
-		<div class="row align-items-center">
-			<div class="col-lg-5 wow fadeInLeft delay-0-2s">
-				<div class="booking-search rmb-55 rel bg-white">
-					<div class="section-title">
-						<span class="sub-title mb-5">Food & Drink</span>
-						<h3>Find & Booked Your Seats</h3>
-					</div>
-					<form action="#" name="booking-form" method="post">
-						<div class="form-group">
-							<input type="text" id="check-in" name="check-in" class="form-control" value="" placeholder="Check In" onfocus="(this.type='date')" required>
-						</div>
-						<div class="form-group">
-							<input type="text" id="check-out" name="check-out" class="form-control" value="" placeholder="Check Out" onfocus="(this.type='date')" required>
-						</div>
-						<div class="form-group clearfix">
-							<select name="adults" id="adults">
-								<option value="default" selected="">Adults</option>
-								<option value="01">01</option>
-								<option value="02">02</option>
-								<option value="03">03</option>
-								<option value="04">04</option>
-								<option value="05">05</option>
-							</select>
-						</div>
-						<div class="form-group clearfix">
-							<select name="children" id="children">
-								<option value="default" selected="">Children</option>
-								<option value="01">01</option>
-								<option value="02">02</option>
-								<option value="03">03</option>
-								<option value="04">04</option>
-								<option value="05">05</option>
-							</select>
-						</div>
-						<div class="form-group pt-30 mb-0">
-							<button type="submit" class="theme-btn">Search Now <i class="far fa-angle-right"></i></button>
-						</div>
-					</form>
-				</div>
-			</div>
-			<div class="col-lg-7">
-				<div class="testimonial-right text-white wow fadeInRight delay-0-2s">
-					<div class="section-title mb-65 rmb-45">
-						<span class="sub-title mb-15">Our Testimonials</span>
-						<h2>What Our Customer Say Us</h2>
-					</div>
-					<div class="testimonial-part">
-						<div class="testimonial-active">
-							<div class="testimonial-item">
-								<p>At vero eos et accusamus et iusto odio dignissimos ducimus blanditiis praesentium voluptatum deleniti atque corrupti quos dolores qua molestias excepturi sint occaecati cupiditate non provident similique sunt in culpa qui officia deserunte</p>
-								<div class="testi-author">
-									<img src="~/assets/images/testimonials/testi-thumb1.jpg" alt="Testi Thumb">
-									<div class="testi-des">
-										<h5>Diane C. Valentine</h5>
-										<span>CEO & Founder</span>
-									</div>
-								</div>
-							</div>
-							<div class="testimonial-item">
-								<p>Corrupti quos dolores qua molestias excepturi sint occaecati cupiditate non provident similique sunt in culpa qui officia deserunte At vero eos et accusamus et iusto odio dignissimos ducimus blanditiis praesentium voluptatum deleniti atque</p>
-								<div class="testi-author">
-									<img src="~/assets/images/testimonials/testi-thumb2.jpg" alt="Testi Thumb">
-									<div class="testi-des">
-										<h5>Michael A. Braun</h5>
-										<span>UI/UX Designer</span>
-									</div>
-								</div>
-							</div>
-							<div class="testimonial-item">
-								<p>Voluptatum deleniti atque corrupti quos dolores qua molestias excepturi sint occaecati At vero eos et accusamus et iusto odio dignissimos ducimus blanditiis praesentium cupiditate non provident similique sunt in culpa qui officia deserunte</p>
-								<div class="testi-author">
-									<img src="~/assets/images/testimonials/testi-thumb3.jpg" alt="Testi Thumb">
-									<div class="testi-des">
-										<h5>James V. Decastro</h5>
-										<span>Senior Marketer</span>
-									</div>
-								</div>
-							</div>
-							<div class="testimonial-item">
-								<p>Similique sunt in culpa qui officia deserunte At vero eos et accusamus et iusto odio dignissimos ducimus blanditiis praesentium voluptatum deleniti atque corrupti quos dolores qua molestias excepturi sint occaecati cupiditate non provident</p>
-								<div class="testi-author">
-									<img src="~/assets/images/testimonials/testi-thumb4.jpg" alt="Testi Thumb">
-									<div class="testi-des">
-										<h5>Michael A. Braun</h5>
-										<span>Apps Designer</span>
-									</div>
-								</div>
-							</div>
-							<div class="testimonial-item">
-								<p>At vero eos et accusamus et iusto odio dignissimos ducimus blanditiis praesentium voluptatum deleniti atque corrupti quos dolores qua molestias excepturi sint occaecati cupiditate non provident similique sunt in culpa qui officia deserunte</p>
-								<div class="testi-author">
-									<img src="~/assets/images/testimonials/testi-thumb3.jpg" alt="Testi Thumb">
-									<div class="testi-des">
-										<h5>Diane C. Valentine</h5>
-										<span>CEO & Founder</span>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="testimonial-thums">
-							<div class="testi-thumb-item">
-								<img src="~/assets/images/testimonials/testi-thumb1.jpg" alt="Testi Thumb">
-							</div>
-							<div class="testi-thumb-item">
-								<img src="~/assets/images/testimonials/testi-thumb2.jpg" alt="Testi Thumb">
-							</div>
-							<div class="testi-thumb-item">
-								<img src="~/assets/images/testimonials/testi-thumb3.jpg" alt="Testi Thumb">
-							</div>
-							<div class="testi-thumb-item">
-								<img src="~/assets/images/testimonials/testi-thumb4.jpg" alt="Testi Thumb">
-							</div>
-							<div class="testi-thumb-item">
-								<img src="~/assets/images/testimonials/testi-thumb3.jpg" alt="Testi Thumb">
-							</div>
-						</div>
-					</div>
-					<div class="testimonial-dots"></div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="bg-lines">
-		<span></span><span></span>
-		<span></span><span></span>
-		<span></span><span></span>
-		<span></span><span></span>
-		<span></span><span></span>
-	</div>
-	<div class="wave-shapes"></div>
-	<div class="wave-shapes-two"></div>
-</section>
-<!-- Testimonials Area end -->
-
-<!-- Instagram Area start -->
-<section class="instagram-area">
-	<div class="instagram-item wow fadeInUp delay-0-2s">
-		<a class="instagram-gallery" href="~/assets/images/instagrams/instagram1.jpg">
-			<img src="~/assets/images/instagrams/instagram1.jpg" alt="instagram">
-		</a>
-	</div>
-	<div class="instagram-item wow fadeInUp delay-0-3s">
-		<a class="instagram-gallery" href="~/assets/images/instagrams/instagram2.jpg">
-			<img src="~/assets/images/instagrams/instagram2.jpg" alt="instagram">
-		</a>
-	</div>
-	<div class="instagram-item wow fadeInUp delay-0-4s">
-		<div class="content text-white">
-			<div class="icon"><i class="fab fa-instagram"></i></div>
-			<h2><a href="https://www.instagram.com">Follow Our Instagram</a></h2>
-			<hr>
-			<div class="call-text">Make A Call</div>
-			<a class="h2" href="callto:+000(123)45688">+000 (123) 456 88</a>
-		</div>
-	</div>
-	<div class="instagram-item wow fadeInUp delay-0-5s">
-		<a class="instagram-gallery" href="~/assets/images/instagrams/instagram3.jpg">
-			<img src="~/assets/images/instagrams/instagram3.jpg" alt="instagram">
-		</a>
-	</div>
-	<div class="instagram-item wow fadeInUp delay-0-6s">
-		<a class="instagram-gallery" href="~/assets/images/instagrams/instagram4.jpg">
-			<img src="~/assets/images/instagrams/instagram4.jpg" alt="instagram">
-		</a>
-	</div>
-</section>
-<!-- Instagram Area end -->

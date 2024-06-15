@@ -1,5 +1,169 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@using Hotel.Models
+@model HomeVM
+
+<!-- Page Banner Start -->
+<section class="main-slider-area bgc-black-with-lighting rel z-1">
+    <div class="main-slider-active">
+        @foreach (var item in Model.Sliders)
+        {
+            <div class="slider-item">
+                <div class="container">
+                    <div class="row justify-content-end align-items-center">
+                        <div class="col-xl-3">
+                            <div class="slider-content">
+                                <span class="sub-title"><i class="fal fa-arrow-right"></i> Welcome to Caspian Horizon</span>
+                                <h1>@item.Title</h1>
+                            </div>
+                        </div>
+                        <div class="col-xl-8">
+                            <div class="slider-image">
+                                <img src="@Url.Content("~/assets/imgs/" + item.ImageUrl)" alt="Slider">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-xl-10">
+                <div class="main-slider-dots"></div>
+            </div>
+        </div>
+    </div>
+    <div class="slider-shapes">
+        <img class="shape circle-half" src="@Url.Content("~/assets/images/shapes/slider-circle-half.png")" alt="Shape">
+        <img class="shape circle" src="@Url.Content("~/assets/images/shapes/slider-circle.png")" alt="Shape">
+    </div>
+    <div class="bg-lines">
+        <span></span><span></span>
+        <span></span><span></span>
+        <span></span><span></span>
+        <span></span><span></span>
+    </div>
+</section>
+<!-- Page Banner End -->
+<!-- Search Filter and Features Start -->
+<div class="search-and-features-area pb-50 rpb-20 rel z-1">
+    <div class="container container-1550">
+        <div class="search-filter-inner rel z-2">
+            <div class="section-title text-white mb-20 wow fadeInUp delay-0-2s">
+                <span class="sub-title mb-5">Booking Your Seat</span>
+                <h3>Find & Booked Your Seats</h3>
+            </div>
+            <div class="filter-item wow fadeInUp delay-0-3s">
+                <input type="text" id="searchInput" placeholder="Oda arayın..." onkeyup="searchRooms()">
+            </div>
+        </div>
+    </div>
+    <div class="bg-lines for-bg-white">
+        <span></span><span></span>
+        <span></span><span></span>
+        <span></span><span></span>
+        <span></span><span></span>
+    </div>
+</div>
+<!-- Search Filter and Features End -->
+<!-- Rooms Area start -->
+<section class="rooms-area pt-130 rpt-100 pb-100 rpb-70 rel z-2">
+    <div class="container">
+        <div class="row" id="roomsContainer">
+            @foreach (var item in Model.Rooms)
+            {
+                <div class="col-xl-4 col-md-6 room-item-container">
+                    <div class="room-item wow fadeInUp delay-0-2s">
+                        <div class="image">
+                            @if (item.Images != null && item.Images.Any())
+                            {
+                                <img src="@Url.Content("~/assets/imgs/" + item.Images.First().Url)" alt="Room">
+                            }
+                            else
+                            {
+                                <img src="~/assets/imgs/default-image.jpg" alt="Room">
+                            }
+                            <a class="category" href="room-grid.html">
+                                @if (item.Category != null)
+                                {
+                                    @item.Category.CategoryName
+                                }
+                            </a>
+                        </div>
+                        <div class="content">
+                            <h4><a href="room-details.html">@item.Name</a></h4>
+                            <ul class="blog-meta">
+                                <li>
+                                    <i class="far fa-bed-alt"></i>
+                                    <a href="#">Adults: @item.Beds</a>
+                                </li>
+                                <li>
+                                    <p>
+                                        Rating:
+                                        @for (int i = 0; i < item.Rating; i++)
+                                        {
+                                            <i class="fa fa-star"></i>
+                                        }
+                                    </p>
+                                </li>
+                            </ul>
+                            <p>@item.Description</p>
+                            <div class="price">Price <span>$@item.Price</span>/per night</div>
+                        </div>
+                        <a class="theme-btn style-two" href="contact.html">Book Now <i class="fal fa-angle-right"></i></a>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+    <div class="bg-lines for-bg-white">
+        <span></span><span></span>
+        <span></span><span></span>
+        <span></span><span></span>
+        <span></span><span></span>
+    </div>
+</section>
+<!-- Rooms Area end -->
+@section Scripts {
+    <script>
+        async function searchRooms() {
+            const query = document.getElementById('searchInput').value;
+            const response = await fetch(`/Room/Search?query=${query}`);
+            const rooms = await response.json();
+            const roomsContainer = document.getElementById('roomsContainer');
+            roomsContainer.innerHTML = '';
+
+            rooms.forEach(item => {
+                const roomElement = document.createElement('div');
+                roomElement.classList.add('col-xl-4', 'col-md-6', 'room-item-container');
+                roomElement.innerHTML = `
+                            <div class="room-item wow fadeInUp delay-0-2s">
+                                <div class="image">
+                                                    <img src="~/assets/imgs/${item.imageUrl}" alt="Room">
+
+                                    <a class="category" href="room-grid.html">${item.categoryName || ''}</a>
+                                </div>
+                                <div class="content">
+                                    <h4><a href="room-details.html">${item.name}</a></h4>
+                                    <ul class="blog-meta">
+                                        <li>
+                                            <i class="far fa-bed-alt"></i>
+                                            <a href="#">Adults: ${item.beds}</a>
+                                        </li>
+                                        <li>
+                                            <p>Rating: ${'★'.repeat(item.rating)}</p>
+                                        </li>
+                                    </ul>
+                                    <p>${item.description}</p>
+                                    <div class="price">Price <span>$${item.price}</span>/per night</div>
+                                </div>
+                                <a class="theme-btn style-two" href="contact.html">Book Now <i class="fal fa-angle-right"></i></a>
+                            </div>
+                        `;
+                roomsContainer.appendChild(roomElement);
+            });
+        }
+    </script>
 }
+
+

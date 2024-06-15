@@ -1,0 +1,126 @@
+﻿@model List<GetFeaturesAdminVM>
+@{
+	ViewBag.Title = "Features List";
+
+}
+<div class="page-content">
+	<h2>Features List</h2>
+	<div style="display:flex; justify-content:flex-end">
+		@if (Model.Count == 0)
+		{
+			<a asp-action="Create" class="btn btn-primary">Create</a>
+		}
+	</div>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Beaches</th>
+				<th>Fitness Center</th>
+				<th>Food Restaurants</th>
+				<th>Jacuzzi</th>
+				<th>Luxury Rooms</th>
+				<th>Projects Complete</th>
+				<th>Regular Guests</th>
+				<th>SPA Treatments</th>
+				<th>Swimming Pool</th>
+				<th>Transportation</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var item in Model)
+			{
+				<tr>
+					<td>@item.Id</td>
+					<td>@item.Beaches</td>
+					<td>@(item.FitnessCenter?.Length > 30 ? item.FitnessCenter.Substring(0, 30) + "..." : item.FitnessCenter)</td>
+					<td>@(item.FoodRestaurants?.Length > 30 ? item.FoodRestaurants.Substring(0, 30) + "..." : item.FoodRestaurants)</td>
+					<td>@(item.Jacuzzi?.Length > 30 ? item.Jacuzzi.Substring(0, 30) + "..." : item.Jacuzzi)</td>
+					<td>@item.LuxuryRooms</td>
+					<td>@item.ProjectsComplete</td>
+					<td>@item.RegularGuests</td>
+					<td>@(item.SPATreatments?.Length > 30 ? item.SPATreatments.Substring(0, 30) + "..." : item.SPATreatments)</td>
+					<td>@(item.SwimmingPool?.Length > 30 ? item.SwimmingPool.Substring(0, 30) + "..." : item.SwimmingPool)</td>
+					<td>@(item.Transportation?.Length > 30 ? item.Transportation.Substring(0, 30) + "..." : item.Transportation)</td>
+					<td class="border-bottom-0">
+						<a class="btn btn-danger delete" category-id="@item.Id" href="#">Delete</a>
+						<a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</div>
+@section styles {
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
+}
+
+@section scripts {
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+	<script>
+		$(document).ready(function () {
+			toastr.options = {
+				"closeButton": false,
+				"debug": false,
+				"newestOnTop": false,
+				"progressBar": true,
+				"positionClass": "toast-top-right",
+				"preventDuplicates": false,
+				"onclick": null,
+				"showDuration": "300",
+				"hideDuration": "1000",
+				"timeOut": "5000",
+				"extendedTimeOut": "1000",
+				"showEasing": "swing",
+				"hideEasing": "linear",
+				"showMethod": "fadeIn",
+				"hideMethod": "fadeOut"
+			};
+
+			let deleteBtns = document.querySelectorAll(".delete");
+
+			deleteBtns.forEach(btn => {
+				btn.addEventListener("click", (event) => {
+					event.preventDefault();
+
+					let categoryId = btn.getAttribute("category-id");
+
+					Swal.fire({
+						title: "Are you sure you want to delete?",
+						text: "You won't be able to revert this!",
+						icon: "warning",
+						showCancelButton: true,
+						confirmButtonColor: "#d33",
+						cancelButtonColor: "#3085d6",
+						confirmButtonText: "Yes, delete it!"
+					}).then((result) => {
+						if (result.isConfirmed) {
+							fetch(`/Admin/Features/Delete/${categoryId}`, {
+								method: "POST",
+								headers: {
+									'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
+								}
+							})
+								.then(response => {
+									if (response.ok) {
+										toastr["success"]("Feature deleted successfully");
+										btn.closest("tr").remove();
+									} else {
+										toastr["error"]("Failed to delete category");
+									}
+								})
+								.catch(error => {
+									console.error("Error:", error);
+									toastr["error"]("An error occurred while deleting the feature");
+								});
+						}
+					});
+				});
+			});
+		});
+	</script>
+}

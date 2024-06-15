@@ -21,5 +21,7 @@ namespace Hotel.DAL
         public DbSet<Service> Services { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<RoomImage> RoomImages { get; set; }
-    }
+        public DbSet<Feature> Features { get; set; }
+
+	}
 }

@@ -84,8 +84,8 @@
                                 <td class="border-bottom-0"><h6 class="fw-semibold mb-0">@item.ServiceDescriptionTwo</h6></td>
                                 <td class="border-bottom-0"><img src="~/assets/imgs/@item.CeoImageUrl" width="50px" /></td>
                                 <td class="border-bottom-0">
+                                    <a class="btn btn-danger delete" category-id="@item.Id" href="#">Delete</a>
                                     <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                                    <a class="btn btn-danger delete" asp-action="Delete" data-id="@item.Id">Delete</a>
                                 </td>
                             </tr>
                         }
