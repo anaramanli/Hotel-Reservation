@@ -1,5 +1,5 @@
 ﻿using Hotel.DAL;
-using Hotel.Models;
+
 using Hotel.ViewModels.Room;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -11,6 +11,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
+using Hotel.Models;
 
 namespace Hotel.Areas.Admin.Controllers
 {

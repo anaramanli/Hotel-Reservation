@@ -1,6 +1,42 @@
 ﻿@using Hotel.Models
 @model HomeVM
 
+<!-- Hidden Sidebar -->
+<section class="hidden-bar">
+    <div class="inner-box text-center">
+        <div class="cross-icon"><span class="fa fa-times"></span></div>
+        <div class="title">
+            <h4>Get Appointment</h4>
+        </div>
+
+        <!--Appointment Form-->
+        <div class="appointment-form">
+            <form method="post" action="contact.html">
+                <div class="form-group">
+                    <input type="text" name="text" value="" placeholder="Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" name="email" value="" placeholder="Email Address" required>
+                </div>
+                <div class="form-group">
+                    <textarea placeholder="Message" rows="5"></textarea>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="theme-btn">Submit now</button>
+                </div>
+            </form>
+        </div>
+
+        <!--Social Icons-->
+        <div class="social-style-one">
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-pinterest-p"></i></a>
+        </div>
+    </div>
+</section>
+<!--End Hidden Sidebar -->
 <!-- Page Banner Start -->
 <section class="main-slider-area bgc-black-with-lighting rel z-1">
     <div class="main-slider-active">
@@ -36,37 +72,34 @@
         <img class="shape circle-half" src="@Url.Content("~/assets/images/shapes/slider-circle-half.png")" alt="Shape">
         <img class="shape circle" src="@Url.Content("~/assets/images/shapes/slider-circle.png")" alt="Shape">
     </div>
-    <div class="bg-lines">
-        <span></span><span></span>
-        <span></span><span></span>
-        <span></span><span></span>
-        <span></span><span></span>
-    </div>
 </section>
 <!-- Page Banner End -->
-<!-- Search Filter and Features Start -->
-<div class="search-and-features-area pb-50 rpb-20 rel z-1">
-    <div class="container container-1550">
-        <div class="search-filter-inner rel z-2">
-            <div class="section-title text-white mb-20 wow fadeInUp delay-0-2s">
-                <span class="sub-title mb-5">Booking Your Seat</span>
-                <h3>Find & Booked Your Seats</h3>
-            </div>
-            <div class="filter-item wow fadeInUp delay-0-3s">
-                <input type="text" id="searchInput" placeholder="Oda arayın..." onkeyup="searchRooms()">
+
+<!-- Rooms Area start -->
+<section class="rooms-area pt-130 rpt-100 pb-100 rpb-70 rel z-2">
+    <!-- Search Filter and Features Start -->
+    <div class="search-and-features-area pb-50 rpb-20 rel z-1">
+        <div class="container container-1550">
+            <div class="search-filter-inner rel z-2">
+                <div class="section-title text-white mb-20 wow fadeInUp delay-0-2s">
+                    <h3>Search and Sort</h3>
+                </div>
+                <div class="filter-item wow fadeInUp delay-0-3s">
+                    <input type="text" id="searchInput" placeholder="Search Room..." onkeyup="searchRooms()">
+                </div>
+                <div class="filter-item wow fadeInUp delay-0-3s">
+                    <select id="sortOptions" onchange="sortRooms()">
+                        <option value="default">Sort by</option>
+                        <option value="nameAsc">Name: A to Z</option>
+                        <option value="nameDesc">Name: Z to A</option>
+                        <option value="ratingAsc">Rating: Low to High</option>
+                        <option value="ratingDesc">Rating: High to Low</option>
+                    </select>
+                </div>
             </div>
         </div>
     </div>
-    <div class="bg-lines for-bg-white">
-        <span></span><span></span>
-        <span></span><span></span>
-        <span></span><span></span>
-        <span></span><span></span>
-    </div>
-</div>
-<!-- Search Filter and Features End -->
-<!-- Rooms Area start -->
-<section class="rooms-area pt-130 rpt-100 pb-100 rpb-70 rel z-2">
+    <!-- Search Filter and Features End -->
     <div class="container">
         <div class="row" id="roomsContainer">
             @foreach (var item in Model.Rooms)
@@ -107,20 +140,14 @@
                                 </li>
                             </ul>
                             <p>@item.Description</p>
+                            <p>@item.RoomStatus.StatusName</p>
                             <div class="price">Price <span>$@item.Price</span>/per night</div>
                         </div>
-                        <a class="theme-btn style-two" href="contact.html">Book Now <i class="fal fa-angle-right"></i></a>
+                        <a class="theme-btn style-two" asp-action="Details" asp-route-id="@item.Id">Details<i class="fal fa-angle-right"></i></a>
                     </div>
                 </div>
             }
-
         </div>
-    </div>
-    <div class="bg-lines for-bg-white">
-        <span></span><span></span>
-        <span></span><span></span>
-        <span></span><span></span>
-        <span></span><span></span>
     </div>
 </section>
 <!-- Rooms Area end -->
@@ -130,6 +157,45 @@
             const query = document.getElementById('searchInput').value;
             const response = await fetch(`/Room/Search?query=${query}`);
             const rooms = await response.json();
+            displayRooms(rooms);
+            sortRooms(); // Ensure rooms are sorted after search
+        }
+
+        function sortRooms() {
+            const sortOption = document.getElementById('sortOptions').value;
+            const roomsContainer = document.getElementById('roomsContainer');
+            let rooms = Array.from(roomsContainer.children);
+
+            rooms = rooms.map(roomElement => {
+                const name = roomElement.querySelector('.content h4 a').innerText;
+                const rating = roomElement.querySelectorAll('.fa-star').length;
+                const beds = roomElement.querySelector('.blog-meta li a').innerText.split(': ')[1];
+                const price = roomElement.querySelector('.price span').innerText.replace('$', '');
+
+                return {
+                    element: roomElement,
+                    name,
+                    rating,
+                    beds: parseInt(beds),
+                    price: parseFloat(price)
+                };
+            });
+
+            if (sortOption === "nameAsc") {
+                rooms.sort((a, b) => a.name.localeCompare(b.name));
+            } else if (sortOption === "nameDesc") {
+                rooms.sort((a, b) => b.name.localeCompare(a.name));
+            } else if (sortOption === "ratingAsc") {
+                rooms.sort((a, b) => a.rating - b.rating);
+            } else if (sortOption === "ratingDesc") {
+                rooms.sort((a, b) => b.rating - a.rating);
+            }
+
+            roomsContainer.innerHTML = '';
+            rooms.forEach(room => roomsContainer.appendChild(room.element));
+        }
+
+        function displayRooms(rooms) {
             const roomsContainer = document.getElementById('roomsContainer');
             roomsContainer.innerHTML = '';
 
@@ -139,9 +205,8 @@
                 roomElement.innerHTML = `
                             <div class="room-item wow fadeInUp delay-0-2s">
                                 <div class="image">
-                                                    <img src="~/assets/imgs/${item.imageUrl}" alt="Room">
-
-                                    <a class="category" href="room-grid.html">${item.categoryName || ''}</a>
+                                    <img src="@Url.Content("~/assets/imgs/${item.imageUrl}")" alt="Room">
+                                    <a class="category" href="room-grid.html">${item.category || ''}</a>
                                 </div>
                                 <div class="content">
                                     <h4><a href="room-details.html">${item.name}</a></h4>
@@ -155,6 +220,7 @@
                                         </li>
                                     </ul>
                                     <p>${item.description}</p>
+                                    <p>${item.roomStatus || ''}</p>
                                     <div class="price">Price <span>$${item.price}</span>/per night</div>
                                 </div>
                                 <a class="theme-btn style-two" href="contact.html">Book Now <i class="fal fa-angle-right"></i></a>
@@ -163,7 +229,10 @@
                 roomsContainer.appendChild(roomElement);
             });
         }
+
+        // Initialize display with sorted rooms on page load
+        window.onload = function () {
+            sortRooms();
+        }
     </script>
 }
-
-

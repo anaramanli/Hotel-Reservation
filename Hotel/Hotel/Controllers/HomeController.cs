@@ -1,6 +1,7 @@
 ﻿using Hotel.DAL;
 using Hotel.Models;
 using Hotel.ViewModels;
+using Hotel.ViewModels.RoomDetail;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -27,5 +28,31 @@ namespace Hotel.Controllers
             };
             return View(homeVM);  
         }
+        public async Task<IActionResult> Details(int id)
+        {
+            var room = await _context.Rooms
+                .Include(r => r.Images)
+                .Include(r => r.Category)
+                .Include(r => r.RoomStatus)
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            if (room == null)
+            {
+                return NotFound();
+            }
+
+            var availabilities = await _context.Availabilities
+                .Where(a => a.RoomId == id)
+                .ToListAsync();
+
+            var viewModel = new RoomDetailsViewModel
+            {
+                Room = room,
+                Availabilities = availabilities
+            };
+
+            return View(viewModel);
+        }
+
     }
 }
