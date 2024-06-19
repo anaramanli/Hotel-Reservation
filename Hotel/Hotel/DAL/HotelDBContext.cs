@@ -9,6 +9,9 @@ namespace Hotel.DAL
         public HotelDBContext(DbContextOptions options) : base(options)
         {
         }
+
+        public DbSet<AppUser> AppUsers { get; set; }
+
         public DbSet<Slider> Sliders { get; set; }
         public DbSet<AboutCompany> AboutCompanies { get; set; }
         public DbSet<Category> Categories { get; set; }

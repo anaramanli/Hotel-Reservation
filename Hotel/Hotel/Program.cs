@@ -1,4 +1,8 @@
 using Hotel.DAL;
+using Hotel.Interfaces;
+using Hotel.Models;
+using Hotel.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Hotel
@@ -12,6 +16,19 @@ namespace Hotel
             // Add services to the container.
             builder.Services.AddRazorPages();
             builder.Services.AddDbContext<HotelDBContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
+            builder.Services.AddIdentity<AppUser, IdentityRole>(opt => {
+                opt.User.RequireUniqueEmail = true;
+                opt.Password.RequiredUniqueChars = 0;
+                opt.Password.RequireNonAlphanumeric = false;
+                opt.Password.RequireUppercase = false;
+                opt.Password.RequireLowercase = false;
+
+
+                opt.SignIn.RequireConfirmedEmail = true;
+
+            }).AddEntityFrameworkStores<HotelDBContext>().AddDefaultTokenProviders(); 
+            builder.Services.AddScoped<IEmailService,EmailService>();
+            
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

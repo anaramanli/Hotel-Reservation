@@ -1,5 +1,6 @@
 ﻿using Hotel.DAL;
 using Hotel.Models;
+using Hotel.Services;
 using Hotel.ViewModels;
 using Hotel.ViewModels.RoomDetail;
 using Microsoft.AspNetCore.Mvc;
@@ -11,6 +12,7 @@ namespace Hotel.Controllers
     {
         public async Task<IActionResult> Index()
         {
+            //await _emailService.SendeMailAsync();
             List<Slider> sliders = await _context.Sliders
                 .Where(s=> !s.IsDeleted).ToListAsync();
 			List<AboutCompany> companies = await _context.AboutCompanies

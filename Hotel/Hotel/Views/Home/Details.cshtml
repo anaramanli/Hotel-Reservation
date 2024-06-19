@@ -1,7 +1,6 @@
 ﻿@using Hotel.ViewModels.RoomDetail
 @model RoomDetailsViewModel
 
-
 <!-- Room Details Area start -->
 <section class="room-details-area py-130 rpy-100 rel z-2">
     <div class="container">
@@ -91,28 +90,19 @@
                     <form class="widget-search-filter wow fadeInUp delay-0-4s">
                         <div class="form-group">
                             <label for="checkin">Check In</label>
-                            <input type="date" id="checkin" required>
+                            <input type="date" id="checkin" name="checkin" required>
                         </div>
                         <div class="form-group">
                             <label for="checkout">Check Out</label>
-                            <input type="date" id="checkout" required>
+                            <input type="date" id="checkout" name="checkout" required>
                         </div>
                         <div class="form-group">
-                            <label for="adults">Adults</label>
-                            <select name="adults" id="adults">
-                                <option value="adults1">1</option>
-                                <option value="adults2">2</option>
-                                <option value="adults3" selected>3</option>
-                                <option value="adults3">4</option>
-                            </select>
+                            <label for="bathrooms">Bathrooms</label>
+                            <input type="text" id="bathrooms" value="@Model.Room.Bathrooms" readonly>
                         </div>
                         <div class="form-group">
-                            <label for="children">Children</label>
-                            <select name="children" id="children">
-                                <option value="children1">1</option>
-                                <option value="children2" selected>2</option>
-                                <option value="children3">3</option>
-                            </select>
+                            <label for="beds">Beds</label>
+                            <input type="text" id="beds" value="@Model.Room.Beds" readonly>
                         </div>
                         <button class="theme-btn w-100">Check Availability <i class="far fa-angle-right"></i></button>
                     </form>

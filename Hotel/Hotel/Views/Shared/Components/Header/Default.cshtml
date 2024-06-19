@@ -38,12 +38,35 @@
                                         <a asp-action="Index" asp-controller="Home">Home</a>
                                     </li>
                                     <li>
-                                        <a asp-controller="Room" asp-action="Index">Room</a>
+                                        <a asp-action="Index" asp-controller="Room">Room</a>
                                     </li>
-                                    
-                                    <li><a href="contact.html">Contact</a></li>
+                                    <li>
+                                        <a href="contact.html">Contact</a>
+                                    </li>
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                @User.Identity.Name
+                                            </a>
+                                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                                <a class="dropdown-item" asp-action="Logout" asp-controller="Account">Logout</a>
+                                            </div>
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        <li>
+                                            <a asp-action="Register" asp-controller="Account">Register</a>
+                                        </li>
+                                        <li>
+                                            <a asp-action="Login" asp-controller="Account">Login</a>
+                                        </li>
+                                    }
                                 </ul>
                             </div>
+
 
                         </nav>
                         <!-- Main Menu End-->

@@ -140,7 +140,7 @@
                                 </li>
                             </ul>
                             <p>@item.Description</p>
-                            <p>@item.RoomStatus.StatusName</p>
+                            <p class="p-3 rounded bg-dark " style="color:orange; font-size:1rem">@item.RoomStatus.StatusName</p>
                             <div class="price">Price <span>$@item.Price</span>/per night</div>
                         </div>
                         <a class="theme-btn style-two" asp-action="Details" asp-route-id="@item.Id">Details<i class="fal fa-angle-right"></i></a>

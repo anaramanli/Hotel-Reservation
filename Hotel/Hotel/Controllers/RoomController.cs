@@ -39,6 +39,7 @@ namespace Hotel.Controllers
             var room = await _context.Rooms
                 .Include(r => r.Images)
                 .Include(r => r.Category)
+                .Include(r => r.RoomStatus)
                 .FirstOrDefaultAsync(r => r.Id == id && !r.IsDeleted);
 
             if (room == null)
@@ -48,16 +49,17 @@ namespace Hotel.Controllers
 
             return View(room);
         }
+        
         [HttpGet]
         public async Task<IActionResult> Search(string query)
         {
             var rooms = await _context.Rooms
                 .Include(r => r.Images)
                 .Include(r => r.Category)
-                .Include(r =>r.RoomStatus)
+                .Include(r => r.RoomStatus)
                 .Where(r => !r.IsDeleted &&
                             (r.Name.Contains(query) ||
-                             r.Description.Contains(query) || 
+                             r.Description.Contains(query) ||
                              r.RoomStatus.StatusName.Contains(query) ||
                              r.Rating.ToString().Contains(query) ||
                              (r.Category != null && r.Category.CategoryName.Contains(query))))
@@ -77,5 +79,6 @@ namespace Hotel.Controllers
 
             return Json(result);
         }
+
     }
 }
