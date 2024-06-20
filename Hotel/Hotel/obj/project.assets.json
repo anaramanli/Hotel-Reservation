@@ -8018,11 +8018,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\User\\Desktop\\Hotel\\Hotel\\Hotel\\Hotel.csproj",
+      "projectUniqueName": "C:\\Users\\User\\Desktop\\Hotel-Reservation\\Hotel\\Hotel\\Hotel.csproj",
       "projectName": "Hotel",
-      "projectPath": "C:\\Users\\User\\Desktop\\Hotel\\Hotel\\Hotel\\Hotel.csproj",
+      "projectPath": "C:\\Users\\User\\Desktop\\Hotel-Reservation\\Hotel\\Hotel\\Hotel.csproj",
       "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\User\\Desktop\\Hotel\\Hotel\\Hotel\\obj\\",
+      "outputPath": "C:\\Users\\User\\Desktop\\Hotel-Reservation\\Hotel\\Hotel\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",

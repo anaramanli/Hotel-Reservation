@@ -1,6 +1,5 @@
 ﻿@using Hotel.Models
 @model HomeVM
-
 <!-- Hidden Sidebar -->
 <section class="hidden-bar">
     <div class="inner-box text-center">
@@ -74,7 +73,6 @@
     </div>
 </section>
 <!-- Page Banner End -->
-
 <!-- Rooms Area start -->
 <section class="rooms-area pt-130 rpt-100 pb-100 rpb-70 rel z-2">
     <!-- Search Filter and Features Start -->
@@ -88,6 +86,9 @@
                     <input type="text" id="searchInput" placeholder="Search Room..." onkeyup="searchRooms()">
                 </div>
                 <div class="filter-item wow fadeInUp delay-0-3s">
+                    <a asp-action="Index" class="btn btn-primary btn-lg">Show all Rooms <i class="fal fa-arrow-right"></i></a>
+                </div>
+                <div class="filter-item wow fadeInUp delay-0-3s">
                     <select id="sortOptions" onchange="sortRooms()">
                         <option value="default">Sort by</option>
                         <option value="nameAsc">Name: A to Z</option>
@@ -97,6 +98,7 @@
                     </select>
                 </div>
             </div>
+
         </div>
     </div>
     <!-- Search Filter and Features End -->
@@ -154,8 +156,15 @@
 @section Scripts {
     <script>
         async function searchRooms() {
-            const query = document.getElementById('searchInput').value;
-            const response = await fetch(`/Room/Search?query=${query}`);
+            const query = document.getElementById('searchInput').value.trim(); // Trim whitespace
+            let response;
+
+            if (query.length > 0) {
+                response = await fetch(`/Room/Search?query=${encodeURIComponent(query)}`);
+            } else {
+                response = await fetch(`/Room/All`);
+            }
+
             const rooms = await response.json();
             displayRooms(rooms);
             sortRooms(); // Ensure rooms are sorted after search
@@ -171,13 +180,17 @@
                 const rating = roomElement.querySelectorAll('.fa-star').length;
                 const beds = roomElement.querySelector('.blog-meta li a').innerText.split(': ')[1];
                 const price = roomElement.querySelector('.price span').innerText.replace('$', '');
+                const category = roomElement.querySelector('.category').innerText.trim();
+                const roomStatus = roomElement.querySelector('.bg-dark').innerText.trim();
 
                 return {
                     element: roomElement,
                     name,
                     rating,
                     beds: parseInt(beds),
-                    price: parseFloat(price)
+                    price: parseFloat(price),
+                    category,
+                    roomStatus
                 };
             });
 
@@ -203,29 +216,29 @@
                 const roomElement = document.createElement('div');
                 roomElement.classList.add('col-xl-4', 'col-md-6', 'room-item-container');
                 roomElement.innerHTML = `
-                            <div class="room-item wow fadeInUp delay-0-2s">
-                                <div class="image">
-                                    <img src="@Url.Content("~/assets/imgs/${item.imageUrl}")" alt="Room">
-                                    <a class="category" href="room-grid.html">${item.category || ''}</a>
-                                </div>
-                                <div class="content">
-                                    <h4><a href="room-details.html">${item.name}</a></h4>
-                                    <ul class="blog-meta">
-                                        <li>
-                                            <i class="far fa-bed-alt"></i>
-                                            <a href="#">Adults: ${item.beds}</a>
-                                        </li>
-                                        <li>
-                                            <p>Rating: ${'★'.repeat(item.rating)}</p>
-                                        </li>
-                                    </ul>
-                                    <p>${item.description}</p>
-                                    <p>${item.roomStatus || ''}</p>
-                                    <div class="price">Price <span>$${item.price}</span>/per night</div>
-                                </div>
-                                <a class="theme-btn style-two" href="contact.html">Book Now <i class="fal fa-angle-right"></i></a>
-                            </div>
-                        `;
+                                            <div class="room-item wow fadeInUp delay-0-2s">
+                                                <div class="image">
+                                                    <img src="@Url.Content("~/assets/imgs/${item.imageUrl}")" alt="Room">
+                                                            <a class="category" href="room-grid.html">${item.categoryName || ''}</a>
+                                                </div>
+                                                <div class="content">
+                                                    <h4><a href="room-details.html">${item.name}</a></h4>
+                                                    <ul class="blog-meta">
+                                                        <li>
+                                                            <i class="far fa-bed-alt"></i>
+                                                            <a href="#">Adults: ${item.beds}</a>
+                                                        </li>
+                                                        <li>
+                                                            <p>Rating: ${'★'.repeat(item.rating)}</p>
+                                                        </li>
+                                                    </ul>
+                                                    <p>${item.description}</p>
+                                                                    <p class="p-3 rounded bg-dark" style="color:orange; font-size:1rem">${item.roomstatus}</p>
+                                                    <div class="price">Price <span>$${item.price}</span>/per night</div>
+                                                </div>
+                                                                <a class="theme-btn style-two" href="room/details/${item.id}">Book Now <i class="fal fa-angle-right"></i></a>
+                                            </div>
+                                        `;
                 roomsContainer.appendChild(roomElement);
             });
         }
@@ -236,3 +249,4 @@
         }
     </script>
 }
+

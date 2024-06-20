@@ -46,15 +46,19 @@
                                     @if (User.Identity.IsAuthenticated)
                                     {
                                         <li class="nav-item dropdown">
-                                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <a>
                                                 @User.Identity.Name
                                             </a>
-                                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                                <a class="dropdown-item" asp-action="Logout" asp-controller="Account">Logout</a>
-                                            </div>
+                                            <ul>
+                                                <li>
+                                                    <form asp-action="Logout" asp-controller="Account" method="post" class="dropdown-item">
+                                                        <button type="submit" class="btn btn-link" style="text-decoration: none; color: inherit;">Logout</button>
+                                                    </form>
+                                                </li>
+                                            </ul>
                                         </li>
                                     }
+
                                     else
                                     {
                                         <li>

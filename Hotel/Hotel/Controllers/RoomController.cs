@@ -22,7 +22,10 @@ namespace Hotel.Controllers
         {
             List<Slider> sliders = await _context.Sliders.Where(s => !s.IsDeleted).ToListAsync();
             List<AboutCompany> companies = await _context.AboutCompanies.Where(ac => !ac.IsDeleted).ToListAsync();
-            List<Room> rooms = await _context.Rooms.Include(r => r.Images).Include(r => r.Category).Include(r=>r.RoomStatus).Where(ac => !ac.IsDeleted).ToListAsync();
+            List<Room> rooms = await _context.Rooms
+                .Include(r => r.Images)
+                .Include(r => r.Category)
+                .Include(r => r.RoomStatus).Where(ac => !ac.IsDeleted).ToListAsync();
             List<Feature> features = await _context.Features.Where(ac => !ac.IsDeleted).ToListAsync();
 
             HomeVM homeVM = new HomeVM
@@ -49,7 +52,7 @@ namespace Hotel.Controllers
 
             return View(room);
         }
-        
+
         [HttpGet]
         public async Task<IActionResult> Search(string query)
         {
@@ -67,6 +70,7 @@ namespace Hotel.Controllers
 
             var result = rooms.Select(r => new
             {
+                id = r.Id,
                 name = r.Name,
                 description = r.Description,
                 rating = r.Rating,
@@ -74,9 +78,12 @@ namespace Hotel.Controllers
                 price = r.Price,
                 imageUrl = r.Images.Any() ? r.Images.First().Url : "default-image.jpg",
                 categoryName = r.Category?.CategoryName,
-                roomstatus = r.RoomStatus?.StatusName
+                roomstatus = r.RoomStatus.StatusName
             });
-
+            foreach (var item in result)
+            {
+                await Console.Out.WriteLineAsync(item.roomstatus);
+            }
             return Json(result);
         }
 
