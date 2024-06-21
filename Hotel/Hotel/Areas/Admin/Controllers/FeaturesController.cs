@@ -1,6 +1,7 @@
 ﻿using Hotel.DAL;
 using Hotel.Models;
 using Hotel.ViewModels.Features;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 namespace Hotel.Areas.Admin.Controllers
 {
     [Area("Admin")]
+	[Authorize(Roles ="Admin")]
     public class FeaturesController : Controller
     {
         private readonly HotelDBContext _context;

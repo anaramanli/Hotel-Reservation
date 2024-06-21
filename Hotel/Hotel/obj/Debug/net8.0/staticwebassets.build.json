@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "ULPQZeyE3Cns60Cq5nlXDfM9Sbp3J9m3hEMHeAX+cLM=",
+  "Hash": "xSNUezybGle5Crpk4kuv/u95da5tQ3TLqZnTKkqlFbM=",
   "Source": "Hotel",
   "BasePath": "_content/Hotel",
   "Mode": "Default",
@@ -29503,6 +29503,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\assets\\imgs\\The-Details-That-Matter-Top-Things-Every-Luxury-Hotel-Room-Should-Have_5vh34c21.png"
+    },
+    {
+      "Identity": "C:\\Users\\User\\Desktop\\Hotel-Reservation\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\The-Details-That-Matter-Top-Things-Every-Luxury-Hotel-Room-Should-Have_af25igin.png",
+      "SourceId": "Hotel",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\User\\Desktop\\Hotel-Reservation\\Hotel\\Hotel\\wwwroot\\",
+      "BasePath": "_content/Hotel",
+      "RelativePath": "assets/imgs/The-Details-That-Matter-Top-Things-Every-Luxury-Hotel-Room-Should-Have_af25igin.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\imgs\\The-Details-That-Matter-Top-Things-Every-Luxury-Hotel-Room-Should-Have_af25igin.png"
     },
     {
       "Identity": "C:\\Users\\User\\Desktop\\Hotel-Reservation\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\The-Details-That-Matter-Top-Things-Every-Luxury-Hotel-Room-Should-Have_p2oxgdrx.png",

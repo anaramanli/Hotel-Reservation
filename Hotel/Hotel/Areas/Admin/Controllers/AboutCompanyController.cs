@@ -2,6 +2,7 @@
 using Hotel.Extensions;
 using Hotel.Models;
 using Hotel.ViewModels.AboutCompany;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Hotel.Areas.Admin.Controllers
 {
 	[Area("Admin")]
+	[Authorize(Roles ="Admin")]
 	public class AboutCompanyController(HotelDBContext _context, IWebHostEnvironment _env) : Controller
 	{
 		// GET: AboutCompanyController

@@ -6,10 +6,12 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 using System.Text;
 using Hotel.Extensions;
 using Hotel.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Hotel.Areas.Admin.Controllers
 {
     [Area("Admin")]
+	[Authorize(Roles ="Admin")]
     public class SliderController(HotelDBContext _context, IWebHostEnvironment _env) : Controller
     {
 		// GET: SliderController

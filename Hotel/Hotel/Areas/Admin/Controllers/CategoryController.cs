@@ -1,6 +1,7 @@
 ﻿using Hotel.DAL;
 using Hotel.Models;
 using Hotel.ViewModels.Category;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Hotel.Areas.Admin.Controllers
 {
     [Area("Admin")]
+	[Authorize(Roles ="Admin")]
     public class CategoryController : Controller
     {
         private readonly HotelDBContext _context;

@@ -1,8 +1,10 @@
-﻿using Hotel.Interfaces;
+﻿using Hotel.Enums;
+using Hotel.Interfaces;
 using Hotel.Models;
 using Hotel.ViewModels.Account;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 using Studio.ViewModels.Account;
 
 namespace Hotel.Controllers
@@ -12,12 +14,14 @@ namespace Hotel.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly IEmailService _emailService;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IEmailService emailService)
+        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IEmailService emailService, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailService = emailService;
+            _roleManager = roleManager;
         }
 
         public IActionResult Register()
@@ -59,6 +63,7 @@ namespace Hotel.Controllers
                 <a href=""{confirmationLink}"">Confirm Email</a>";
 
             await _emailService.SendMailAsync(user.Email, "Email Confirmation", body, true);
+            await _userManager.AddToRoleAsync(user, UserRole.Member.ToString());
 
             return RedirectToAction(nameof(SuccessfullyRegistered));
         }
@@ -132,12 +137,119 @@ namespace Hotel.Controllers
 
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
-
-
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
+
+        public async Task<IActionResult> CreateRoles()
+        {
+            foreach (UserRole role in Enum.GetValues(typeof(UserRole)))
+            {
+                await _roleManager.CreateAsync(new IdentityRole
+                {
+                    Name = role.ToString()
+                });
+            }
+
+            return Content("Ok");
+        }
+
+        [HttpGet]
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ForgotPassword(ForgotPasswordVM forgotPassword)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(forgotPassword);
+            }
+
+            var user = await _userManager.FindByEmailAsync(forgotPassword.Email);
+            if (user == null)
+            {
+                ModelState.AddModelError("Email", "Email not found");
+                return View(forgotPassword);
+            }
+
+            string token = await _userManager.GeneratePasswordResetTokenAsync(user);
+            if (string.IsNullOrEmpty(token))
+            {
+                return BadRequest();
+            }
+
+            string link = Url.Action("ResetPassword", "Account", new { userId = user.Id, token = token }, Request.Scheme);
+
+            // Send the link via email
+            await _emailService.SendMailAsync(user.Email, "Password Reset", $"Reset your password by clicking <a href='{link}'>here</a>.", true);
+
+            TempData["SuccessMessage"] = "Password reset link has been sent to your email.";
+            return RedirectToAction("ForgotPasswordConfirmation");
+        }
+
+        public IActionResult ForgotPasswordConfirmation()
+        {
+            return View();
+        }
+
+
+        [HttpGet]
+        public IActionResult ResetPassword(string userId, string token)
+        {
+            if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(token))
+            {
+                // Error handling
+                return RedirectToAction("Error", "Home");
+            }
+
+            var model = new ResetPasswordVM
+            {
+                Token = token,
+                UserId = userId
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ResetPassword(ResetPasswordVM model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var user = await _userManager.FindByIdAsync(model.UserId);
+            if (user == null)
+            {
+                ModelState.AddModelError("", "Invalid user.");
+                return View(model);
+            }
+
+            var result = await _userManager.ResetPasswordAsync(user, model.Token, model.Password);
+            if (result.Succeeded)
+            {
+                return RedirectToAction("ResetPasswordConfirmation");
+            }
+
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError("", error.Description);
+            }
+
+            return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult ResetPasswordConfirmation()
+        {
+            return View();
+        }
+
     }
 }

@@ -12,10 +12,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Hotel.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Hotel.Areas.Admin.Controllers
 {
     [Area("Admin")]
+	[Authorize(Roles ="Admin")]
     public class RoomController : Controller
     {
         private readonly HotelDBContext _context;

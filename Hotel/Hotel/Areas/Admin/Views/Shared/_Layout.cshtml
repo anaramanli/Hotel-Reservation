@@ -181,15 +181,17 @@
                         <button type="button" class="btn header-item bg-light-subtle border-start border-end" id="page-header-user-dropdown"
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="dripicons-user"></i>
-                            <span class="d-none d-xl-inline-block ms-1 fw-medium">Admin</span>
+                            <span class="d-none d-xl-inline-block ms-1 fw-medium">@if (User.Identity.IsAuthenticated)
+                                {
+                                    <p>@User.Identity.Name</p>
+                                }
+                                </span>
                             <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                         </button>
                         <div class="dropdown-menu dropdown-menu-end">
                             <!-- item-->
-                            <a class="dropdown-item" href="apps-contacts-profile.html"><i class="mdi mdi mdi-face-man font-size-16 align-middle me-1"></i> Profile</a>
-                            <a class="dropdown-item" href="auth-lock-screen.html"><i class="mdi mdi-lock font-size-16 align-middle me-1"></i> Lock Screen</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="auth-logout.html"><i class="mdi mdi-logout font-size-16 align-middle me-1"></i> Logout</a>
+                            <a class="dropdown-item" asp-action="Logout" asp-controller="Account" asp-area="default"><i class="mdi mdi-logout font-size-16 align-middle me-1"></i> Logout</a>
                         </div>
                     </div>
 

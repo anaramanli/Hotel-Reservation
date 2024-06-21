@@ -1,6 +1,7 @@
 ﻿using Hotel.DAL;
 using Hotel.Models;
 using Hotel.ViewModels.RoomStatus;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 namespace Hotel.Areas.Admin.Controllers
 {
     [Area("Admin")]
+	[Authorize(Roles ="Admin")]
     public class RoomStatusController : Controller
     {
         private readonly HotelDBContext _context;
