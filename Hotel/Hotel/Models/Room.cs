@@ -11,6 +11,7 @@ namespace Hotel.Models
         public int Rating { get; set; }
         public int Beds { get; set; }
         public int Bathrooms { get; set; }
+        public string Location { get; set; }
         public TimeOnly CheckIn { get; set; } = new TimeOnly(6,00);
         // Relation
         public int CategoryId { get; set; }

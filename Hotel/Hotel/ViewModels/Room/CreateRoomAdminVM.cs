@@ -14,11 +14,14 @@ namespace Hotel.ViewModels.Room
         [DataType(DataType.Currency)]
         public decimal Price { get; set; }
         [Required]
-        public int Rating { get; set; }
+		[Range(1, 10, ErrorMessage = "Number of guests must be between 1 and 10.")]
+		public int Rating { get; set; }
         [Required]
         public int Beds { get; set; }
         [Required]
         public int Bathrooms { get; set; }
+        [Required]
+        public string Location { get; set; }
 
         [Required]
         //public string ImageUrl { get; set; }

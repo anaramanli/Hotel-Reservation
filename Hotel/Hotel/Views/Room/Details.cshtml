@@ -65,7 +65,7 @@
                     </ul>
 
                     <div class="room-location mt-70 wow fadeInUp delay-0-2s">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m12!1m10!1m3!1d142190.2862584524!2d-74.01298319978558!3d40.721725351435126!2m1!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sen!2sbd!4v1663473911885!5m2!1sen!2sbd" style="border:0; width: 100%;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        <iframe src="@Model.Location" style="border:0; width: 100%;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                     <div class="section-title mt-45">
                         <h2>Rules & Regulations</h2>
@@ -84,7 +84,7 @@
             <div class="mt-20">
                 @if (Model.RoomStatus != null && Model.RoomStatus.StatusName != null && Model.RoomStatus.StatusName.Contains("Available", StringComparison.OrdinalIgnoreCase))
                 {
-                    <a class="theme-btn w-100" asp-action="Index" asp-controller="Booking">Book Now</a>
+                    <a class="theme-btn w-100" asp-action="Create" asp-controller="OrderTable" asp-route-id="@Model.Id">Book Now</a>
                 }
                 else
                 {

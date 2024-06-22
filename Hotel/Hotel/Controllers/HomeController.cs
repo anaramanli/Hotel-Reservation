@@ -12,7 +12,6 @@ namespace Hotel.Controllers
     {
         public async Task<IActionResult> Index()
         {
-            //await _emailService.SendeMailAsync();
             List<Slider> sliders = await _context.Sliders
                 .Where(s=> !s.IsDeleted).ToListAsync();
 			List<AboutCompany> companies = await _context.AboutCompanies
@@ -43,17 +42,8 @@ namespace Hotel.Controllers
                 return NotFound();
             }
 
-            var availabilities = await _context.Availabilities
-                .Where(a => a.RoomId == id)
-                .ToListAsync();
-
-            var viewModel = new RoomDetailsViewModel
-            {
-                Room = room,
-                Availabilities = availabilities
-            };
-
-            return View(viewModel);
+            
+            return View(room);
         }
 
     }

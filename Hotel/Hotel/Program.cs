@@ -37,6 +37,7 @@ namespace Hotel
                 app.UseExceptionHandler("/Error");
             }
             app.UseStaticFiles();
+
             app.MapControllerRoute(name: "roomDetail", pattern: "room/details/{id?}", defaults: new { controller = "Room", action = "Details" });
             app.MapControllerRoute(name: "areas", pattern: "{area:exists}/{controller=Slider}/{action=Index}/{id?}");
             app.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}/{id?}");

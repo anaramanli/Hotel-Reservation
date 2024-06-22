@@ -17,9 +17,12 @@ namespace Hotel.ViewModels.Room
         [Required(ErrorMessage = "Price is required.")]
         [DataType(DataType.Currency)]
         public decimal Price { get; set; }
+        [Required(ErrorMessage = "Location is required.")]
 
+        public string Location { get; set; }
         [Required(ErrorMessage = "Rating is required.")]
-        public int Rating { get; set; }
+		[Range(1, 10, ErrorMessage = "Number of guests must be between 1 and 10.")]
+		public int Rating { get; set; }
 
         [Required(ErrorMessage = "Number of beds is required.")]
         public int Beds { get; set; }

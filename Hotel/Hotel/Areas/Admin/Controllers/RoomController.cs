@@ -1,5 +1,4 @@
 ﻿using Hotel.DAL;
-
 using Hotel.ViewModels.Room;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -96,7 +95,8 @@ namespace Hotel.Areas.Admin.Controllers
                     Rating = vm.Rating,
                     CheckIn = vm.CheckIn,
                     CategoryId = vm.CategoryId,
-                    RoomStatusId = vm.RoomStatusId
+                    RoomStatusId = vm.RoomStatusId,
+                    Location = vm.Location
                 };
 
                 if (vm.ImageFiles != null && vm.ImageFiles.Count > 0)
@@ -160,7 +160,8 @@ namespace Hotel.Areas.Admin.Controllers
                 RoomStatusId = room.RoomStatusId,
                 ImageUrls = room.Images.Select(i => i.Url).ToList(),
                 Categories = await _context.Categories.ToListAsync(),
-                RoomStatuses = await _context.RoomStatuses.ToListAsync()
+                RoomStatuses = await _context.RoomStatuses.ToListAsync(),
+                Location = room.Location,
             };
             return View(viewModel);
         }
@@ -198,6 +199,7 @@ namespace Hotel.Areas.Admin.Controllers
 					room.CheckIn = vm.CheckIn;
 					room.CategoryId = vm.CategoryId;
 					room.RoomStatusId = vm.RoomStatusId;
+                    room.Location = vm.Location;
 
 					if (vm.ImageFiles != null && vm.ImageFiles.Count > 0)
 					{

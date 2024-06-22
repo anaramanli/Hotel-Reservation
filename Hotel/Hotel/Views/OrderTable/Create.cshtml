@@ -1,0 +1,185 @@
+﻿@model Hotel.Models.Reservation
+
+@{
+    ViewData["Title"] = "Create Reservation";
+    var extrasList = ViewBag.Extras as List<Hotel.Enums.Extras>;
+    var extrasPrices = ViewBag.ExtrasPrices as Dictionary<Hotel.Enums.Extras, decimal>;
+}
+
+<style>
+    /* Container styling */
+    .container {
+        text-align: center;
+        padding: 20px;
+    }
+
+    /* Specific link color in header */
+    .main-header {
+        color: black !important;
+        background-color: #17171a !important;
+    }
+
+        .main-header a {
+            color: white !important;
+        }
+
+        .main-header.active a {
+            color: white !important;
+        }
+
+        .main-header.inactive a {
+            color: black !important;
+        }
+
+    /* Heading styling */
+    h1 {
+        font-size: 2.5rem;
+        color: #333;
+    }
+
+    /* Subtitle styling */
+    p {
+        font-size: 1.2rem;
+        color: #666;
+        margin-top: 20px;
+    }
+
+    .custom {
+        margin-top: 10%; /* 10% margin from the top */
+    }
+</style>
+
+<div class="custom">
+    <div class="contact-page-form wow fadeInUp delay-0-2s animated" style="visibility: visible; animation-name: fadeInUp;">
+        <div class="section-title mb-15">
+            <h3>Reservation</h3>
+            <p>Your email address will not be published. Required fields are marked *</p>
+        </div>
+        <form method="post" id="contactForm" class="contactForm" name="contactForm" novalidate="true">
+            <div class="row gap-20 pt-15">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Name">Name</label>
+                        <input type="text" id="name" name="name" class="form-control" asp-for="Name" value="@User.Identity.Name" required data-error="Please enter your name">
+                        <div class="help-block with-errors"></div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Surname">Surname</label>
+                        <input type="text" class="form-control" asp-for="Surname" required data-error="Please enter your Surname">
+                        <div class="help-block with-errors"></div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="PhoneNumber">Phone Number</label>
+                        <input type="text" class="form-control" asp-for="PhoneNumber" placeholder="Phone" required data-error="Please enter your Phone">
+                        <div class="help-block with-errors"></div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Email">Email</label>
+                        <input type="email" class="form-control" asp-for="Email" placeholder="Email" required data-error="Please enter your Email">
+                        <div class="help-block with-errors"></div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="checkInDate">Check-in Date</label>
+                        <input type="date" class="form-control" id="checkInDate" name="checkInDate" asp-for="CheckInDate" min="@DateTime.Now.ToString("yyyy-MM-dd")" required data-error="Please enter your Check-in Date" onchange="validateDates()">
+                        <div class="help-block with-errors"></div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="checkOutDate">Check-out Date</label>
+                        <input type="date" class="form-control" id="checkOutDate" name="checkOutDate" asp-for="CheckOutDate" min="@DateTime.Now.AddDays(1).ToString("yyyy-MM-dd")" required data-error="Please enter your Check-out Date" onchange="validateDates()">
+                        <div class="help-block with-errors"></div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="extras">Extras</label>
+                        <select multiple class="form-control" id="extras" asp-for="SelectedExtras" onchange="updateTotal()">
+                            @foreach (var extra in extrasList)
+                            {
+                                <option value="@extra">@extra (@extrasPrices[extra].ToString("C"))</option>
+                            }
+                        </select>
+                        <div class="help-block with-errors"></div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>&nbsp;</label><br>
+                        <button type="button" class="btn btn-danger" onclick="removeSelectedExtras()">Remove Selected</button>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label asp-for="Message">Message</label>
+                        <textarea id="message" name="message" class="form-control" rows="3" placeholder="Message" asp-for="Message" data-error="Please enter your Message"></textarea>
+                        <div class="help-block with-errors"></div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group pt-5 mb-0">
+                        @if (Model != null && Model.Room != null)
+                        {
+                            <label>Hotel Rooms Price: $<span id="roomPrice">@Model.Room.Price.ToString("0.00")</span></label>
+                        }
+                        else
+                        {
+                            <label>Hotel Rooms Price: $<span id="roomPrice">N/A</span></label>
+                        }
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group pt-5 mb-0">
+                        <label>Total: $<span id="total">@Model.Room.Price.ToString("0.00")</span></label>
+                        <button type="submit" class="theme-btn disabled" style="pointer-events: all; cursor: pointer;">Pay With Card <i class="far fa-arrow-right"></i></button>
+                        <div id="msgSubmit" class="hidden"></div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        const extrasPrices = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(extrasPrices));
+
+        function updateTotal() {
+            let total = parseFloat(document.getElementById('roomPrice').innerText);
+
+            const selectedExtras = document.getElementById('extras').selectedOptions;
+            for (let i = 0; i < selectedExtras.length; i++) {
+                total += extrasPrices[selectedExtras[i].value];
+            }
+
+            document.getElementById('total').innerText = total.toFixed(2);
+        }
+
+        function removeSelectedExtras() {
+            const selectedExtras = document.getElementById('extras').selectedOptions;
+            for (let i = selectedExtras.length - 1; i >= 0; i--) {
+                selectedExtras[i].remove();
+            }
+            updateTotal();
+        }
+
+        function validateDates() {
+            const checkInDate = new Date(document.getElementById('checkInDate').value);
+            const checkOutDate = new Date(document.getElementById('checkOutDate').value);
+
+            if (checkOutDate <= checkInDate) {
+                alert('Check-out date must be greater than Check-in date.');
+                document.getElementById('checkOutDate').value = '';
+            }
+        }
+    </script>
+}
