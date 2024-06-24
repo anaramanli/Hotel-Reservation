@@ -4,6 +4,7 @@ using Hotel.Models;
 using Hotel.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Stripe;
 
 namespace Hotel
 {
@@ -28,7 +29,7 @@ namespace Hotel
 
             }).AddEntityFrameworkStores<HotelDBContext>().AddDefaultTokenProviders(); 
             builder.Services.AddScoped<IEmailService,EmailService>();
-            
+            builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection(nameof(Stripe)));
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -37,6 +38,8 @@ namespace Hotel
                 app.UseExceptionHandler("/Error");
             }
             app.UseStaticFiles();
+
+            StripeConfiguration.ApiKey = builder.Configuration["Stripe:Secretkey"];
 
             app.MapControllerRoute(name: "roomDetail", pattern: "room/details/{id?}", defaults: new { controller = "Room", action = "Details" });
             app.MapControllerRoute(name: "areas", pattern: "{area:exists}/{controller=Slider}/{action=Index}/{id?}");

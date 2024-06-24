@@ -2,11 +2,12 @@
 using Hotel.Enums;
 using Hotel.Models;
 using Hotel.ViewModels;
-using Hotel.ViewModels.RoomDetail;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System.Collections.Generic;
+using Hotel.ViewModels.Reservation;
 
 namespace Hotel.Controllers
 {
@@ -25,24 +26,27 @@ namespace Hotel.Controllers
         {
             _context = context;
         }
+
         [Authorize]
         public IActionResult Create(int id)
         {
-
             var room = _context.Rooms
                                 .Include(r => r.RoomStatus)
-                                .Include(r => r.Images)
+                                .Include(r=> r.Category)
                                 .FirstOrDefault(r => r.Id == id);
-            if (!room.RoomStatus.StatusName.ToString().Contains("Available")) return BadRequest();
-
-            if (room == null)
+            if (room == null || !room.RoomStatus.StatusName.ToString().Contains("Available"))
             {
-                return NotFound();
+                return BadRequest();
             }
-
-            var viewModel = new Reservation
+            var viewModel = new ReservationVM
             {
-                Room = room
+                Room = room,
+                RoomId = room.Id,
+                Price = room.Price, // Set the Price property
+                CheckInDate = DateTime.Now,
+                CheckOutDate = DateTime.Now.AddDays(1), // Default to 1 night stay
+                Name = User.Identity.Name,
+                TotalCost = room.Price
             };
 
             ViewBag.Extras = Enum.GetValues(typeof(Extras)).Cast<Extras>().ToList();
@@ -52,17 +56,33 @@ namespace Hotel.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Reservation reservation)
+        [Authorize]
+        public IActionResult Create(ReservationVM viewModel)
         {
+            var room = _context.Rooms.Include(r => r.RoomStatus).FirstOrDefault(r => r.Id == viewModel.RoomId);
+            viewModel.Price = room.Price;
+
             if (ModelState.IsValid)
             {
-                // Retrieve room price from database
-                var room = _context.Rooms.FirstOrDefault(r => r.Id == reservation.Room.Id);
-
                 if (room != null)
                 {
                     // Calculate total cost including extras
-                    reservation.CalculateTotalCost(ExtrasPrices);
+                    viewModel.CalculateTotalCost(ExtrasPrices);
+
+                    var reservation = new Reservation
+                    {
+                        Room = room,
+                        Name = viewModel.Name,
+                        Surname = viewModel.Surname,
+                        PhoneNumber = viewModel.PhoneNumber,
+                        Email = viewModel.Email,
+                        CheckInDate = viewModel.CheckInDate,
+                        CheckOutDate = viewModel.CheckOutDate,
+                        Message = viewModel.Message,
+                        SelectedExtras = viewModel.SelectedExtras,
+                        TotalCost = viewModel.TotalCost,
+                        
+                    };
 
                     // Reservation logic (e.g., save to database)
                     _context.Reservations.Add(reservation);
@@ -79,7 +99,9 @@ namespace Hotel.Controllers
 
             ViewBag.Extras = Enum.GetValues(typeof(Extras)).Cast<Extras>().ToList();
             ViewBag.ExtrasPrices = ExtrasPrices;
-            return View(reservation);
+            return View(viewModel);
         }
+
+
     }
 }
