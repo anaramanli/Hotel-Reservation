@@ -830,6 +830,9 @@ namespace Hotel.Migrations
                     b.Property<DateTime?>("Birthdate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("CustomerId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -837,6 +840,8 @@ namespace Hotel.Migrations
                     b.Property<string>("Surname")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.HasIndex("CustomerId");
 
                     b.HasDiscriminator().HasValue("AppUser");
                 });
@@ -855,7 +860,7 @@ namespace Hotel.Migrations
             modelBuilder.Entity("Hotel.Models.Payment", b =>
                 {
                     b.HasOne("Hotel.Models.Reservation", "Reservation")
-                        .WithMany("Payments")
+                        .WithMany()
                         .HasForeignKey("ReservationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -866,13 +871,13 @@ namespace Hotel.Migrations
             modelBuilder.Entity("Hotel.Models.Reservation", b =>
                 {
                     b.HasOne("Hotel.Models.Customer", "Customer")
-                        .WithMany()
+                        .WithMany("Reservations")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Hotel.Models.Room", "Room")
-                        .WithMany()
+                        .WithMany("Reservations")
                         .HasForeignKey("RoomId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -982,15 +987,27 @@ namespace Hotel.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Hotel.Models.AppUser", b =>
+                {
+                    b.HasOne("Hotel.Models.Customer", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerId");
+
+                    b.Navigation("Customer");
+                });
+
             modelBuilder.Entity("Hotel.Models.Category", b =>
                 {
                     b.Navigation("rooms");
                 });
 
+            modelBuilder.Entity("Hotel.Models.Customer", b =>
+                {
+                    b.Navigation("Reservations");
+                });
+
             modelBuilder.Entity("Hotel.Models.Reservation", b =>
                 {
-                    b.Navigation("Payments");
-
                     b.Navigation("ReservationServices");
                 });
 
@@ -999,6 +1016,8 @@ namespace Hotel.Migrations
                     b.Navigation("Availabilities");
 
                     b.Navigation("Images");
+
+                    b.Navigation("Reservations");
                 });
 
             modelBuilder.Entity("Hotel.Models.RoomStatus", b =>

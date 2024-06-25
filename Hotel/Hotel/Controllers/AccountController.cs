@@ -111,7 +111,7 @@ namespace Hotel.Controllers
 
             if (user == null)
             {
-                ModelState.AddModelError("", "User not found.");
+                ModelState.AddModelError("", "Username or email is incorrect.");
                 return View(vm);
             }
 

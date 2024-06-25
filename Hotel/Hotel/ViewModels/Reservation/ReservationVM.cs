@@ -21,7 +21,7 @@ namespace Hotel.ViewModels.Reservation
 
         public void CalculateTotalCost(Dictionary<Extras, decimal> extrasPrices)
         {
-            TotalCost = Price; // Start with the room price
+            TotalCost = Price; 
 
             if (SelectedExtras != null && extrasPrices != null)
             {

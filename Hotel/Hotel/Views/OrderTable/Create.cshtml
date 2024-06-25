@@ -1,4 +1,4 @@
-﻿@model ReservationVM
+﻿@model Hotel.ViewModels.Reservation.ReservationVM
 
 @{
     ViewData["Title"] = "Create Reservation";
@@ -19,17 +19,17 @@
         background-color: #17171a !important;
     }
 
-    .main-header a {
-        color: white !important;
-    }
+        .main-header a {
+            color: white !important;
+        }
 
-    .main-header.active a {
-        color: white !important;
-    }
+        .main-header.active a {
+            color: white !important;
+        }
 
-    .main-header.inactive a {
-        color: black !important;
-    }
+        .main-header.inactive a {
+            color: black !important;
+        }
 
     /* Heading styling */
     h1 {
@@ -84,10 +84,11 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label asp-for="Email">Email</label>
-                        <input type="email" class="form-control" asp-for="Email" placeholder="Email" required data-error="Please enter your Email">
+                        <input type="email" class="form-control" readonly asp-for="Email" value="@Model.Email">
                         <span asp-validation-for="Email" class="text-danger"></span>
                         <div class="help-block with-errors"></div>
                     </div>
+
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
@@ -184,4 +185,3 @@
         });
     </script>
 }
-

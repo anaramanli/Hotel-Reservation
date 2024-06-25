@@ -8,12 +8,16 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Collections.Generic;
 using Hotel.ViewModels.Reservation;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 
 namespace Hotel.Controllers
 {
     public class OrderTableController : Controller
     {
         private readonly HotelDBContext _context;
+        private readonly UserManager<AppUser> _userManager;
 
         private static readonly Dictionary<Extras, decimal> ExtrasPrices = new Dictionary<Extras, decimal>
         {
@@ -22,30 +26,39 @@ namespace Hotel.Controllers
             { Extras.CityView, 75 }
         };
 
-        public OrderTableController(HotelDBContext context)
+        public OrderTableController(HotelDBContext context, UserManager<AppUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         [Authorize]
-        public IActionResult Create(int id)
+        public async Task<IActionResult> Create(int id)
         {
             var room = _context.Rooms
                                 .Include(r => r.RoomStatus)
-                                .Include(r=> r.Category)
+                                .Include(r => r.Category)
                                 .FirstOrDefault(r => r.Id == id);
             if (room == null || !room.RoomStatus.StatusName.ToString().Contains("Available"))
             {
                 return BadRequest();
             }
+
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            if (user == null)
+            {
+                return BadRequest("User not found.");
+            }
+
             var viewModel = new ReservationVM
             {
                 Room = room,
                 RoomId = room.Id,
-                Price = room.Price, // Set the Price property
+                Price = room.Price,
                 CheckInDate = DateTime.Now,
-                CheckOutDate = DateTime.Now.AddDays(1), // Default to 1 night stay
+                CheckOutDate = DateTime.Now.AddDays(1),
                 Name = User.Identity.Name,
+                Email = user.Email, 
                 TotalCost = room.Price
             };
 
@@ -57,7 +70,7 @@ namespace Hotel.Controllers
 
         [HttpPost]
         [Authorize]
-        public IActionResult Create(ReservationVM viewModel)
+        public async Task<IActionResult> Create(ReservationVM viewModel)
         {
             var room = _context.Rooms.Include(r => r.RoomStatus).FirstOrDefault(r => r.Id == viewModel.RoomId);
             viewModel.Price = room.Price;
@@ -66,29 +79,37 @@ namespace Hotel.Controllers
             {
                 if (room != null)
                 {
-                    // Calculate total cost including extras
-                    viewModel.CalculateTotalCost(ExtrasPrices);
+                    var user = await _userManager.GetUserAsync(User);
+                    if (user == null)
+                    {
+                        return BadRequest("User not found.");
+                    }
+
+                    var customer = await _context.Customers.FirstOrDefaultAsync(c => c.AppUserId == user.Id);
+                    if (customer == null)
+                    {
+                        return BadRequest("Customer not found.");
+                    }
 
                     var reservation = new Reservation
                     {
                         Room = room,
+                        RoomId = room.Id,
                         Name = viewModel.Name,
                         Surname = viewModel.Surname,
                         PhoneNumber = viewModel.PhoneNumber,
-                        Email = viewModel.Email,
+                        Email = user.Email,
                         CheckInDate = viewModel.CheckInDate,
                         CheckOutDate = viewModel.CheckOutDate,
                         Message = viewModel.Message,
                         SelectedExtras = viewModel.SelectedExtras,
                         TotalCost = viewModel.TotalCost,
-                        
+                        CustomerId = customer.Id 
                     };
 
-                    // Reservation logic (e.g., save to database)
                     _context.Reservations.Add(reservation);
                     _context.SaveChanges();
 
-                    // Redirect to a confirmation page or another action
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -101,7 +122,5 @@ namespace Hotel.Controllers
             ViewBag.ExtrasPrices = ExtrasPrices;
             return View(viewModel);
         }
-
-
     }
 }

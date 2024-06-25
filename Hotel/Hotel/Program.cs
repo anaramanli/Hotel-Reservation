@@ -23,8 +23,6 @@ namespace Hotel
                 opt.Password.RequireNonAlphanumeric = false;
                 opt.Password.RequireUppercase = false;
                 opt.Password.RequireLowercase = false;
-
-
                 opt.SignIn.RequireConfirmedEmail = true;
 
             }).AddEntityFrameworkStores<HotelDBContext>().AddDefaultTokenProviders(); 

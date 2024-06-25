@@ -23,5 +23,7 @@ namespace Hotel.Models
         public ICollection<RoomImage> Images { get; set; } = new List<RoomImage>();
         // Availability relation
         public ICollection<Availability> Availabilities { get; set; } = new List<Availability>();
+        // Relation to Reservation
+        public ICollection<Reservation> Reservations { get; set; }
     }
 }
