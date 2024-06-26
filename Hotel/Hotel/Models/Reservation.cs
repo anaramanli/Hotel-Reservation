@@ -17,6 +17,8 @@ namespace Hotel.Models
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
         public string? Message { get; set; }
+        // Qr Code
+        //public string QRCodePath { get; set; }
 
         // Relations
         public int RoomId { get; set; }

@@ -67,9 +67,17 @@
               "target": "Package",
               "version": "[8.0.2, )"
             },
+            "QRCoder": {
+              "target": "Package",
+              "version": "[1.5.1, )"
+            },
             "Stripe.net": {
               "target": "Package",
               "version": "[44.13.0, )"
+            },
+            "iTextSharp": {
+              "target": "Package",
+              "version": "[5.5.13.4, )"
             }
           },
           "imports": [

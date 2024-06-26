@@ -1,4 +1,4 @@
-﻿using Hotel.Enums; // Assuming Enums namespace contains Extras enum
+﻿using Hotel.Enums; 
 
 namespace Hotel.ViewModels.Reservation
 {

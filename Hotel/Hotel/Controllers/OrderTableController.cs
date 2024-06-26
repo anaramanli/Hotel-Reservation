@@ -10,7 +10,10 @@ using System.Collections.Generic;
 using Hotel.ViewModels.Reservation;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
+using Stripe;
+using System.Threading.Tasks;
+using Hotel.Interfaces;
+using Hotel.Services;
 
 namespace Hotel.Controllers
 {
@@ -18,6 +21,7 @@ namespace Hotel.Controllers
     {
         private readonly HotelDBContext _context;
         private readonly UserManager<AppUser> _userManager;
+        private readonly IEmailService _emailService;
 
         private static readonly Dictionary<Extras, decimal> ExtrasPrices = new Dictionary<Extras, decimal>
         {
@@ -26,10 +30,11 @@ namespace Hotel.Controllers
             { Extras.CityView, 0 }
         };
 
-        public OrderTableController(HotelDBContext context, UserManager<AppUser> userManager)
+        public OrderTableController(HotelDBContext context, UserManager<AppUser> userManager, IEmailService emailService)
         {
             _context = context;
             _userManager = userManager;
+            _emailService = emailService;
         }
 
         [Authorize]
@@ -67,9 +72,10 @@ namespace Hotel.Controllers
 
             return View(viewModel);
         }
+
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Create(ReservationVM viewModel)
+        public async Task<IActionResult> Create(ReservationVM viewModel, string stripeEmail, string stripeToken)
         {
             var room = await _context.Rooms.Include(r => r.RoomStatus).FirstOrDefaultAsync(r => r.Id == viewModel.RoomId);
             viewModel.Price = room.Price;
@@ -87,7 +93,7 @@ namespace Hotel.Controllers
                     var customer = await _context.Customers.FirstOrDefaultAsync(c => c.AppUserId == user.Id);
                     if (customer == null)
                     {
-                        customer = new Customer
+                        customer = new Models.Customer
                         {
                             AppUserId = user.Id,
                             AppUser = user,
@@ -117,17 +123,58 @@ namespace Hotel.Controllers
                         CustomerId = customer.Id,
                         CreatedAt = DateTime.Now
                     };
+
                     // Calculate the total cost
                     reservation.CalculateTotalCost(ExtrasPrices);
 
                     var reservedStatus = await _context.RoomStatuses.FirstOrDefaultAsync(rs => rs.StatusName == "Reserved");
-
                     if (reservedStatus == null)
                     {
                         return BadRequest("Reserved status not found.");
                     }
 
+                    // Stripe
+                    var optionCust = new CustomerCreateOptions
+                    {
+                        Email = stripeEmail,
+                        Name = user.Name + " " + user.Surname,
+                        Phone = user.PhoneNumber
+                    };
+                    var serviceCust = new CustomerService();
+                    var stripeCustomer = serviceCust.Create(optionCust);
+
+                    var totalCostInCents = (long)(reservation.TotalCost * 100);
+                    var optionsCharge = new ChargeCreateOptions
+                    {
+                        Amount = totalCostInCents,
+                        Currency = "USD",
+                        Description = "Reservation payment",
+                        Source = stripeToken,
+                        ReceiptEmail = stripeEmail
+                    };
+                    var serviceCharge = new ChargeService();
+                    var charge = serviceCharge.Create(optionsCharge);
+
+                    if (charge.Status != "succeeded")
+                    {
+                        ModelState.AddModelError("Address", "Payment failed.");
+                        return View(viewModel);
+                    }
+
                     room.RoomStatus = reservedStatus;
+
+                    // Send confirmation email
+                    string body = @$"
+                        <h1>Payment Successful</h1>
+                        <p>Thank you for your reservation. Your payment has been processed successfully.</p>
+                        <p>Reservation Details:</p>
+                        <ul>
+                            <li>Check-in Date: {reservation.CheckInDate.ToShortDateString()}</li>
+                            <li>Check-out Date: {reservation.CheckOutDate.ToShortDateString()}</li>
+                            <li>Total Cost: ${reservation.TotalCost}</li>
+                        </ul>";
+
+                    await _emailService.SendMailAsync(user.Email, "Reservation Confirmation", body, true);
 
                     _context.Reservations.Add(reservation);
                     _context.Rooms.Update(room);
@@ -145,7 +192,5 @@ namespace Hotel.Controllers
             ViewBag.ExtrasPrices = ExtrasPrices;
             return View(viewModel);
         }
-
-
     }
 }

@@ -25,8 +25,9 @@ namespace Hotel
                 opt.Password.RequireLowercase = false;
                 opt.SignIn.RequireConfirmedEmail = true;
 
-            }).AddEntityFrameworkStores<HotelDBContext>().AddDefaultTokenProviders(); 
-            builder.Services.AddScoped<IEmailService,EmailService>();
+            }).AddEntityFrameworkStores<HotelDBContext>().AddDefaultTokenProviders();
+            builder.Services.AddScoped<IEmailService, EmailService>();
+            //builder.Services.AddScoped<IQRCodeService, QRCodeService>();
             builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection(nameof(Stripe)));
             var app = builder.Build();
 

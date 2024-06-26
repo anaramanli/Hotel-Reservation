@@ -513,3 +513,6 @@ C:\Users\User\Desktop\Hotel-Reservation\Hotel\Hotel\obj\Debug\net8.0\Hotel.pdb
 C:\Users\User\Desktop\Hotel-Reservation\Hotel\Hotel\obj\Debug\net8.0\Hotel.genruntimeconfig.cache
 C:\Users\User\Desktop\Hotel-Reservation\Hotel\Hotel\obj\Debug\net8.0\ref\Hotel.dll
 C:\Users\User\Desktop\Hotel-Reservation\Hotel\Hotel\bin\Debug\net8.0\Stripe.net.dll
+C:\Users\User\Desktop\Hotel-Reservation\Hotel\Hotel\bin\Debug\net8.0\BouncyCastle.Cryptography.dll
+C:\Users\User\Desktop\Hotel-Reservation\Hotel\Hotel\bin\Debug\net8.0\itextsharp.dll
+C:\Users\User\Desktop\Hotel-Reservation\Hotel\Hotel\bin\Debug\net8.0\QRCoder.dll

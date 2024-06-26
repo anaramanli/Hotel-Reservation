@@ -1,5 +1,7 @@
-﻿@model Hotel.ViewModels.Reservation.ReservationVM
-
+﻿@using Hotel.DAL
+@using Microsoft.Extensions.Options
+@model Hotel.ViewModels.Reservation.ReservationVM
+@inject IOptions<StripeSettings> Stripe
 @{
     ViewData["Title"] = "Create Reservation";
     var extrasList = ViewBag.Extras as List<Hotel.Enums.Extras>;
@@ -7,7 +9,6 @@
 }
 
 <style>
-    /* CSS stil kodları */
     .container {
         text-align: center;
         padding: 20px;
@@ -52,7 +53,7 @@
             <h3>Reservation</h3>
             <p>Your email address will not be published. Required fields are marked *</p>
         </div>
-        <form asp-action="Create" method="post" id="contactForm" class="contactForm" name="contactForm" novalidate="true">
+        <form asp-action="Create" method="post" id="contactForm" onchange="" class="contactForm"  novalidate="true">
             <input type="hidden" asp-for="RoomId" value="@Model.RoomId" />
             <div class="row gap-20 pt-15">
                 <div class="col-md-6">
@@ -136,8 +137,16 @@
                 <div class="col-md-12">
                     <div class="form-group pt-5 mb-0">
                         <label asp-for="TotalCost">Total: $<span id="total">@Model.TotalCost.ToString("0.00")</span></label>
-                        <button type="submit" class="theme-btn disabled" style="pointer-events: all; cursor: pointer;">Pay With Card <i class="far fa-arrow-right"></i></button>
-                        <div id="msgSubmit" class="hidden"></div>
+                        <script src="//checkout.stripe.com/v2/checkout.js"
+                                class="stripe-button"
+                                data-key="@Stripe.Value.Publishablekey"
+                                data-amount="@ViewBag.Total"
+                                data-name="[Deveducate]"
+                                data-locale="en"
+                                data-discription="Sample charge"
+                                data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                                data-zip-code="true">
+                        </script>
                     </div>
                 </div>
             </div>
