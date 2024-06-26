@@ -164,14 +164,16 @@ namespace Hotel.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Address")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("AppUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
@@ -189,10 +191,12 @@ namespace Hotel.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Phone")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AppUserId")
+                        .IsUnique();
 
                     b.ToTable("Customers");
                 });
@@ -379,7 +383,6 @@ namespace Hotel.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("SelectedExtras")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Surname")
@@ -830,9 +833,6 @@ namespace Hotel.Migrations
                     b.Property<DateTime?>("Birthdate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("CustomerId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -840,8 +840,6 @@ namespace Hotel.Migrations
                     b.Property<string>("Surname")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.HasIndex("CustomerId");
 
                     b.HasDiscriminator().HasValue("AppUser");
                 });
@@ -855,6 +853,17 @@ namespace Hotel.Migrations
                         .IsRequired();
 
                     b.Navigation("Room");
+                });
+
+            modelBuilder.Entity("Hotel.Models.Customer", b =>
+                {
+                    b.HasOne("Hotel.Models.AppUser", "AppUser")
+                        .WithOne("Customer")
+                        .HasForeignKey("Hotel.Models.Customer", "AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
                 });
 
             modelBuilder.Entity("Hotel.Models.Payment", b =>
@@ -987,15 +996,6 @@ namespace Hotel.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Hotel.Models.AppUser", b =>
-                {
-                    b.HasOne("Hotel.Models.Customer", "Customer")
-                        .WithMany()
-                        .HasForeignKey("CustomerId");
-
-                    b.Navigation("Customer");
-                });
-
             modelBuilder.Entity("Hotel.Models.Category", b =>
                 {
                     b.Navigation("rooms");
@@ -1028,6 +1028,11 @@ namespace Hotel.Migrations
             modelBuilder.Entity("Hotel.Models.Service", b =>
                 {
                     b.Navigation("ReservationServices");
+                });
+
+            modelBuilder.Entity("Hotel.Models.AppUser", b =>
+                {
+                    b.Navigation("Customer");
                 });
 #pragma warning restore 612, 618
         }

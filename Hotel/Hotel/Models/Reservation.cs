@@ -1,5 +1,6 @@
 ﻿using Hotel.Enums;
 using Hotel.Models.Base;
+using Stripe;
 using System;
 using System.Collections.Generic;
 
@@ -26,32 +27,27 @@ namespace Hotel.Models
 
         //public ICollection<Payment> Payments { get; set; }
         public ICollection<ReservationService> ReservationServices { get; set; }
-        public List<Extras> SelectedExtras { get; set; }
+        public List<Extras>? SelectedExtras { get; set; }
 
         public decimal TotalCost { get; set; }
 
         // Total cost calculation method
         public void CalculateTotalCost(Dictionary<Extras, decimal> extrasPrices)
         {
-            decimal totalCost = Room.Price;
+            int numberOfDays = (CheckOutDate - CheckInDate).Days;
 
-            if (SelectedExtras != null)
+            TotalCost = Room.Price * numberOfDays;
+
+            if (SelectedExtras != null && extrasPrices != null)
             {
                 foreach (var extra in SelectedExtras)
                 {
                     if (extrasPrices.ContainsKey(extra))
                     {
-                        totalCost += extrasPrices[extra];
+                        TotalCost += extrasPrices[extra];
                     }
                 }
             }
-
-            if (Room != null)
-            {
-                totalCost += Room.Price;
-            }
-
-            TotalCost = totalCost;
         }
     }
 }

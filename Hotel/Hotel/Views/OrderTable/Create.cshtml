@@ -7,13 +7,12 @@
 }
 
 <style>
-    /* Container styling */
+    /* CSS stil kodları */
     .container {
         text-align: center;
         padding: 20px;
     }
 
-    /* Specific link color in header */
     .main-header {
         color: black !important;
         background-color: #17171a !important;
@@ -31,13 +30,11 @@
             color: black !important;
         }
 
-    /* Heading styling */
     h1 {
         font-size: 2.5rem;
         color: #333;
     }
 
-    /* Subtitle styling */
     p {
         font-size: 1.2rem;
         color: #666;
@@ -45,7 +42,7 @@
     }
 
     .custom {
-        margin-top: 10%; /* 10% margin from the top */
+        margin-top: 10%;
     }
 </style>
 
@@ -93,7 +90,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label asp-for="CheckInDate">Check-in Date</label>
-                        <input type="date" class="form-control" asp-for="CheckInDate" min="@DateTime.Now.ToString("yyyy-MM-dd")" required data-error="Please enter your Check-in Date" onchange="validateDates()">
+                        <input type="date" class="form-control" asp-for="CheckInDate" min="@DateTime.Now.ToString("yyyy-MM-dd")" required data-error="Please enter your Check-in Date" onchange="updateTotal(); validateDates();">
                         <span asp-validation-for="CheckInDate" class="text-danger"></span>
                         <div class="help-block with-errors"></div>
                     </div>
@@ -101,11 +98,12 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label asp-for="CheckOutDate">Check-out Date</label>
-                        <input type="date" class="form-control" asp-for="CheckOutDate" min="@DateTime.Now.AddDays(1).ToString("yyyy-MM-dd")" required data-error="Please enter your Check-out Date" onchange="validateDates()">
+                        <input type="date" class="form-control" asp-for="CheckOutDate" min="@DateTime.Now.AddDays(1).ToString("yyyy-MM-dd")" required data-error="Please enter your Check-out Date" onchange="updateTotal(); validateDates();">
                         <span asp-validation-for="CheckOutDate" class="text-danger"></span>
                         <div class="help-block with-errors"></div>
                     </div>
                 </div>
+
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="extras">Extras</label>
@@ -127,10 +125,14 @@
 
                 <div class="col-md-12">
                     <div class="form-group">
-                        <label asp-for="Price">Room Price: $<span id="roomPrice">@Model.Price.ToString("0.00")</span></label>
+                        <label asp-for="Price">Room Price: (Per Night)$<span id="roomPrice">@Model.Price.ToString("0.00")</span></label>
                     </div>
                 </div>
-
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="days">Total Days: <span id="days">1</span></label>
+                    </div>
+                </div>
                 <div class="col-md-12">
                     <div class="form-group pt-5 mb-0">
                         <label asp-for="TotalCost">Total: $<span id="total">@Model.TotalCost.ToString("0.00")</span></label>
@@ -147,9 +149,21 @@
     <script>
         const extrasPrices = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(extrasPrices));
 
-        // Update total including room price and selected extras
         function updateTotal() {
             let total = parseFloat(document.getElementById('roomPrice').innerText);
+
+            const checkInDate = new Date(document.getElementById('CheckInDate').value);
+            const checkOutDate = new Date(document.getElementById('CheckOutDate').value);
+
+            // Calculate the number of days
+            const oneDay = 24 * 60 * 60 * 1000;
+            const diffDays = Math.round(Math.abs((checkOutDate - checkInDate) / oneDay));
+
+            // Update the days count on the screen
+            document.getElementById('days').innerText = diffDays;
+
+            // Calculate total based on the number of days
+            total *= diffDays;
 
             const selectedExtras = document.getElementById('extras').selectedOptions;
             for (let i = 0; i < selectedExtras.length; i++) {
@@ -159,16 +173,14 @@
             document.getElementById('total').innerText = total.toFixed(2);
         }
 
-        // Remove selected extras from the list
         function removeSelectedExtras() {
             const selectedExtras = document.getElementById('extras').selectedOptions;
             for (let i = selectedExtras.length - 1; i >= 0; i--) {
-                selectedExtras[i].remove();
+                selectedExtras[i].selected = false;
             }
-            updateTotal(); // Update total after removing extras
+            updateTotal();
         }
 
-        // Validate check-in and check-out dates
         function validateDates() {
             const checkInDate = new Date(document.getElementById('CheckInDate').value);
             const checkOutDate = new Date(document.getElementById('CheckOutDate').value);
@@ -176,12 +188,16 @@
             if (checkOutDate <= checkInDate) {
                 alert('Check-out date must be greater than Check-in date.');
                 document.getElementById('CheckOutDate').value = '';
+                document.getElementById('days').innerText = '0';
+                document.getElementById('total').innerText = '0.00';
+            } else {
+                updateTotal();
             }
         }
 
-        // Initial call to update total when page loads
         document.addEventListener('DOMContentLoaded', function () {
             updateTotal();
         });
     </script>
 }
+

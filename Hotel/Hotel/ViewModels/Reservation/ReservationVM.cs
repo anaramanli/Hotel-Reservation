@@ -17,11 +17,13 @@ namespace Hotel.ViewModels.Reservation
         public List<Extras> SelectedExtras { get; set; }
         public decimal TotalCost { get; set; }
 
-        
+
 
         public void CalculateTotalCost(Dictionary<Extras, decimal> extrasPrices)
         {
-            TotalCost = Price; 
+            int numberOfDays = (CheckOutDate - CheckInDate).Days;
+
+            TotalCost = Room.Price * numberOfDays;
 
             if (SelectedExtras != null && extrasPrices != null)
             {

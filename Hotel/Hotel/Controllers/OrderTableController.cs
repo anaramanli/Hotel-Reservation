@@ -23,7 +23,7 @@ namespace Hotel.Controllers
         {
             { Extras.NightView, 50 },
             { Extras.OceanView, 100 },
-            { Extras.CityView, 75 }
+            { Extras.CityView, 0 }
         };
 
         public OrderTableController(HotelDBContext context, UserManager<AppUser> userManager)
@@ -35,11 +35,11 @@ namespace Hotel.Controllers
         [Authorize]
         public async Task<IActionResult> Create(int id)
         {
-            var room = _context.Rooms
-                                .Include(r => r.RoomStatus)
-                                .Include(r => r.Category)
-                                .FirstOrDefault(r => r.Id == id);
-            if (room == null || !room.RoomStatus.StatusName.ToString().Contains("Available"))
+            var room = await _context.Rooms
+                                    .Include(r => r.RoomStatus)
+                                    .Include(r => r.Category)
+                                    .FirstOrDefaultAsync(r => r.Id == id);
+            if (room == null || !room.RoomStatus.StatusName.Contains("Available"))
             {
                 return BadRequest();
             }
@@ -57,9 +57,9 @@ namespace Hotel.Controllers
                 Price = room.Price,
                 CheckInDate = DateTime.Now,
                 CheckOutDate = DateTime.Now.AddDays(1),
-                Name = User.Identity.Name,
-                Email = user.Email, 
-                TotalCost = room.Price
+                Name = user.UserName,
+                Email = user.Email,
+                TotalCost = room.Price,
             };
 
             ViewBag.Extras = Enum.GetValues(typeof(Extras)).Cast<Extras>().ToList();
@@ -67,12 +67,11 @@ namespace Hotel.Controllers
 
             return View(viewModel);
         }
-
         [HttpPost]
         [Authorize]
         public async Task<IActionResult> Create(ReservationVM viewModel)
         {
-            var room = _context.Rooms.Include(r => r.RoomStatus).FirstOrDefault(r => r.Id == viewModel.RoomId);
+            var room = await _context.Rooms.Include(r => r.RoomStatus).FirstOrDefaultAsync(r => r.Id == viewModel.RoomId);
             viewModel.Price = room.Price;
 
             if (ModelState.IsValid)
@@ -88,7 +87,18 @@ namespace Hotel.Controllers
                     var customer = await _context.Customers.FirstOrDefaultAsync(c => c.AppUserId == user.Id);
                     if (customer == null)
                     {
-                        return BadRequest("Customer not found.");
+                        customer = new Customer
+                        {
+                            AppUserId = user.Id,
+                            AppUser = user,
+                            CreatedAt = DateTime.Now,
+                            FirstName = user.Name,
+                            LastName = user.Surname,
+                            Email = user.Email,
+                            Phone = user.PhoneNumber,
+                        };
+                        _context.Customers.Add(customer);
+                        await _context.SaveChangesAsync();
                     }
 
                     var reservation = new Reservation
@@ -104,11 +114,24 @@ namespace Hotel.Controllers
                         Message = viewModel.Message,
                         SelectedExtras = viewModel.SelectedExtras,
                         TotalCost = viewModel.TotalCost,
-                        CustomerId = customer.Id 
+                        CustomerId = customer.Id,
+                        CreatedAt = DateTime.Now
                     };
+                    // Calculate the total cost
+                    reservation.CalculateTotalCost(ExtrasPrices);
+
+                    var reservedStatus = await _context.RoomStatuses.FirstOrDefaultAsync(rs => rs.StatusName == "Reserved");
+
+                    if (reservedStatus == null)
+                    {
+                        return BadRequest("Reserved status not found.");
+                    }
+
+                    room.RoomStatus = reservedStatus;
 
                     _context.Reservations.Add(reservation);
-                    _context.SaveChanges();
+                    _context.Rooms.Update(room);
+                    await _context.SaveChangesAsync();
 
                     return RedirectToAction("Index", "Home");
                 }
@@ -122,5 +145,7 @@ namespace Hotel.Controllers
             ViewBag.ExtrasPrices = ExtrasPrices;
             return View(viewModel);
         }
+
+
     }
 }
