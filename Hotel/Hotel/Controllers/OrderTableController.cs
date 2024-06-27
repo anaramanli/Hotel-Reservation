@@ -14,6 +14,8 @@ using Stripe;
 using System.Threading.Tasks;
 using Hotel.Interfaces;
 using Hotel.Services;
+using System.Net.Mail;
+using System.Net.Mime;
 
 namespace Hotel.Controllers
 {
@@ -22,19 +24,21 @@ namespace Hotel.Controllers
         private readonly HotelDBContext _context;
         private readonly UserManager<AppUser> _userManager;
         private readonly IEmailService _emailService;
+        private readonly IQRCodeService _qrCodeService;
 
         private static readonly Dictionary<Extras, decimal> ExtrasPrices = new Dictionary<Extras, decimal>
-        {
-            { Extras.NightView, 50 },
-            { Extras.OceanView, 100 },
-            { Extras.CityView, 0 }
-        };
+    {
+        { Extras.NightView, 50 },
+        { Extras.OceanView, 100 },
+        { Extras.CityView, 0 }
+    };
 
-        public OrderTableController(HotelDBContext context, UserManager<AppUser> userManager, IEmailService emailService)
+        public OrderTableController(HotelDBContext context, UserManager<AppUser> userManager, IEmailService emailService, IQRCodeService qrCodeService)
         {
             _context = context;
             _userManager = userManager;
             _emailService = emailService;
+            _qrCodeService = qrCodeService;
         }
 
         [Authorize]
@@ -163,18 +167,24 @@ namespace Hotel.Controllers
 
                     room.RoomStatus = reservedStatus;
 
-                    // Send confirmation email
-                    string body = @$"
-                        <h1>Payment Successful</h1>
-                        <p>Thank you for your reservation. Your payment has been processed successfully.</p>
-                        <p>Reservation Details:</p>
-                        <ul>
-                            <li>Check-in Date: {reservation.CheckInDate.ToShortDateString()}</li>
-                            <li>Check-out Date: {reservation.CheckOutDate.ToShortDateString()}</li>
-                            <li>Total Cost: ${reservation.TotalCost}</li>
-                        </ul>";
+                    var qrCodeText = $"Room ID: {reservation.RoomId}, Check-in: {reservation.CheckInDate}, Check-out: {reservation.CheckOutDate}";
+                    var qrCodeBytes = _qrCodeService.GenerateQRCodeAsByteArray(qrCodeText);
 
-                    await _emailService.SendMailAsync(user.Email, "Reservation Confirmation", body, true);
+                    string body = $@"
+                    <h1>Payment Successful</h1>
+                    <p>Thank you for your reservation. Your payment has been processed successfully.</p>
+                    <p>Reservation Details:</p>
+                    <ul>
+                        <li>Check-in Date: {reservation.CheckInDate.ToShortDateString()}</li>
+                        <li>Check-out Date: {reservation.CheckOutDate.ToShortDateString()}</li>
+                        <li>Total Cost: ${reservation.TotalCost}</li>
+                    </ul>
+                    <p>Scan this QR code for room access:</p>
+                    <img src='cid:QRCodeImage' alt='QR Code' width='10%' />
+                ";
+
+
+                    await _emailService.SendMailWithEmbeddedImageAsync(user.Email, "Reservation Confirmation", body, qrCodeBytes, "QRCodeImage", true);
 
                     _context.Reservations.Add(reservation);
                     _context.Rooms.Update(room);
@@ -193,4 +203,5 @@ namespace Hotel.Controllers
             return View(viewModel);
         }
     }
+
 }

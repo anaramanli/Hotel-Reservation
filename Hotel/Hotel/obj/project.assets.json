@@ -46,19 +46,6 @@
           }
         }
       },
-      "BouncyCastle.Cryptography/2.4.0": {
-        "type": "package",
-        "compile": {
-          "lib/net6.0/BouncyCastle.Cryptography.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net6.0/BouncyCastle.Cryptography.dll": {
-            "related": ".xml"
-          }
-        }
-      },
       "Humanizer/2.14.1": {
         "type": "package",
         "dependencies": {
@@ -651,18 +638,6 @@
           "lib/net6.0/zh-Hant/Humanizer.resources.dll": {
             "locale": "zh-Hant"
           }
-        }
-      },
-      "iTextSharp/5.5.13.4": {
-        "type": "package",
-        "dependencies": {
-          "BouncyCastle.Cryptography": "2.4.0"
-        },
-        "compile": {
-          "lib/net461/itextsharp.dll": {}
-        },
-        "runtime": {
-          "lib/net461/itextsharp.dll": {}
         }
       },
       "Microsoft.AspNetCore.Cryptography.Internal/8.0.6": {
@@ -2138,13 +2113,16 @@
           "lib/netstandard2.0/NuGet.Versioning.dll": {}
         }
       },
-      "QRCoder/1.5.1": {
+      "QRCoder/1.4.1": {
         "type": "package",
+        "dependencies": {
+          "System.Drawing.Common": "4.7.0"
+        },
         "compile": {
-          "lib/net6.0/QRCoder.dll": {}
+          "lib/netstandard2.0/QRCoder.dll": {}
         },
         "runtime": {
-          "lib/net6.0/QRCoder.dll": {}
+          "lib/netstandard2.0/QRCoder.dll": {}
         }
       },
       "Stripe.net/44.13.0": {
@@ -2923,26 +2901,6 @@
         "lib/netstandard2.0/Azure.Identity.xml"
       ]
     },
-    "BouncyCastle.Cryptography/2.4.0": {
-      "sha512": "SwXsAV3sMvAU/Nn31pbjhWurYSjJ+/giI/0n6tCrYoupEK34iIHCuk3STAd9fx8yudM85KkLSVdn951vTng/vQ==",
-      "type": "package",
-      "path": "bouncycastle.cryptography/2.4.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "LICENSE.md",
-        "README.md",
-        "bouncycastle.cryptography.2.4.0.nupkg.sha512",
-        "bouncycastle.cryptography.nuspec",
-        "lib/net461/BouncyCastle.Cryptography.dll",
-        "lib/net461/BouncyCastle.Cryptography.xml",
-        "lib/net6.0/BouncyCastle.Cryptography.dll",
-        "lib/net6.0/BouncyCastle.Cryptography.xml",
-        "lib/netstandard2.0/BouncyCastle.Cryptography.dll",
-        "lib/netstandard2.0/BouncyCastle.Cryptography.xml",
-        "packageIcon.png"
-      ]
-    },
     "Humanizer/2.14.1": {
       "sha512": "/FUTD3cEceAAmJSCPN9+J+VhGwmL/C12jvwlyM1DFXShEMsBzvLzLqSrJ2rb+k/W2znKw7JyflZgZpyE+tI7lA==",
       "type": "package",
@@ -3687,22 +3645,6 @@
         "lib/netstandard1.0/zh-Hant/Humanizer.resources.dll",
         "lib/netstandard2.0/zh-Hant/Humanizer.resources.dll",
         "logo.png"
-      ]
-    },
-    "iTextSharp/5.5.13.4": {
-      "sha512": "/cvCNv8AJ+XuD99u4NfHSSxkBJKTdvP36wcfQF9V1Cjzi1ycyFSa4vJ64a3DhFVUTKVO60WF8OmAqngQDTHgYA==",
-      "type": "package",
-      "path": "itextsharp/5.5.13.4",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "LICENSE.md",
-        "gnu-agpl-v3.0.md",
-        "itextsharp.5.5.13.4.nupkg.sha512",
-        "itextsharp.nuspec",
-        "lib/net461/iTextSharp.xml",
-        "lib/net461/itextsharp.dll",
-        "notice.txt"
       ]
     },
     "Microsoft.AspNetCore.Cryptography.Internal/8.0.6": {
@@ -6707,24 +6649,18 @@
         "nuget.versioning.nuspec"
       ]
     },
-    "QRCoder/1.5.1": {
-      "sha512": "+v8VntytuDw4R1nCNJkSA7SWSizJoQfiByV1+nUjOwrDZEuaxefG73aKuuQjpaGtoZ7qlXpRbK70C23m1h3WLw==",
+    "QRCoder/1.4.1": {
+      "sha512": "W8KwCwsOJe9SI7Cm7XeIMawd08F/US6xNw34lg2Qnx6m7GYYakxbyBQaNoW1Q75oJOmX/32sJUZr6Cix2B6GUQ==",
       "type": "package",
-      "path": "qrcoder/1.5.1",
+      "path": "qrcoder/1.4.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "lib/net35/QRCoder.dll",
         "lib/net40/QRCoder.dll",
-        "lib/net5.0-windows7.0/QRCoder.dll",
-        "lib/net5.0/QRCoder.dll",
-        "lib/net6.0-windows7.0/QRCoder.dll",
-        "lib/net6.0/QRCoder.dll",
-        "lib/netstandard1.3/QRCoder.dll",
+        "lib/netstandard1.1/QRCoder.dll",
         "lib/netstandard2.0/QRCoder.dll",
-        "nuget-icon.png",
-        "nuget-readme.md",
-        "qrcoder.1.5.1.nupkg.sha512",
+        "qrcoder.1.4.1.nupkg.sha512",
         "qrcoder.nuspec"
       ]
     },
@@ -8142,9 +8078,8 @@
       "Microsoft.EntityFrameworkCore.SqlServer >= 8.0.6",
       "Microsoft.EntityFrameworkCore.Tools >= 8.0.6",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 8.0.2",
-      "QRCoder >= 1.5.1",
-      "Stripe.net >= 44.13.0",
-      "iTextSharp >= 5.5.13.4"
+      "QRCoder >= 1.4.1",
+      "Stripe.net >= 44.13.0"
     ]
   },
   "packageFolders": {
@@ -8215,15 +8150,11 @@
           },
           "QRCoder": {
             "target": "Package",
-            "version": "[1.5.1, )"
+            "version": "[1.4.1, )"
           },
           "Stripe.net": {
             "target": "Package",
             "version": "[44.13.0, )"
-          },
-          "iTextSharp": {
-            "target": "Package",
-            "version": "[5.5.13.4, )"
           }
         },
         "imports": [
@@ -8248,17 +8179,5 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202/PortableRuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "NU1701",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Package 'iTextSharp 5.5.13.4' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net8.0'. This package may not be fully compatible with your project.",
-      "libraryId": "iTextSharp",
-      "targetGraphs": [
-        "net8.0"
-      ]
-    }
-  ]
+  }
 }

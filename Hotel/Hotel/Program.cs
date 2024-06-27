@@ -27,7 +27,7 @@ namespace Hotel
 
             }).AddEntityFrameworkStores<HotelDBContext>().AddDefaultTokenProviders();
             builder.Services.AddScoped<IEmailService, EmailService>();
-            //builder.Services.AddScoped<IQRCodeService, QRCodeService>();
+            builder.Services.AddScoped<IQRCodeService, QRCodeService>();
             builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection(nameof(Stripe)));
             var app = builder.Build();
 
