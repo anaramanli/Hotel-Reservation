@@ -1,0 +1,138 @@
+﻿@{
+	ViewData["Title"] = "User Profile";
+}
+@using Hotel.ViewModels.UserProfile
+@model UserProfileViewModel
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>@ViewData["Title"]</title>
+	<!-- CSS styles for styling the page -->
+	<style>
+		/* Container styling */
+		.container {
+			/* text-align: center; */
+			padding: 20px;
+		}
+
+		/* Specific link color in header */
+		.main-header {
+			color: black !important;
+			background-color: #17171a !important;
+		}
+
+			/* .main-header a {
+				color: white !important;
+			} */
+
+			/* .main-header.active a {
+				color: white !important;
+			} */
+
+			.main-header.inactive a {
+				color: black !important;
+			}
+		/* Heading styling */
+		h1 {
+			font-size: 2.5rem;
+			color: #333;
+			margin-top: 10%; 
+		}
+
+		/* Subtitle styling */
+		p {
+			font-size: 1.2rem;
+			color: #666;
+			margin-top: 20px;
+		}
+		.row{
+			/* margin-top: 10%; */
+		}
+	</style>
+</head>
+<body>
+	<div class="container" >
+		<div class="card" style="margin-top:5%">
+				<div class="row">
+					<div class="col-sm order-2 order-sm-1">
+						<div class="d-flex align-items-start mt-3 mt-sm-0">
+							<div class="flex-shrink-0">
+								@* <div class="avatar-xl me-3">
+								<img src="assets/images/users/avatar-2.jpg" alt="" class="img-fluid rounded-circle d-block">
+								</div> *@
+							</div>
+							<div class="flex-grow-1">
+								<div>
+									<h5 class="font-size-16 mb-1"> Name : @Model.UserName</h5>
+									<p class="text-muted font-size-13"> Surname : @Model.UserSurname</p>
+									<p class="text-muted font-size-13">Email : @Model.UserEmail</p>
+
+									@* <div class="d-flex flex-wrap align-items-start gap-2 gap-lg-3 text-muted font-size-13">
+									<div><i class="mdi mdi-circle-medium me-1 text-success align-middle"></i>Development</div>
+									<div><i class="mdi mdi-circle-medium me-1 text-success align-middle"></i>phyllisgatlin@minia.com</div>
+									</div> *@
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		<div class="card">
+			<div class="card-header">
+				<div class="d-flex">
+					<div class="flex-grow-1">
+						<h5 class="card-title mb-0">Your Reservations</h5>
+					</div>
+				</div>
+			</div>
+			
+				<div class="card-body">
+				<div class="row">
+					@foreach (var item in Model.Reservations)
+					{
+						<div class="col-xl-4">
+									<div class="card p-1 mb-xl-0">
+											<div class="position-relative">
+												<img src="assets/images/small/img-3.jpg" alt="" class="img-thumbnail">
+											@if (item.Room.Images != null && item.Room.Images.Any())
+												{
+													<img src="@Url.Content("~/assets/imgs/" + item.Room.Images.First().Url)" alt="Room">
+												}
+												else
+												{
+													<img src="~/assets/imgs/default-image.jpg" alt="Room">
+												}
+											</div>
+										<div class="p-3">
+											<div class="d-flex align-items-start">
+												<div class="flex-grow-1 overflow-hidden">
+													<h5 class="font-size-15 text-truncate"><a href="#" class="text-body">@item.Room.Name</a></h5>
+													<p class="font-size-13 text-muted mb-0">Room Number:@item.Room.RoomNumber</p>
+													<p class="font-size-13 text-muted mb-0">Check In Date:@item.CheckInDate</p>
+													<p class="font-size-13 text-muted mb-0">Check Out Date:@item.CheckOutDate</p>
+												</div>
+											</div>
+										</div>
+										<div class="p-3">
+											<div>
+												<a asp-action="Details" asp-controller="Room" asp-route-id="@item.Room.Id" class="text-primary">Read more <i class="mdi mdi-arrow-right"></i></a>
+											</div>
+										</div>
+									</div>
+						</div>
+					}			<!-- end col -->
+					</div>
+				</div>
+			
+			<!-- end card body -->
+		</div>
+				
+            
+
+
+</body>
+</html>

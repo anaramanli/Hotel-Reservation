@@ -41,7 +41,7 @@ namespace Hotel
             StripeConfiguration.ApiKey = builder.Configuration["Stripe:Secretkey"];
 
             app.MapControllerRoute(name: "roomDetail", pattern: "room/details/{id?}", defaults: new { controller = "Room", action = "Details" });
-            app.MapControllerRoute(name: "areas", pattern: "{area:exists}/{controller=Slider}/{action=Index}/{id?}");
+			app.MapControllerRoute(name: "areas", pattern: "{area:exists}/{controller=Slider}/{action=Index}/{id?}");
             app.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}/{id?}");
             app.UseRouting();
 

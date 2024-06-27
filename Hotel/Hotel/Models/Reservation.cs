@@ -27,8 +27,10 @@ namespace Hotel.Models
         public int CustomerId { get; set; } 
         public Customer Customer { get; set; }
 
+        public ICollection<UserReservation>? UserReservations { get; set; }
+
         //public ICollection<Payment> Payments { get; set; }
-        public ICollection<ReservationService> ReservationServices { get; set; }
+        public ICollection<ReservationService>? ReservationServices { get; set; }
         public List<Extras>? SelectedExtras { get; set; }
 
         public decimal TotalCost { get; set; }

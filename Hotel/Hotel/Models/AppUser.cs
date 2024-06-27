@@ -11,5 +11,7 @@ namespace Hotel.Models
         //Relations
         public Customer? Customer { get; set; }
 
-    }
+        public ICollection<UserReservation>? UserReservations { get; set; }
+
+	}
 }

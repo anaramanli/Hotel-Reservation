@@ -619,6 +619,21 @@ namespace Hotel.Migrations
                     b.ToTable("Sliders");
                 });
 
+            modelBuilder.Entity("Hotel.Models.UserReservation", b =>
+                {
+                    b.Property<int>("ReservationId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("ReservationId", "AppUserId");
+
+                    b.HasIndex("AppUserId");
+
+                    b.ToTable("UserReservations");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -945,6 +960,25 @@ namespace Hotel.Migrations
                     b.Navigation("Room");
                 });
 
+            modelBuilder.Entity("Hotel.Models.UserReservation", b =>
+                {
+                    b.HasOne("Hotel.Models.AppUser", "AppUser")
+                        .WithMany("UserReservations")
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Hotel.Models.Reservation", "Reservation")
+                        .WithMany("UserReservations")
+                        .HasForeignKey("ReservationId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+
+                    b.Navigation("Reservation");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -1009,6 +1043,8 @@ namespace Hotel.Migrations
             modelBuilder.Entity("Hotel.Models.Reservation", b =>
                 {
                     b.Navigation("ReservationServices");
+
+                    b.Navigation("UserReservations");
                 });
 
             modelBuilder.Entity("Hotel.Models.Room", b =>
@@ -1033,6 +1069,8 @@ namespace Hotel.Migrations
             modelBuilder.Entity("Hotel.Models.AppUser", b =>
                 {
                     b.Navigation("Customer");
+
+                    b.Navigation("UserReservations");
                 });
 #pragma warning restore 612, 618
         }

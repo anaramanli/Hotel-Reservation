@@ -26,6 +26,27 @@ namespace Hotel.DAL
         public DbSet<RoomImage> RoomImages { get; set; }
         public DbSet<Feature> Features { get; set; }
         public DbSet<Availability> Availabilities { get; set; }
+        public DbSet<UserReservation> UserReservations { get; set; }
 
-    }
+		protected override void OnModelCreating(ModelBuilder builder)
+		{
+			base.OnModelCreating(builder);
+
+            builder.Entity<UserReservation>()
+                .HasKey(x => new { x.ReservationId, x.AppUserId });
+
+			builder.Entity<UserReservation>()
+				.HasOne(x => x.AppUser)
+				.WithMany(xt => xt.UserReservations)
+				.HasForeignKey(x => x.AppUserId)
+				.OnDelete(DeleteBehavior.Restrict);
+            
+            builder.Entity<UserReservation>()
+				.HasOne(x => x.Reservation)
+				.WithMany(xt => xt.UserReservations)
+				.HasForeignKey(x => x.ReservationId)
+				.OnDelete(DeleteBehavior.Restrict);
+
+		}
+	}
 }
