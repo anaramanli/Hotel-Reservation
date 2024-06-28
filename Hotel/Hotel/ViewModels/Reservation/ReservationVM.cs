@@ -4,6 +4,7 @@ namespace Hotel.ViewModels.Reservation
 {
     public class ReservationVM
     {
+        public int Id { get; set; }
         public int RoomId { get; set; }
         public Models.Room? Room { get; set; }
         public decimal Price { get; set; }
@@ -17,8 +18,8 @@ namespace Hotel.ViewModels.Reservation
         public List<Extras> SelectedExtras { get; set; }
         public decimal TotalCost { get; set; }
 
-
-
+        public bool IsDeleted { get; set; }
+        public Models.Reservation Reservation { get; set; }
         public void CalculateTotalCost(Dictionary<Extras, decimal> extrasPrices)
         {
             int numberOfDays = (CheckOutDate - CheckInDate).Days;

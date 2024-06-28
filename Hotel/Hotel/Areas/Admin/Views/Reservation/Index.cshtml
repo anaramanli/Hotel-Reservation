@@ -4,11 +4,11 @@
     ViewData["Title"] = "Reservations";
 }
 
-<div class="page-content" >
+<div class="page-content">
     <div class="card-body p-4" style="border:solid;border-radius:20px">
         <h2>Reservations</h2>
 
-        <div class="table-responsive" >
+        <div class="table-responsive">
             <table id="reservationsTable" class="table table-striped table-bordered">
                 <thead>
                     <tr>
@@ -21,13 +21,15 @@
                         <th>Check Out Date</th>
                         <th>Total Cost</th>
                         <th>Selected Extras</th>
+                        <th>Visibility</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var reservation in Model)
                     {
                         <tr>
-                            <td>@reservation.Room.RoomNumber</td>
+                            <td>@reservation.Room?.RoomNumber</td>
                             <td>@reservation.Name</td>
                             <td>@reservation.Surname</td>
                             <td>@reservation.PhoneNumber</td>
@@ -43,6 +45,21 @@
                                     }
                                 </ul>
                             </td>
+                            <td>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input change-visibility"
+                                           style="width:3.5rem; height:1.75rem"
+                                           data-reservation-id="@reservation.Id"
+                                           type="checkbox"
+                                    @(reservation.IsDeleted ? "" : "checked")>
+                                </div>
+                            </td>
+                            <td>
+                                <button class="btn btn-sm btn-danger"
+                                        onclick="deleteReservation(@reservation.Id)">
+                                    Delete
+                                </button>
+                            </td>
                         </tr>
                     }
                 </tbody>
@@ -52,21 +69,100 @@
     </div>
 </div>
 
-@section Scripts {
+@section styles {
     <!-- DataTables CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.min.css">
+    <!-- Toastr CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+}
 
+@section scripts {
     <!-- jQuery and DataTables JS -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Toastr JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
     <script>
         $(document).ready(function () {
             $('#reservationsTable').DataTable({
-                "paging": true,     // Enable paging
-                "ordering": true,   // Enable sorting
-                "searching": true   // Enable searching
+                "paging": true,
+                "ordering": true,
+                "searching": true
+            });
+
+            toastr.options = {
+                "closeButton": false,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": true,
+                "positionClass": "toast-bottom-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut",
+                "opacity": "1" // Set background visibility to 100%
+            };
+
+            $('.change-visibility').change(function () {
+                var reservationId = $(this).data('reservation-id');
+                $.ajax({
+                    url: '@Url.Action("ChangeVisibility", "Reservation", new { area = "Admin" })',
+                    type: 'POST',
+                    data: { reservationId: reservationId },
+                    success: function () {
+                        toastr.success('Visibility status changed successfully');
+                    },
+                    error: function () {
+                        toastr.error('Error occurred while changing visibility status');
+                    }
+                });
             });
         });
+
+        function deleteReservation(reservationId) {
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    fetch(`/Admin/Reservation/Delete/${reservationId}`, {
+                        method: "DELETE"
+                    })
+                        .then(response => {
+                            if (response.ok) {
+                                return response.json();
+                            } else {
+                                throw new Error('Failed to delete reservation');
+                            }
+                        })
+                        .then(data => {
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: "Your reservation has been deleted.",
+                                icon: "success"
+                            }).then(() => location.reload());
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            Swal.fire("Error", "An error occurred while deleting the reservation.", "error");
+                        });
+                }
+            });
+        }
+
     </script>
 }
