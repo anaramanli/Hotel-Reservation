@@ -180,7 +180,7 @@ namespace Hotel.Controllers
                         <li>Total Cost: ${reservation.TotalCost}</li>
                     </ul>
                     <p>Scan this QR code for room access:</p>
-                    <img src='cid:QRCodeImage' alt='QR Code' width='10%' />
+                    <img src='cid:QRCodeImage' alt='QR Code' width='40%' />
                 ";
 
 

@@ -29,7 +29,7 @@ namespace Hotel.Controllers
 			var user = await _usermanager.GetUserAsync(User);
 			
 
-			var reservations = await _context.Reservations
+			var reservations = await _context.Reservations.Where(r=>r.IsDeleted != true)
 				.Include(r => r.Room).ThenInclude(ri=>ri.Images)
 				.Where(r => r.Customer.AppUserId == user.Id)
 				.ToListAsync();

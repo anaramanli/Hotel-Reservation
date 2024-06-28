@@ -3,12 +3,24 @@
   "WorkspaceRootPath": "C:\\Users\\User\\Desktop\\Hotel-Reservation\\Hotel\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A26D0BEC-5CDC-4CF9-B39B-455D68CBAF01}|Hotel\\Hotel.csproj|c:\\users\\user\\desktop\\hotel-reservation\\hotel\\hotel\\views\\userprofile\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{A26D0BEC-5CDC-4CF9-B39B-455D68CBAF01}|Hotel\\Hotel.csproj|solutionrelative:hotel\\views\\userprofile\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{A26D0BEC-5CDC-4CF9-B39B-455D68CBAF01}|Hotel\\Hotel.csproj|c:\\users\\user\\desktop\\hotel-reservation\\hotel\\hotel\\areas\\admin\\controllers\\reservationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A26D0BEC-5CDC-4CF9-B39B-455D68CBAF01}|Hotel\\Hotel.csproj|solutionrelative:hotel\\areas\\admin\\controllers\\reservationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A26D0BEC-5CDC-4CF9-B39B-455D68CBAF01}|Hotel\\Hotel.csproj|C:\\Users\\User\\Desktop\\Hotel-Reservation\\Hotel\\hotel\\controllers\\userprofilecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{A26D0BEC-5CDC-4CF9-B39B-455D68CBAF01}|Hotel\\Hotel.csproj|c:\\users\\user\\desktop\\hotel-reservation\\hotel\\hotel\\areas\\admin\\views\\reservation\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A26D0BEC-5CDC-4CF9-B39B-455D68CBAF01}|Hotel\\Hotel.csproj|solutionrelative:hotel\\areas\\admin\\views\\reservation\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A26D0BEC-5CDC-4CF9-B39B-455D68CBAF01}|Hotel\\Hotel.csproj|c:\\users\\user\\desktop\\hotel-reservation\\hotel\\hotel\\areas\\admin\\views\\user\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A26D0BEC-5CDC-4CF9-B39B-455D68CBAF01}|Hotel\\Hotel.csproj|solutionrelative:hotel\\areas\\admin\\views\\user\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A26D0BEC-5CDC-4CF9-B39B-455D68CBAF01}|Hotel\\Hotel.csproj|c:\\users\\user\\desktop\\hotel-reservation\\hotel\\hotel\\controllers\\userprofilecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A26D0BEC-5CDC-4CF9-B39B-455D68CBAF01}|Hotel\\Hotel.csproj|solutionrelative:hotel\\controllers\\userprofilecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A26D0BEC-5CDC-4CF9-B39B-455D68CBAF01}|Hotel\\Hotel.csproj|C:\\Users\\User\\Desktop\\Hotel-Reservation\\Hotel\\hotel\\areas\\admin\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A26D0BEC-5CDC-4CF9-B39B-455D68CBAF01}|Hotel\\Hotel.csproj|solutionrelative:hotel\\areas\\admin\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A26D0BEC-5CDC-4CF9-B39B-455D68CBAF01}|Hotel\\Hotel.csproj|c:\\users\\user\\desktop\\hotel-reservation\\hotel\\hotel\\viewmodels\\userprofile\\userprofileviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -22,8 +34,87 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 2,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "UserProfileViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\Hotel-Reservation\\Hotel\\Hotel\\ViewModels\\UserProfile\\UserProfileViewModel.cs",
+              "RelativeDocumentMoniker": "Hotel\\ViewModels\\UserProfile\\UserProfileViewModel.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\Hotel-Reservation\\Hotel\\Hotel\\ViewModels\\UserProfile\\UserProfileViewModel.cs",
+              "RelativeToolTip": "Hotel\\ViewModels\\UserProfile\\UserProfileViewModel.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-28T13:06:42.146Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\Hotel-Reservation\\Hotel\\Hotel\\Areas\\Admin\\Views\\Reservation\\Index.cshtml",
+              "RelativeDocumentMoniker": "Hotel\\Areas\\Admin\\Views\\Reservation\\Index.cshtml",
+              "ToolTip": "C:\\Users\\User\\Desktop\\Hotel-Reservation\\Hotel\\Hotel\\Areas\\Admin\\Views\\Reservation\\Index.cshtml",
+              "RelativeToolTip": "Hotel\\Areas\\Admin\\Views\\Reservation\\Index.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-06-28T14:21:04.181Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ReservationController.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\Hotel-Reservation\\Hotel\\Hotel\\Areas\\Admin\\Controllers\\ReservationController.cs",
+              "RelativeDocumentMoniker": "Hotel\\Areas\\Admin\\Controllers\\ReservationController.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\Hotel-Reservation\\Hotel\\Hotel\\Areas\\Admin\\Controllers\\ReservationController.cs",
+              "RelativeToolTip": "Hotel\\Areas\\Admin\\Controllers\\ReservationController.cs",
+              "ViewState": "AQIAABMAAAAAAAAAAAAAACMAAAAiAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-28T14:12:52.024Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "UserProfileController.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\Hotel-Reservation\\Hotel\\Hotel\\Controllers\\UserProfileController.cs",
+              "RelativeDocumentMoniker": "Hotel\\Controllers\\UserProfileController.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\Hotel-Reservation\\Hotel\\Hotel\\Controllers\\UserProfileController.cs",
+              "RelativeToolTip": "Hotel\\Controllers\\UserProfileController.cs",
+              "ViewState": "AQIAABQAAAAAAAAAAAAQwB8AAABIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-28T14:00:33.454Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "UserController.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\Hotel-Reservation\\Hotel\\Hotel\\Areas\\Admin\\Controllers\\UserController.cs",
+              "RelativeDocumentMoniker": "Hotel\\Areas\\Admin\\Controllers\\UserController.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\Hotel-Reservation\\Hotel\\Hotel\\Areas\\Admin\\Controllers\\UserController.cs",
+              "RelativeToolTip": "Hotel\\Areas\\Admin\\Controllers\\UserController.cs",
+              "ViewState": "AQIAAB0AAAAAAAAAAAAAACoAAAADAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-28T09:47:09.622Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\Hotel-Reservation\\Hotel\\Hotel\\Areas\\Admin\\Views\\User\\Index.cshtml",
+              "RelativeDocumentMoniker": "Hotel\\Areas\\Admin\\Views\\User\\Index.cshtml",
+              "ToolTip": "C:\\Users\\User\\Desktop\\Hotel-Reservation\\Hotel\\Hotel\\Areas\\Admin\\Views\\User\\Index.cshtml",
+              "RelativeToolTip": "Hotel\\Areas\\Admin\\Views\\User\\Index.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-06-28T09:51:34.948Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
@@ -31,45 +122,6 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{6324226f-61b6-4f28-92ee-18d4b5fe1e48}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "UserProfileViewModel.cs",
-              "DocumentMoniker": "C:\\Users\\User\\Desktop\\Hotel-Reservation\\Hotel\\Hotel\\ViewModels\\UserProfile\\UserProfileViewModel.cs",
-              "RelativeDocumentMoniker": "Hotel\\ViewModels\\UserProfile\\UserProfileViewModel.cs",
-              "ToolTip": "C:\\Users\\User\\Desktop\\Hotel-Reservation\\Hotel\\Hotel\\ViewModels\\UserProfile\\UserProfileViewModel.cs",
-              "RelativeToolTip": "Hotel\\ViewModels\\UserProfile\\UserProfileViewModel.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAtAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-27T15:01:43.251Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\User\\Desktop\\Hotel-Reservation\\Hotel\\Hotel\\Views\\UserProfile\\Index.cshtml",
-              "RelativeDocumentMoniker": "Hotel\\Views\\UserProfile\\Index.cshtml",
-              "ToolTip": "C:\\Users\\User\\Desktop\\Hotel-Reservation\\Hotel\\Hotel\\Views\\UserProfile\\Index.cshtml",
-              "RelativeToolTip": "Hotel\\Views\\UserProfile\\Index.cshtml",
-              "ViewState": "AQIAAC0AAAAAAAAAAAAAAIgAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-06-27T13:01:55.599Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "UserProfileController.cs",
-              "DocumentMoniker": "C:\\Users\\User\\Desktop\\Hotel-Reservation\\Hotel\\Hotel\\Controllers\\UserProfileController.cs",
-              "RelativeDocumentMoniker": "Hotel\\Controllers\\UserProfileController.cs",
-              "ToolTip": "C:\\Users\\User\\Desktop\\Hotel-Reservation\\Hotel\\Hotel\\Controllers\\UserProfileController.cs",
-              "RelativeToolTip": "Hotel\\Controllers\\UserProfileController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-27T12:57:31.705Z",
-              "EditorCaption": ""
             }
           ]
         }

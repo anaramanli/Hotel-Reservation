@@ -1,0 +1,72 @@
+﻿@model List<Hotel.ViewModels.Reservation.ReservationVM>
+
+@{
+    ViewData["Title"] = "Reservations";
+}
+
+<div class="page-content" >
+    <div class="card-body p-4" style="border:solid;border-radius:20px">
+        <h2>Reservations</h2>
+
+        <div class="table-responsive" >
+            <table id="reservationsTable" class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Room</th>
+                        <th>Name</th>
+                        <th>Surname</th>
+                        <th>Phone Number</th>
+                        <th>Email</th>
+                        <th>Check In Date</th>
+                        <th>Check Out Date</th>
+                        <th>Total Cost</th>
+                        <th>Selected Extras</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var reservation in Model)
+                    {
+                        <tr>
+                            <td>@reservation.Room.RoomNumber</td>
+                            <td>@reservation.Name</td>
+                            <td>@reservation.Surname</td>
+                            <td>@reservation.PhoneNumber</td>
+                            <td>@reservation.Email</td>
+                            <td>@reservation.CheckInDate.ToShortDateString()</td>
+                            <td>@reservation.CheckOutDate.ToShortDateString()</td>
+                            <td>@reservation.TotalCost</td>
+                            <td>
+                                <ul>
+                                    @foreach (var extra in reservation.SelectedExtras)
+                                    {
+                                        <li>@extra</li>
+                                    }
+                                </ul>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.min.css">
+
+    <!-- jQuery and DataTables JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#reservationsTable').DataTable({
+                "paging": true,     // Enable paging
+                "ordering": true,   // Enable sorting
+                "searching": true   // Enable searching
+            });
+        });
+    </script>
+}
