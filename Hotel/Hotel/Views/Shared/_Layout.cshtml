@@ -37,6 +37,281 @@
 <body>
         @await Component.InvokeAsync("Header")
         @RenderBody()
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            body {
+                font-family: Arial, Helvetica, sans-serif;
+                background-color: #f9f9f9;
+            }
+
+            .open-button {
+                background-color: #5156be;
+                color: white;
+                padding: 16px 20px;
+                border: none;
+                cursor: pointer;
+                border-radius: 5px;
+                box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+                position: fixed;
+                bottom: 23px;
+                right: 28px;
+                width: 280px;
+                transition: opacity 0.3s;
+                z-index: 9;
+            }
+
+            .chat-popup {
+                display: none;
+                position: fixed;
+                bottom: 0;
+                right: 15px;
+                border: 3px solid #f1f1f1;
+                border-radius: 15px;
+                z-index: 9;
+                background-color: white;
+                box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            }
+
+            .form-container {
+                width: 300px;
+                padding: 10px;
+                background-color: white;
+                border-radius: 5px;
+            }
+
+                .form-container textarea {
+                    width: 100%;
+                    padding: 15px;
+                    margin: 5px 0 22px 0;
+                    border: none;
+                    background: #f1f1f1;
+                    resize: none;
+                    min-height: 100px;
+                    border-radius: 5px;
+                    box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.1);
+                }
+
+                .form-container .btn {
+                    background-color: #5156be;
+                    color: white;
+                    padding: 16px 20px;
+                    border: none;
+                    cursor: pointer;
+                    width: 100%;
+                    margin-bottom: 10px;
+                    opacity: 0.9;
+                    border-radius: 5px;
+                    transition: opacity 0.3s;
+                }
+
+                .form-container .cancel {
+                    background-color: #ff4c47;
+                }
+
+                .form-container .btn:hover, .open-button:hover {
+                    opacity: 1;
+                }
+
+            .message {
+                list-style: none;
+                padding: 10px;
+                margin-bottom: 10px;
+                border-radius: 5px;
+            }
+
+                .message.other {
+                    background-color: #e6e6e6;
+                }
+
+            .messages {
+                max-height: 200px;
+                overflow-y: auto;
+                margin-bottom: 10px;
+            }
+
+            .typing {
+                color: #999;
+                font-style: italic;
+                margin-bottom: 10px;
+            }
+        </style>
+    </head>
+    <body>
+
+        <button class="open-button" onclick="openForm()">Chat</button>
+
+        <div class="chat-popup" id="myForm">
+            <div class="form-container">
+                <div class="messages">
+                    <ul id="discussion"></ul>
+                </div>
+                <label for="msg"><b>Message</b></label>
+                <div id="typing" class="typing"></div>
+                <textarea placeholder="Type message.." id="message" required></textarea>
+                <button type="submit" class="btn" id="sendmessage">Send</button>
+                <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+            </div>
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/5.0.11/signalr.min.js"></script>
+
+        <script>
+            function setCookie(name, value, days) {
+                var expires = "";
+                if (days) {
+                    var date = new Date();
+                    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                    expires = "; expires=" + date.toUTCString();
+                }
+                document.cookie = name + "=" + (value || "") + expires + "; path=/";
+            }
+
+            function getCookie(name) {
+                var nameEQ = name + "=";
+                var ca = document.cookie.split(';');
+                for (var i = 0; i < ca.length; i++) {
+                    var c = ca[i];
+                    while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                    if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+                }
+                return null;
+            }
+
+            function eraseCookie(name) {
+                document.cookie = name + '=; Max-Age=-99999999;';
+            }
+
+            var currentUser = '@User.Identity.Name';
+            var defaultUser = currentUser || "User";
+            var canSendMessage = true;
+
+            document.addEventListener('DOMContentLoaded', (event) => {
+                var chatStatus = getCookie("chatOpen");
+                if (chatStatus === "true") {
+                    openForm();
+                }
+                loadMessages();
+            });
+
+            function openForm() {
+                document.getElementById("myForm").style.display = "flex";
+                setCookie("chatOpen", "true", 7);
+            }
+
+            function closeForm() {
+                document.getElementById("myForm").style.display = "none";
+                setCookie("chatOpen", "false", 7);
+            }
+
+            function sendMessage() {
+                if (!canSendMessage) {
+                    return;
+                }
+
+                canSendMessage = false;
+
+                var message = document.getElementById("message").value.trim();
+
+                if (message === "") {
+                    canSendMessage = true;
+                    return;
+                }
+
+                console.log("Sending message: " + message);
+
+                connection.invoke("SendMessage", defaultUser, message)
+                    .then(() => {
+                        console.log("Message sent");
+                    })
+                    .catch(function (err) {
+                        console.error("Error sending message: ", err.toString());
+                    });
+
+                var encodedMsg = defaultUser + ": " + message;
+                var li = document.createElement("li");
+                li.textContent = encodedMsg;
+                li.className = 'message other';
+                document.getElementById("discussion").appendChild(li);
+                saveMessage(encodedMsg);
+
+                document.getElementById("message").value = '';
+
+                setTimeout(function () {
+                    canSendMessage = true;
+                }, 500);
+
+                document.querySelector(".messages").scrollTop = document.querySelector(".messages").scrollHeight;
+            }
+
+            function saveMessage(message) {
+                let messages = JSON.parse(localStorage.getItem('messages')) || [];
+                messages.push(message);
+                localStorage.setItem('messages', JSON.stringify(messages));
+            }
+
+            function loadMessages() {
+                let messages = JSON.parse(localStorage.getItem('messages')) || [];
+                messages.forEach(function (message) {
+                    var li = document.createElement("li");
+                    li.textContent = message;
+                    li.className = 'message other';
+                    document.getElementById("discussion").appendChild(li);
+                });
+                document.querySelector(".messages").scrollTop = document.querySelector(".messages").scrollHeight;
+            }
+
+            document.getElementById("sendmessage").addEventListener("click", function (event) {
+                event.preventDefault();
+                sendMessage();
+            });
+
+            document.getElementById("message").addEventListener("keypress", function (event) {
+                if (event.key === "Enter" && !event.shiftKey) {
+                    event.preventDefault();
+                    sendMessage();
+                } else {
+                    connection.invoke("Typing", defaultUser).catch(function (err) {
+                        console.error(err.toString());
+                    });
+                }
+            });
+
+            var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
+
+            connection.start().then(() => {
+                console.log("Connection started for User");
+            }).catch(function (err) {
+                console.error(err.toString());
+            });
+
+            connection.off("ReceiveMessage");
+            connection.on("ReceiveMessage", function (user, message) {
+                console.log("ReceiveMessage event triggered");
+                var encodedMsg = user + ": " + message;
+                var li = document.createElement("li");
+                li.textContent = encodedMsg;
+                li.className = 'message other';
+                document.getElementById("discussion").appendChild(li);
+                saveMessage(encodedMsg);
+                document.querySelector(".messages").scrollTop = document.querySelector(".messages").scrollHeight;
+            });
+
+            connection.off("UserTyping");
+            connection.on("UserTyping", function (user) {
+                var typingIndicator = document.getElementById("typing");
+                typingIndicator.innerText = user + " is typing...";
+                setTimeout(function () {
+                    typingIndicator.innerText = "";
+                }, 3000);
+            });
+        </script>
+
+    </body>
+</html>
+
     @await Component.InvokeAsync("Footer")
     <!-- Scripts Section -->
     @RenderSection("Scripts", required: false)

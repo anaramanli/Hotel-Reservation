@@ -5,6 +5,7 @@ using Hotel.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Stripe;
+using Microsoft.AspNetCore.SignalR;
 
 namespace Hotel
 {
@@ -24,11 +25,13 @@ namespace Hotel
                 opt.Password.RequireUppercase = false;
                 opt.Password.RequireLowercase = false;
                 opt.SignIn.RequireConfirmedEmail = true;
-
             }).AddEntityFrameworkStores<HotelDBContext>().AddDefaultTokenProviders();
             builder.Services.AddScoped<IEmailService, EmailService>();
             builder.Services.AddScoped<IQRCodeService, QRCodeService>();
             builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection(nameof(Stripe)));
+
+            builder.Services.AddSignalR();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -40,14 +43,18 @@ namespace Hotel
 
             StripeConfiguration.ApiKey = builder.Configuration["Stripe:Secretkey"];
 
-            app.MapControllerRoute(name: "roomDetail", pattern: "room/details/{id?}", defaults: new { controller = "Room", action = "Details" });
-			app.MapControllerRoute(name: "areas", pattern: "{area:exists}/{controller=Slider}/{action=Index}/{id?}");
-            app.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}/{id?}");
             app.UseRouting();
 
             app.UseAuthorization();
 
-            app.MapRazorPages();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapHub<ChatHub>("/chatHub");
+                endpoints.MapRazorPages();
+                endpoints.MapControllerRoute(name: "roomDetail", pattern: "room/details/{id?}", defaults: new { controller = "Room", action = "Details" });
+                endpoints.MapControllerRoute(name: "areas", pattern: "{area:exists}/{controller=Slider}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}/{id?}");
+            });
 
             app.Run();
         }

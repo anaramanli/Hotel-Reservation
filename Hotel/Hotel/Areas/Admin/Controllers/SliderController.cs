@@ -157,5 +157,10 @@ namespace Hotel.Areas.Admin.Controllers
 
             return RedirectToAction("Index");
         }
+
+        public ActionResult Chat()
+        {
+            return View();
+        }
     }
 }
