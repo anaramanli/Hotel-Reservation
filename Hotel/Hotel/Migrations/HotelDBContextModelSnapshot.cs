@@ -155,6 +155,50 @@ namespace Hotel.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("Hotel.Models.Comment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("RoomId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
+
+                    b.HasIndex("RoomId");
+
+                    b.ToTable("Comments");
+                });
+
             modelBuilder.Entity("Hotel.Models.Customer", b =>
                 {
                     b.Property<int>("Id")
@@ -870,6 +914,23 @@ namespace Hotel.Migrations
                     b.Navigation("Room");
                 });
 
+            modelBuilder.Entity("Hotel.Models.Comment", b =>
+                {
+                    b.HasOne("Hotel.Models.AppUser", "AppUser")
+                        .WithMany("Comments")
+                        .HasForeignKey("AppUserId");
+
+                    b.HasOne("Hotel.Models.Room", "Room")
+                        .WithMany("Comments")
+                        .HasForeignKey("RoomId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+
+                    b.Navigation("Room");
+                });
+
             modelBuilder.Entity("Hotel.Models.Customer", b =>
                 {
                     b.HasOne("Hotel.Models.AppUser", "AppUser")
@@ -1051,6 +1112,8 @@ namespace Hotel.Migrations
                 {
                     b.Navigation("Availabilities");
 
+                    b.Navigation("Comments");
+
                     b.Navigation("Images");
 
                     b.Navigation("Reservations");
@@ -1068,6 +1131,8 @@ namespace Hotel.Migrations
 
             modelBuilder.Entity("Hotel.Models.AppUser", b =>
                 {
+                    b.Navigation("Comments");
+
                     b.Navigation("Customer");
 
                     b.Navigation("UserReservations");

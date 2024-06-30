@@ -13,5 +13,7 @@ namespace Hotel.Models
 
         public ICollection<UserReservation>? UserReservations { get; set; }
 
-	}
+        // Relation to Comment
+        public ICollection<Comment> Comments { get; set; }
+    }
 }

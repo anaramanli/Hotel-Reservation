@@ -40,6 +40,7 @@ namespace Hotel.Controllers
         public async Task<IActionResult> Details(int id)
         {
             var room = await _context.Rooms
+                .Include(r=>r.Comments)
                 .Include(r => r.Images)
                 .Include(r => r.Category)
                 .Include(r => r.RoomStatus)

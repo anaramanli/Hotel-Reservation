@@ -37,6 +37,16 @@
                                         <h5 class="mb-0">Welcome Back!</h5>
                                     </div>
                                     <form method="post" class="mt-4 pt-2">
+                                        <!-- General error messages -->
+                                        @if (!ViewData.ModelState.IsValid)
+                                        {
+                                            <div class="alert alert-danger">
+                                                @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                                                {
+                                                    <div>@error.ErrorMessage</div>
+                                                }
+                                            </div>
+                                        }
                                         <div class="mb-3">
                                             <label asp-for="UsernameOrEmail" class="form-label"></label>
                                             <input asp-for="UsernameOrEmail" class="form-control" placeholder="Enter username or email">
@@ -75,26 +85,26 @@
                                         </div>
                                     </form>
                                     @* <div class="mt-4 pt-2 text-center">
-                                        <div class="signin-other-title">
-                                            <h5 class="font-size-14 mb-3 text-muted fw-medium">- Sign in with -</h5>
-                                        </div>
-                                        <ul class="list-inline mb-0">
-                                            <li class="list-inline-item">
-                                                <a href="javascript:void()" class="social-list-item bg-primary text-white border-primary">
-                                                    <i class="mdi mdi-facebook"></i>
-                                                </a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="javascript:void()" class="social-list-item bg-info text-white border-info">
-                                                    <i class="mdi mdi-twitter"></i>
-                                                </a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="javascript:void()" class="social-list-item bg-danger text-white border-danger">
-                                                    <i class="mdi mdi-google"></i>
-                                                </a>
-                                            </li>
-                                        </ul>
+                                    <div class="signin-other-title">
+                                    <h5 class="font-size-14 mb-3 text-muted fw-medium">- Sign in with -</h5>
+                                    </div>
+                                    <ul class="list-inline mb-0">
+                                    <li class="list-inline-item">
+                                    <a href="javascript:void()" class="social-list-item bg-primary text-white border-primary">
+                                    <i class="mdi mdi-facebook"></i>
+                                    </a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                    <a href="javascript:void()" class="social-list-item bg-info text-white border-info">
+                                    <i class="mdi mdi-twitter"></i>
+                                    </a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                    <a href="javascript:void()" class="social-list-item bg-danger text-white border-danger">
+                                    <i class="mdi mdi-google"></i>
+                                    </a>
+                                    </li>
+                                    </ul>
                                     </div> *@
                                     <div class="mt-5 text-center">
                                         <p class="text-muted mb-0">
@@ -137,7 +147,7 @@
                                                     <h4 class="mt-4 fw-medium lh-base text-white">
                                                         “I feel confident imposing change on myself. It's a lot more progressing fun than looking back. That's why I ultricies enim at malesuada nibh diam on tortor neaded to throw curve balls.”
                                                     </h4>
-                                                    
+
                                                 </div>
                                             </div>
                                             <div class="carousel-item">
@@ -219,5 +229,3 @@
     </script>
 </body>
 </html>
-
-

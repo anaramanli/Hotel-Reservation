@@ -123,6 +123,7 @@ namespace Hotel.Controllers
 
             var result = await _signInManager.PasswordSignInAsync(user, vm.Password, vm.RememberMe, lockoutOnFailure: true);
 
+            
             if (result.IsLockedOut)
             {
                 ModelState.AddModelError("", "Account locked out due to multiple failed attempts. Please try again later.");
@@ -131,7 +132,7 @@ namespace Hotel.Controllers
 
             if (!result.Succeeded)
             {
-                ModelState.AddModelError("", "Invalid login attempt.");
+                ModelState.AddModelError("", "Username or password wrong");
                 return View(vm);
             }
 

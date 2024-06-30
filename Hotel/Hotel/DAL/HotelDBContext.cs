@@ -27,8 +27,9 @@ namespace Hotel.DAL
         public DbSet<Feature> Features { get; set; }
         public DbSet<Availability> Availabilities { get; set; }
         public DbSet<UserReservation> UserReservations { get; set; }
+        public DbSet<Comment> Comments { get; set; }
 
-		protected override void OnModelCreating(ModelBuilder builder)
+        protected override void OnModelCreating(ModelBuilder builder)
 		{
 			base.OnModelCreating(builder);
 

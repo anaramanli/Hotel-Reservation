@@ -25,5 +25,7 @@ namespace Hotel.Models
         public ICollection<Availability> Availabilities { get; set; } = new List<Availability>();
         // Relation to Reservation
         public ICollection<Reservation> Reservations { get; set; }
+        // Relation to Comment
+        public ICollection<Comment> Comments { get; set; } = new List<Comment>();
     }
 }

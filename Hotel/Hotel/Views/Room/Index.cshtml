@@ -156,7 +156,7 @@
 @section Scripts {
     <script>
         async function searchRooms() {
-            const query = document.getElementById('searchInput').value.trim(); // Trim whitespace
+            const query = document.getElementById('searchInput').value.trim();
             let response;
 
             if (query.length > 0) {
@@ -167,7 +167,7 @@
 
             const rooms = await response.json();
             displayRooms(rooms);
-            sortRooms(); // Ensure rooms are sorted after search
+            sortRooms(); 
         }
 
         function sortRooms() {
@@ -243,7 +243,6 @@
             });
         }
 
-        // Initialize display with sorted rooms on page load
         window.onload = function () {
             sortRooms();
         }
