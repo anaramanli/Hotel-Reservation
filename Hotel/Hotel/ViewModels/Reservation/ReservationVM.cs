@@ -19,7 +19,7 @@ namespace Hotel.ViewModels.Reservation
         public decimal TotalCost { get; set; }
 
         public bool IsDeleted { get; set; }
-        public Models.Reservation Reservation { get; set; }
+        public Models.Reservation? Reservation { get; set; }
         public void CalculateTotalCost(Dictionary<Extras, decimal> extrasPrices)
         {
             int numberOfDays = (CheckOutDate - CheckInDate).Days;

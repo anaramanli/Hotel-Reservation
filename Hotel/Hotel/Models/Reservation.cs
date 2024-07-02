@@ -34,8 +34,10 @@ namespace Hotel.Models
         public List<Extras>? SelectedExtras { get; set; }
 
         public decimal TotalCost { get; set; }
+        public decimal Price { get; set; }
 
         // Total cost calculation method
+
         public void CalculateTotalCost(Dictionary<Extras, decimal> extrasPrices)
         {
             int numberOfDays = (CheckOutDate - CheckInDate).Days;

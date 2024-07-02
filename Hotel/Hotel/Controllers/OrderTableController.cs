@@ -68,7 +68,6 @@ namespace Hotel.Controllers
                 CheckOutDate = DateTime.Now.AddDays(1),
                 Name = user.UserName,
                 Email = user.Email,
-                TotalCost = room.Price,
             };
 
             ViewBag.Extras = Enum.GetValues(typeof(Extras)).Cast<Extras>().ToList();

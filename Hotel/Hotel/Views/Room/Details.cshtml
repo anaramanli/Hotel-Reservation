@@ -140,7 +140,7 @@
     }
 
     .be-comment-content a {
-        color: #383b43;
+        color: #06070a;
     }
 
     .be-comment-time {
@@ -149,11 +149,11 @@
 
     .be-comment-time {
         font-size: 11px;
-        color: #b4b7c1;
+        color: #06070a;
     }
 
     .be-comment-text {
-        color: #7a8192;
+        color: #06070a;
         display: block;
         background: #f6f6f7;
         border: 1px solid #edeff2;
@@ -167,7 +167,7 @@
         width: 48px;
         height: 48px;
         background: #f6f6f7;
-        color: #b5b8c2;
+        color: #06070a;
         text-align: center;
         line-height: 50px;
         -webkit-border-top-left-radius: 2px;
@@ -182,7 +182,7 @@
         font-size: 23px;
         line-height: 50px;
         font-weight: 400;
-        color: #b4b7c1;
+        color: #06070a;
         width: 100%;
         height: 50px;
         padding-left: 20px;
@@ -208,7 +208,7 @@
             <div class="be-comment">
                 <div class="be-comment-content">
                     <span class="be-comment-name">
-                        <a href="#">@comment.UserName</a>
+                        <p>@comment.UserName</p>
                     </span>
                     <span class="be-comment-time">
                         <i class="fa fa-clock-o"></i>
@@ -219,7 +219,7 @@
                     </p>
                     @if (comment.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier) || User.IsInRole("Admin"))
                     {
-                        <button class="btn btn-danger btn-sm delete-comment" data-id="@comment.Id">Delete</button>
+                        <button class="btn btn-danger btn-sm delete-comment" data-id="@comment.Id" style="margin-bottom:2%">Delete</button>
                     }
                 </div>
             </div>
@@ -255,12 +255,17 @@
                     Swal.fire('Error', 'Comment content cannot be empty.', 'error');
                     return;
                 }
+                var data = {
+                    roomId: roomId,
+                    content: content
+                }
                 $.ajax({
                     url: '@Url.Action("Create", "Comments")',
                     type: 'POST',
-                    data: {
-                        roomId: roomId,
-                        content: content
+                    contentType: 'application/json; charset=UTF-8',
+                    data: JSON.stringify(data),
+                    headers: {
+                        'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
                     },
                     success: function (response) {
                         if (response.success) {
@@ -293,7 +298,11 @@
                         $.ajax({
                             url: '@Url.Action("Delete", "Comments")',
                             type: 'POST',
-                            data: { id: commentId },
+                            contentType: 'application/json; charset=UTF-8',
+                            data: JSON.stringify({ id: commentId }),
+                            headers: {
+                                'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
+                            },
                             success: function (response) {
                                 if (response.success) {
                                     Swal.fire('Deleted!', 'Your comment has been deleted.', 'success')
@@ -314,3 +323,4 @@
         });
     </script>
 }
+

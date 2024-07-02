@@ -1,5 +1,6 @@
 ﻿using Hotel.DAL;
 using Hotel.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
@@ -20,25 +21,26 @@ namespace Hotel.Controllers
         // POST: Comments/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(int roomId, string content)
+        public async Task<IActionResult> Create([FromBody] CommentRequest model)
         {
-            if (roomId < 1)
+            if (model.RoomId < 1)
             {
                 return Json(new { success = false, error = "Invalid room ID." });
             }
 
-            if (string.IsNullOrEmpty(content))
+            if (string.IsNullOrEmpty(model.Content))
             {
                 return Json(new { success = false, error = "Comment content cannot be empty." });
             }
 
             var comment = new Comment
             {
-                RoomId = roomId,
-                Content = content,
+                RoomId = model.RoomId,
+                Content = model.Content,
                 UserId = User.FindFirstValue(ClaimTypes.NameIdentifier),
                 UserName = User.Identity.Name,
-                CreatedAt = DateTime.UtcNow
+                CreatedAt = DateTime.UtcNow,
+                IsDeleted = false
             };
 
             _context.Comments.Add(comment);
@@ -47,10 +49,11 @@ namespace Hotel.Controllers
             return Json(new { success = true });
         }
 
+        // POST: Comments/Delete
         [HttpPost]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete([FromBody] DeleteRequest model)
         {
-            var comment = await _context.Comments.FindAsync(id);
+            var comment = await _context.Comments.FindAsync(model.Id);
             if (comment != null)
             {
                 if (comment.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier) || User.IsInRole("Admin"))
@@ -63,5 +66,16 @@ namespace Hotel.Controllers
             }
             return Json(new { success = false, error = "Comment not found." });
         }
+    }
+
+    public class CommentRequest
+    {
+        public int RoomId { get; set; }
+        public string Content { get; set; }
+    }
+
+    public class DeleteRequest
+    {
+        public int Id { get; set; }
     }
 }

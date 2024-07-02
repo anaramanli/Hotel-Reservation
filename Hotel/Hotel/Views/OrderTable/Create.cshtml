@@ -1,4 +1,4 @@
-﻿@using Hotel.DAL
+﻿﻿@using Hotel.DAL
 @using Microsoft.Extensions.Options
 @model Hotel.ViewModels.Reservation.ReservationVM
 @inject IOptions<StripeSettings> Stripe
@@ -53,7 +53,7 @@
             <h3>Reservation</h3>
             <p>Your email address will not be published. Required fields are marked *</p>
         </div>
-        <form asp-action="Create" method="post" id="contactForm" onchange="" class="contactForm"  novalidate="true">
+        <form asp-action="Create" method="post" id="contactForm" onchange="" class="contactForm" novalidate="true">
             <input type="hidden" asp-for="RoomId" value="@Model.RoomId" />
             <div class="row gap-20 pt-15">
                 <div class="col-md-6">
@@ -164,14 +164,11 @@
             const checkInDate = new Date(document.getElementById('CheckInDate').value);
             const checkOutDate = new Date(document.getElementById('CheckOutDate').value);
 
-            // Calculate the number of days
             const oneDay = 24 * 60 * 60 * 1000;
             const diffDays = Math.round(Math.abs((checkOutDate - checkInDate) / oneDay));
 
-            // Update the days count on the screen
             document.getElementById('days').innerText = diffDays;
 
-            // Calculate total based on the number of days
             total *= diffDays;
 
             const selectedExtras = document.getElementById('extras').selectedOptions;
@@ -209,4 +206,3 @@
         });
     </script>
 }
-
