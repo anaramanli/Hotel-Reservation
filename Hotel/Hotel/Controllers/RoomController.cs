@@ -18,11 +18,16 @@ namespace Hotel.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 0)
         {
+            int pageSize = 5;
+            var totalItems = await _context.Rooms.CountAsync();
+            ViewBag.MaxPage = (int)Math.Ceiling((double)totalItems / pageSize);
+            ViewBag.CurrentPage = page;
+
             List<Slider> sliders = await _context.Sliders.Where(s => !s.IsDeleted).ToListAsync();
             List<AboutCompany> companies = await _context.AboutCompanies.Where(ac => !ac.IsDeleted).ToListAsync();
-            List<Room> rooms = await _context.Rooms
+            List<Room> rooms = await _context.Rooms.Skip(page * pageSize).Take(pageSize)
                 .Include(r => r.Images)
                 .Include(r => r.Category)
                 .Include(r => r.RoomStatus).Where(ac => !ac.IsDeleted).ToListAsync();
@@ -53,38 +58,50 @@ namespace Hotel.Controllers
 
             return View(room);
         }
-
         [HttpGet]
-        public async Task<IActionResult> Search(string query)
+        public async Task<IActionResult> Search(string query = "", int page = 0)
         {
-            var rooms = await _context.Rooms
+            int pageSize = 5;
+            var roomsQuery = _context.Rooms
                 .Include(r => r.Images)
                 .Include(r => r.Category)
                 .Include(r => r.RoomStatus)
-                .Where(r => !r.IsDeleted &&
-                            (r.Name.Contains(query) ||
-                             r.Description.Contains(query) ||
-                             r.RoomStatus.StatusName.Contains(query) ||
-                             r.Rating.ToString().Contains(query) ||
-                             (r.Category != null && r.Category.CategoryName.Contains(query))))
+                .Where(r => !r.IsDeleted);
+
+            if (!string.IsNullOrEmpty(query))
+            {
+                roomsQuery = roomsQuery
+                    .Where(r => r.Name.Contains(query) ||
+                                r.Description.Contains(query) ||
+                                r.RoomStatus.StatusName.Contains(query) ||
+                                r.Rating.ToString().Contains(query) ||
+                                (r.Category != null && r.Category.CategoryName.Contains(query)));
+            }
+
+            var totalItems = await roomsQuery.CountAsync();
+            var rooms = await roomsQuery
+                .Skip(page * pageSize)
+                .Take(pageSize)
                 .ToListAsync();
 
-            var result = rooms.Select(r => new
+            var result = new
             {
-                id = r.Id,
-                name = r.Name,
-                description = r.Description,
-                rating = r.Rating,
-                beds = r.Beds,
-                price = r.Price,
-                imageUrl = r.Images.Any() ? r.Images.First().Url : "default-image.jpg",
-                categoryName = r.Category?.CategoryName,
-                roomstatus = r.RoomStatus.StatusName
-            });
-            foreach (var item in result)
-            {
-                await Console.Out.WriteLineAsync(item.roomstatus);
-            }
+                rooms = rooms.Select(r => new
+                {
+                    id = r.Id,
+                    name = r.Name,
+                    description = r.Description,
+                    rating = r.Rating,
+                    beds = r.Beds,
+                    price = r.Price,
+                    imageUrl = r.Images.Any() ? r.Images.First().Url : "default-image.jpg",
+                    categoryName = r.Category?.CategoryName,
+                    roomstatus = r.RoomStatus.StatusName
+                }).ToList(),
+                currentPage = page,
+                totalPages = (int)Math.Ceiling((double)totalItems / pageSize)
+            };
+
             return Json(result);
         }
 

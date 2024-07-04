@@ -1,5 +1,6 @@
 ﻿@using Hotel.Models
 @model HomeVM
+
 <!-- Hidden Sidebar -->
 <section class="hidden-bar">
     <div class="inner-box text-center">
@@ -8,7 +9,7 @@
             <h4>Get Appointment</h4>
         </div>
 
-        <!--Appointment Form-->
+        <!-- Appointment Form -->
         <div class="appointment-form">
             <form method="post" action="contact.html">
                 <div class="form-group">
@@ -18,7 +19,7 @@
                     <input type="email" name="email" value="" placeholder="Email Address" required>
                 </div>
                 <div class="form-group">
-                    <textarea placeholder="Message" rows="5"></textarea>
+                    <textarea name="message" placeholder="Message" rows="5"></textarea>
                 </div>
                 <div class="form-group">
                     <button type="submit" class="theme-btn">Submit now</button>
@@ -26,7 +27,7 @@
             </form>
         </div>
 
-        <!--Social Icons-->
+        <!-- Social Icons -->
         <div class="social-style-one">
             <a href="#"><i class="fab fa-twitter"></i></a>
             <a href="#"><i class="fab fa-facebook-f"></i></a>
@@ -35,7 +36,7 @@
         </div>
     </div>
 </section>
-<!--End Hidden Sidebar -->
+<!-- End Hidden Sidebar -->
 <!-- Page Banner Start -->
 <section class="main-slider-area bgc-black-with-lighting rel z-1">
     <div class="main-slider-active">
@@ -73,7 +74,7 @@
     </div>
 </section>
 <!-- Page Banner End -->
-<!-- Rooms Area start -->
+<!-- Rooms Area Start -->
 <section class="rooms-area pt-130 rpt-100 pb-100 rpb-70 rel z-2">
     <!-- Search Filter and Features Start -->
     <div class="search-and-features-area pb-50 rpb-20 rel z-1">
@@ -86,7 +87,7 @@
                     <input type="text" id="searchInput" placeholder="Search Room..." onkeyup="searchRooms()">
                 </div>
                 <div class="filter-item wow fadeInUp delay-0-3s">
-                    <a asp-action="Index" class="btn btn-primary btn-lg">Show all Rooms <i class="fal fa-arrow-right"></i></a>
+                    <a href="@Url.Action("Index", new { page = 0, query = ViewContext.HttpContext.Request.Query["query"] })" class="btn btn-primary btn-lg">Show all Rooms <i class="fal fa-arrow-right"></i></a>
                 </div>
                 <div class="filter-item wow fadeInUp delay-0-3s">
                     <select id="sortOptions" onchange="sortRooms()">
@@ -95,13 +96,14 @@
                         <option value="nameDesc">Name: Z to A</option>
                         <option value="ratingAsc">Rating: Low to High</option>
                         <option value="ratingDesc">Rating: High to Low</option>
+                        <option value="available">Available</option>
                     </select>
                 </div>
             </div>
-
         </div>
     </div>
     <!-- Search Filter and Features End -->
+
     <div class="container">
         <div class="row" id="roomsContainer">
             @foreach (var item in Model.Rooms)
@@ -125,7 +127,7 @@
                             </a>
                         </div>
                         <div class="content">
-                            <h4><a href="room-details.html">@item.Name</a></h4>
+                            <h4><a href="@Url.Action("Details", "Room", new { id = item.Id })">@item.Name</a></h4>
                             <ul class="blog-meta">
                                 <li>
                                     <i class="far fa-bed-alt"></i>
@@ -142,32 +144,76 @@
                                 </li>
                             </ul>
                             <p>@item.Description</p>
-                            <p class="p-3 rounded bg-dark " style="color:orange; font-size:1rem">@item.RoomStatus.StatusName</p>
+                            <p class="p-3 rounded bg-dark" style="color:orange; font-size:1rem">@item.RoomStatus.StatusName</p>
                             <div class="price">Price <span>$@item.Price</span>/per night</div>
                         </div>
-                        <a class="theme-btn style-two" asp-action="Details" asp-route-id="@item.Id">Details<i class="fal fa-angle-right"></i></a>
+                        <a class="theme-btn style-two" href="@Url.Action("Details", "Room", new { id = item.Id })">Book Now <i class="fal fa-angle-right"></i></a>
                     </div>
                 </div>
             }
         </div>
+        <div class="pagination-area">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    <!-- Previous Button -->
+                    @if (ViewBag.CurrentPage > 0)
+                    {
+                        <li class="page-item">
+                            <a class="page-link" href="@Url.Action("Index", new { page = ViewBag.CurrentPage - 1, query = ViewContext.HttpContext.Request.Query["query"] })" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                    }
+
+                    <!-- Page Numbers -->
+                    @for (int i = 1; i <= ViewBag.MaxPage; i++)
+                    {
+                        <li class="page-item @(i == ViewBag.CurrentPage + 1 ? "active" : "")">
+                            <a class="page-link" href="@Url.Action("Index", new { page = i - 1, query = ViewContext.HttpContext.Request.Query["query"] })">@i</a>
+                        </li>
+                    }
+
+                    <!-- Next Button -->
+                    @if (ViewBag.CurrentPage < ViewBag.MaxPage - 1)
+                    {
+                        <li class="page-item">
+                            <a class="page-link" href="@Url.Action("Index", new { page = ViewBag.CurrentPage + 1, query = ViewContext.HttpContext.Request.Query["query"] })" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </nav>
+        </div>
     </div>
 </section>
-<!-- Rooms Area end -->
+<!-- Rooms Area End -->
 @section Scripts {
     <script>
-        async function searchRooms() {
+        async function searchRooms(page = 0) {
             const query = document.getElementById('searchInput').value.trim();
-            let response;
+            const response = await fetch(`/Room/Search?query=${encodeURIComponent(query)}&page=${page}`);
+            const data = await response.json();
 
-            if (query.length > 0) {
-                response = await fetch(`/Room/Search?query=${encodeURIComponent(query)}`);
-            } else {
-                response = await fetch(`/Room/All`);
+            displayRooms(data.rooms);
+            updatePagination(data.currentPage, data.totalPages);
+        }
+
+        function updatePagination(currentPage, totalPages) {
+            const paginationContainer = document.querySelector('.pagination');
+            paginationContainer.innerHTML = '';
+
+            if (currentPage > 0) {
+                paginationContainer.innerHTML += `<li class="page-item"><a class="page-link" href="#" onclick="searchRooms(${currentPage - 1})">&laquo;</a></li>`;
             }
 
-            const rooms = await response.json();
-            displayRooms(rooms);
-            sortRooms(); 
+            for (let i = 0; i < totalPages; i++) {
+                paginationContainer.innerHTML += `<li class="page-item ${i === currentPage ? 'active' : ''}"><a class="page-link" href="#" onclick="searchRooms(${i})">${i + 1}</a></li>`;
+            }
+
+            if (currentPage < totalPages - 1) {
+                paginationContainer.innerHTML += `<li class="page-item"><a class="page-link" href="#" onclick="searchRooms(${currentPage + 1})">&raquo;</a></li>`;
+            }
         }
 
         function sortRooms() {
@@ -202,6 +248,8 @@
                 rooms.sort((a, b) => a.rating - b.rating);
             } else if (sortOption === "ratingDesc") {
                 rooms.sort((a, b) => b.rating - a.rating);
+            } else if (sortOption === "available") {
+                rooms.sort((a, b) => a.roomStatus.localeCompare(b.roomStatus));
             }
 
             roomsContainer.innerHTML = '';
@@ -216,29 +264,29 @@
                 const roomElement = document.createElement('div');
                 roomElement.classList.add('col-xl-4', 'col-md-6', 'room-item-container');
                 roomElement.innerHTML = `
-                                            <div class="room-item wow fadeInUp delay-0-2s">
-                                                <div class="image">
-                                                    <img src="@Url.Content("~/assets/imgs/${item.imageUrl}")" alt="Room">
-                                                            <a class="category" href="room-grid.html">${item.categoryName || ''}</a>
-                                                </div>
-                                                <div class="content">
-                                                    <h4><a href="room-details.html">${item.name}</a></h4>
-                                                    <ul class="blog-meta">
-                                                        <li>
-                                                            <i class="far fa-bed-alt"></i>
-                                                            <a href="#">Adults: ${item.beds}</a>
-                                                        </li>
-                                                        <li>
-                                                            <p>Rating: ${'★'.repeat(item.rating)}</p>
-                                                        </li>
-                                                    </ul>
-                                                    <p>${item.description}</p>
-                                                                    <p class="p-3 rounded bg-dark" style="color:orange; font-size:1rem">${item.roomstatus}</p>
-                                                    <div class="price">Price <span>$${item.price}</span>/per night</div>
-                                                </div>
-                                                                <a class="theme-btn style-two" href="room/details/${item.id}">Book Now <i class="fal fa-angle-right"></i></a>
-                                            </div>
-                                        `;
+                            <div class="room-item wow fadeInUp delay-0-2s">
+                                <div class="image">
+                                    <img src="/assets/imgs/${item.imageUrl}" alt="Room">
+                                    <a class="category" href="room-grid.html">${item.categoryName || ''}</a>
+                                </div>
+                                <div class="content">
+                                    <h4><a href="room-details.html">${item.name}</a></h4>
+                                    <ul class="blog-meta">
+                                        <li>
+                                            <i class="far fa-bed-alt"></i>
+                                            <a href="#">Adults: ${item.beds}</a>
+                                        </li>
+                                        <li>
+                                            <p>Rating: ${'★'.repeat(item.rating)}</p>
+                                        </li>
+                                    </ul>
+                                    <p>${item.description}</p>
+                                    <p class="p-3 rounded bg-dark" style="color:orange; font-size:1rem">${item.roomstatus}</p>
+                                    <div class="price">Price <span>$${item.price}</span>/per night</div>
+                                </div>
+                                <a class="theme-btn style-two" href="/Room/Details/${item.id}">Book Now <i class="fal fa-angle-right"></i></a>
+                            </div>
+                        `;
                 roomsContainer.appendChild(roomElement);
             });
         }
@@ -248,4 +296,3 @@
         }
     </script>
 }
-

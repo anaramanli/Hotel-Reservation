@@ -94,6 +94,39 @@
             </table>
         </div>
     </div>
+    <div class="pagination-area">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                <!-- Previous Button -->
+                @if (ViewBag.CurrentPage > 0)
+                {
+                    <li class="page-item">
+                        <a class="page-link" asp-action="Index" asp-route-page="@(ViewBag.CurrentPage - 1)" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                }
+
+                <!-- Page Numbers -->
+                @for (int i = 1; i <= ViewBag.MaxPage; i++)
+                {
+                    <li class="page-item @(i == ViewBag.CurrentPage + 1 ? "active" : "")">
+                        <a class="page-link" asp-action="Index" asp-route-page="@(i - 1)">@i</a>
+                    </li>
+                }
+
+                <!-- Next Button -->
+                @if (ViewBag.CurrentPage < ViewBag.MaxPage - 1)
+                {
+                    <li class="page-item">
+                        <a class="page-link" asp-action="Index" asp-route-page="@(ViewBag.CurrentPage + 1)" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                }
+            </ul>
+        </nav>
+    </div>
 </div>
 
 @section styles {

@@ -193,6 +193,10 @@
       "PackagePath": "staticwebassets\\admin\\assets\\fonts\\materialdesignicons-webfont.woff2"
     },
     {
+      "Id": "C:\\Users\\User\\Desktop\\Hotel-Reservation\\Hotel\\Hotel\\wwwroot\\admin\\assets\\images\\Caspianblack.png",
+      "PackagePath": "staticwebassets\\admin\\assets\\images\\Caspianblack.png"
+    },
+    {
       "Id": "C:\\Users\\User\\Desktop\\Hotel-Reservation\\Hotel\\Hotel\\wwwroot\\admin\\assets\\images\\auth-bg.jpg",
       "PackagePath": "staticwebassets\\admin\\assets\\images\\auth-bg.jpg"
     },
@@ -295,6 +299,14 @@
     {
       "Id": "C:\\Users\\User\\Desktop\\Hotel-Reservation\\Hotel\\Hotel\\wwwroot\\admin\\assets\\images\\logo-sm.svg",
       "PackagePath": "staticwebassets\\admin\\assets\\images\\logo-sm.svg"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\Hotel-Reservation\\Hotel\\Hotel\\wwwroot\\admin\\assets\\images\\logocaspian.png",
+      "PackagePath": "staticwebassets\\admin\\assets\\images\\logocaspian.png"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\Hotel-Reservation\\Hotel\\Hotel\\wwwroot\\admin\\assets\\images\\logocaspian1.png",
+      "PackagePath": "staticwebassets\\admin\\assets\\images\\logocaspian1.png"
     },
     {
       "Id": "C:\\Users\\User\\Desktop\\Hotel-Reservation\\Hotel\\Hotel\\wwwroot\\admin\\assets\\images\\small\\img-1.jpg",
@@ -5521,6 +5533,10 @@
       "PackagePath": "staticwebassets\\assets\\images\\instagrams\\instagram4.jpg"
     },
     {
+      "Id": "C:\\Users\\User\\Desktop\\Hotel-Reservation\\Hotel\\Hotel\\wwwroot\\assets\\images\\logos\\Caspian.png",
+      "PackagePath": "staticwebassets\\assets\\images\\logos\\Caspian.png"
+    },
+    {
       "Id": "C:\\Users\\User\\Desktop\\Hotel-Reservation\\Hotel\\Hotel\\wwwroot\\assets\\images\\logos\\logo-black.png",
       "PackagePath": "staticwebassets\\assets\\images\\logos\\logo-black.png"
     },
@@ -5529,8 +5545,16 @@
       "PackagePath": "staticwebassets\\assets\\images\\logos\\logo-white.png"
     },
     {
-      "Id": "C:\\Users\\User\\Desktop\\Hotel-Reservation\\Hotel\\Hotel\\wwwroot\\assets\\images\\logos\\logo.png",
-      "PackagePath": "staticwebassets\\assets\\images\\logos\\logo.png"
+      "Id": "C:\\Users\\User\\Desktop\\Hotel-Reservation\\Hotel\\Hotel\\wwwroot\\assets\\images\\logos\\logo1.png",
+      "PackagePath": "staticwebassets\\assets\\images\\logos\\logo1.png"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\Hotel-Reservation\\Hotel\\Hotel\\wwwroot\\assets\\images\\logos\\logocaspian.png",
+      "PackagePath": "staticwebassets\\assets\\images\\logos\\logocaspian.png"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\Hotel-Reservation\\Hotel\\Hotel\\wwwroot\\assets\\images\\logos\\logocaspian1.png",
+      "PackagePath": "staticwebassets\\assets\\images\\logos\\logocaspian1.png"
     },
     {
       "Id": "C:\\Users\\User\\Desktop\\Hotel-Reservation\\Hotel\\Hotel\\wwwroot\\assets\\images\\preloader.gif",
@@ -5889,6 +5913,14 @@
       "PackagePath": "staticwebassets\\assets\\imgs\\The-Details-That-Matter-Top-Things-Every-Luxury-Hotel-Room-Should-Have_af25igin.png"
     },
     {
+      "Id": "C:\\Users\\User\\Desktop\\Hotel-Reservation\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\The-Details-That-Matter-Top-Things-Every-Luxury-Hotel-Room-Should-Have_cyr0cbcf.png",
+      "PackagePath": "staticwebassets\\assets\\imgs\\The-Details-That-Matter-Top-Things-Every-Luxury-Hotel-Room-Should-Have_cyr0cbcf.png"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\Hotel-Reservation\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\The-Details-That-Matter-Top-Things-Every-Luxury-Hotel-Room-Should-Have_hegyrll1.png",
+      "PackagePath": "staticwebassets\\assets\\imgs\\The-Details-That-Matter-Top-Things-Every-Luxury-Hotel-Room-Should-Have_hegyrll1.png"
+    },
+    {
       "Id": "C:\\Users\\User\\Desktop\\Hotel-Reservation\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\The-Details-That-Matter-Top-Things-Every-Luxury-Hotel-Room-Should-Have_p2oxgdrx.png",
       "PackagePath": "staticwebassets\\assets\\imgs\\The-Details-That-Matter-Top-Things-Every-Luxury-Hotel-Room-Should-Have_p2oxgdrx.png"
     },
@@ -6093,6 +6125,10 @@
       "PackagePath": "staticwebassets\\assets\\imgs\\room1_qxn4blnf.jpg"
     },
     {
+      "Id": "C:\\Users\\User\\Desktop\\Hotel-Reservation\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\room2_2lfkqwbe.jpg",
+      "PackagePath": "staticwebassets\\assets\\imgs\\room2_2lfkqwbe.jpg"
+    },
+    {
       "Id": "C:\\Users\\User\\Desktop\\Hotel-Reservation\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\room2_4igpjai5.jpg",
       "PackagePath": "staticwebassets\\assets\\imgs\\room2_4igpjai5.jpg"
     },
@@ -6113,6 +6149,14 @@
       "PackagePath": "staticwebassets\\assets\\imgs\\room2_w4oimyli.jpg"
     },
     {
+      "Id": "C:\\Users\\User\\Desktop\\Hotel-Reservation\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\room2_yahy4pho.jpg",
+      "PackagePath": "staticwebassets\\assets\\imgs\\room2_yahy4pho.jpg"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\Hotel-Reservation\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\room3_14cwdk3u.jpg",
+      "PackagePath": "staticwebassets\\assets\\imgs\\room3_14cwdk3u.jpg"
+    },
+    {
       "Id": "C:\\Users\\User\\Desktop\\Hotel-Reservation\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\room3_1tvvuepo.jpg",
       "PackagePath": "staticwebassets\\assets\\imgs\\room3_1tvvuepo.jpg"
     },
@@ -6125,8 +6169,16 @@
       "PackagePath": "staticwebassets\\assets\\imgs\\room3_4esza2xq.jpg"
     },
     {
+      "Id": "C:\\Users\\User\\Desktop\\Hotel-Reservation\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\room3_atehpp5u.jpg",
+      "PackagePath": "staticwebassets\\assets\\imgs\\room3_atehpp5u.jpg"
+    },
+    {
       "Id": "C:\\Users\\User\\Desktop\\Hotel-Reservation\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\room3_f5gyiit4.jpg",
       "PackagePath": "staticwebassets\\assets\\imgs\\room3_f5gyiit4.jpg"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\Hotel-Reservation\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\room3_lny3hi2k.jpg",
+      "PackagePath": "staticwebassets\\assets\\imgs\\room3_lny3hi2k.jpg"
     },
     {
       "Id": "C:\\Users\\User\\Desktop\\Hotel-Reservation\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\room3_mm2pbuza.jpg",
@@ -6153,8 +6205,20 @@
       "PackagePath": "staticwebassets\\assets\\imgs\\room4_b1fyelal.jpg"
     },
     {
+      "Id": "C:\\Users\\User\\Desktop\\Hotel-Reservation\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\room4_f2nyrmpx.jpg",
+      "PackagePath": "staticwebassets\\assets\\imgs\\room4_f2nyrmpx.jpg"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\Hotel-Reservation\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\room4_fnkudjqn.jpg",
+      "PackagePath": "staticwebassets\\assets\\imgs\\room4_fnkudjqn.jpg"
+    },
+    {
       "Id": "C:\\Users\\User\\Desktop\\Hotel-Reservation\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\room4_gssd522p.jpg",
       "PackagePath": "staticwebassets\\assets\\imgs\\room4_gssd522p.jpg"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\Hotel-Reservation\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\room4_mqnsnpna.jpg",
+      "PackagePath": "staticwebassets\\assets\\imgs\\room4_mqnsnpna.jpg"
     },
     {
       "Id": "C:\\Users\\User\\Desktop\\Hotel-Reservation\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\room4_oysppbc3.jpg",
@@ -6185,6 +6249,10 @@
       "PackagePath": "staticwebassets\\assets\\imgs\\room5_fkgiuzkp.jpg"
     },
     {
+      "Id": "C:\\Users\\User\\Desktop\\Hotel-Reservation\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\room5_hqyjhmxs.jpg",
+      "PackagePath": "staticwebassets\\assets\\imgs\\room5_hqyjhmxs.jpg"
+    },
+    {
       "Id": "C:\\Users\\User\\Desktop\\Hotel-Reservation\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\room5_j2li3ppg.jpg",
       "PackagePath": "staticwebassets\\assets\\imgs\\room5_j2li3ppg.jpg"
     },
@@ -6213,8 +6281,16 @@
       "PackagePath": "staticwebassets\\assets\\imgs\\room5_uhg0nap0.jpg"
     },
     {
+      "Id": "C:\\Users\\User\\Desktop\\Hotel-Reservation\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\room5_votjlu2h.jpg",
+      "PackagePath": "staticwebassets\\assets\\imgs\\room5_votjlu2h.jpg"
+    },
+    {
       "Id": "C:\\Users\\User\\Desktop\\Hotel-Reservation\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\room6_10tdtg4m.jpg",
       "PackagePath": "staticwebassets\\assets\\imgs\\room6_10tdtg4m.jpg"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\Hotel-Reservation\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\room6_5k55wpuu.jpg",
+      "PackagePath": "staticwebassets\\assets\\imgs\\room6_5k55wpuu.jpg"
     },
     {
       "Id": "C:\\Users\\User\\Desktop\\Hotel-Reservation\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\room6_aquo5l3w.jpg",
@@ -6223,6 +6299,10 @@
     {
       "Id": "C:\\Users\\User\\Desktop\\Hotel-Reservation\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\room6_d1uovvvn.jpg",
       "PackagePath": "staticwebassets\\assets\\imgs\\room6_d1uovvvn.jpg"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\Hotel-Reservation\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\room6_h1elgijz.jpg",
+      "PackagePath": "staticwebassets\\assets\\imgs\\room6_h1elgijz.jpg"
     },
     {
       "Id": "C:\\Users\\User\\Desktop\\Hotel-Reservation\\Hotel\\Hotel\\wwwroot\\assets\\imgs\\room6_llxjvxgk.jpg",

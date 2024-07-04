@@ -31,7 +31,7 @@ namespace Hotel.Areas.Admin.Controllers
         // GET: RoomController
         public async Task<IActionResult> Index(int page = 0)
         {
-            int pageSize = 4;
+            int pageSize = 5;
             var totalItems = await _context.Rooms.CountAsync();
             ViewBag.MaxPage = (int)Math.Ceiling((double)totalItems / pageSize);
             ViewBag.CurrentPage = page;

@@ -11,7 +11,7 @@
 
                 <div class="header-inner rel d-flex align-items-center">
                     <div class="logo-outer">
-                        <div class="logo"><a asp-action="Index" asp-controller="Home"><img src="~/assets/images/logos/logo.png" alt="Logo" title="Logo"></a></div>
+                        <div class="logo"><a asp-action="Index" asp-controller="Home"><img src="~/assets/images/logos/logocaspian1.png" alt="Logo" title="Logo"></a></div>
                     </div>
 
                     <div class="nav-outer clearfix me-auto">
@@ -40,9 +40,7 @@
                                     <li>
                                         <a asp-action="Index" asp-controller="Room">Room</a>
                                     </li>
-                                    <li>
-                                        <a href="contact.html">Contact</a>
-                                    </li>
+                                    
                                     @if (User.Identity.IsAuthenticated)
                                     {
                                         <li class="nav-item dropdown">
@@ -80,7 +78,7 @@
                     </div>
 
                     <!-- Menu Button -->
-                    <div class="menu-btns">
+                    @* <div class="menu-btns">
 
                         <button class="shopping-bag">
                             <span>0</span>
@@ -92,7 +90,7 @@
 
                             </button>
                         </div>
-                    </div>
+                    </div> *@
                 </div>
             </div>
         </div>

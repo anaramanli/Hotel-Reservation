@@ -17,7 +17,7 @@ namespace Hotel.Areas.Admin.Controllers
 		// GET: SliderController
 		public async Task<ActionResult> Index(int page = 0)
 		{
-			int pageSize = 4;
+			int pageSize = 5;
 			var totalItems = await _context.Sliders.CountAsync();
 			ViewBag.MaxPage = (int)Math.Ceiling((double)totalItems / pageSize);
 			ViewBag.CurrentPage = page;

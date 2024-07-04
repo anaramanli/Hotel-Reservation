@@ -7,7 +7,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Register | Minia - Minimal Admin & Dashboard Template</title>
+    <title>Register | Caspian Horizon</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
@@ -28,14 +28,13 @@
                         <div class="w-100">
                             <div class="d-flex flex-column h-100">
                                 <div class="mb-4 mb-md-5 text-center">
-                                    <a href="index.html" class="d-block auth-logo">
-                                        <img src="~/admin/assets/images/logo-sm.svg" alt="" height="28"> <span class="logo-txt">Minia</span>
+                                    <a asp-action="Index" class="d-block auth-logo">
+                                        <img src="~/admin/assets/images/Caspianblack.png" alt="" width="350px" > <span class="logo-txt"></span>
                                     </a>
                                 </div>
                                 <div class="auth-content my-auto">
                                     <div class="text-center">
                                         <h5 class="mb-0">Register Account</h5>
-                                        <p class="text-muted mt-2">Get your free Minia account now.</p>
                                     </div>
                                     <form class="needs-validation mt-4 pt-2" novalidate asp-action="Register" asp-controller="Account" method="post">
                                         <div class="mb-3">
@@ -122,46 +121,17 @@
                                             }
                                         </div>
 
-                                        <div class="mb-4">
-                                            <p class="mb-0">By registering you agree to the Minia <a href="#" class="text-primary">Terms of Use</a></p>
-                                        </div>
+                                        
                                         <div class="mb-3">
                                             <button class="btn btn-primary w-100 waves-effect waves-light" type="submit">Register</button>
                                         </div>
                                     </form>
 
-                                    <div class="mt-4 pt-2 text-center">
-                                        <div class="signin-other-title">
-                                            <h5 class="font-size-14 mb-3 text-muted fw-medium">- Sign up using -</h5>
-                                        </div>
-
-                                        <ul class="list-inline mb-0">
-                                            <li class="list-inline-item">
-                                                <a href="javascript:void(0);" class="social-list-item bg-primary text-white border-primary">
-                                                    <i class="mdi mdi-facebook"></i>
-                                                </a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="javascript:void(0);" class="social-list-item bg-info text-white border-info">
-                                                    <i class="mdi mdi-twitter"></i>
-                                                </a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="javascript:void(0);" class="social-list-item bg-danger text-white border-danger">
-                                                    <i class="mdi mdi-google"></i>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-
                                     <div class="mt-5 text-center">
                                         <p class="text-muted mb-0">
-                                            Already have an account ? <a href="auth-login.html" class="text-primary fw-semibold"> Login </a>
+                                            Already have an account ? <a asp-action="Login" class="text-primary fw-semibold"> Login </a>
                                         </p>
                                     </div>
-                                </div>
-                                <div class="mt-4 mt-md-5 text-center">
-                                    <p class="mb-0">© <script>document.write(new Date().getFullYear())</script> Minia. Crafted with <i class="mdi mdi-heart text-danger"></i> by Themesbrand</p>
                                 </div>
                             </div>
                         </div>
