@@ -1,0 +1,49 @@
+﻿@using Hotel.ViewModels.UserRole
+@model List<UserRoleVM>
+
+<div class="page-content">
+    <h2>Manage User Roles</h2>
+
+    <form asp-action="UpdateRoles" method="post">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>User Name</th>
+                    <th>Current Role</th>
+                    <th>Assign Role</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in Model)
+                {
+                    <tr>
+                        <td>@user.UserName</td>
+                        <td>
+                            @foreach (var role in user.Roles)
+                            {
+                                <span class="badge bg-primary">@role</span>
+                            }
+                        </td>
+                        <td>
+                            <select name="userRoles[@user.UserId]" class="form-select">
+                                <option value="">Select Role</option>
+                                @foreach (var role in user.AvailableRoles)
+                                {
+                                    if (role.Value == user.SelectedRole)
+                                    {
+                                        <option value="@role.Value" selected="selected">@role.Text</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@role.Value">@role.Text</option>
+                                    }
+                                }
+                            </select>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <button type="submit" class="btn btn-primary">Update Role</button>
+    </form>
+</div>

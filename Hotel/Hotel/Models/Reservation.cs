@@ -27,6 +27,8 @@ namespace Hotel.Models
         public int CustomerId { get; set; } 
         public Customer Customer { get; set; }
 
+        public string? StripeChargeId { get; set; }
+
         public ICollection<UserReservation>? UserReservations { get; set; }
 
         //public ICollection<Payment> Payments { get; set; }

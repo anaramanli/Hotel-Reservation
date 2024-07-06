@@ -164,6 +164,8 @@ namespace Hotel.Controllers
                         return View(viewModel);
                     }
 
+                    reservation.StripeChargeId = charge.Id; // Stripe charge id ekleniyor
+
                     room.RoomStatus = reservedStatus;
 
                     var qrCodeText = $"Room ID: {reservation.RoomId}, Check-in: {reservation.CheckInDate}, Check-out: {reservation.CheckOutDate}";
@@ -201,6 +203,84 @@ namespace Hotel.Controllers
             ViewBag.ExtrasPrices = ExtrasPrices;
             return View(viewModel);
         }
-    }
 
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> Reject([FromBody] RejectRequestModel request)
+        {
+            if (request == null || request.ReservationId <= 0)
+            {
+                return BadRequest("Invalid request data.");
+            }
+
+            Console.WriteLine($"Reject request received for reservationId: {request.ReservationId}");
+
+            var reservation = await _context.Reservations
+                                            .Include(r => r.Room)
+                                            .FirstOrDefaultAsync(r => r.Id == request.ReservationId);
+
+            if (reservation == null)
+            {
+                Console.WriteLine("Reservation not found.");
+                return BadRequest("Reservation not found.");
+            }
+
+            var room = reservation.Room;
+            var availableStatus = await _context.RoomStatuses.FirstOrDefaultAsync(rs => rs.StatusName == "Available");
+
+            if (availableStatus == null)
+            {
+                Console.WriteLine("Available status not found.");
+                return BadRequest("Available status not found.");
+            }
+
+            var refundOptions = new RefundCreateOptions
+            {
+                Charge = reservation.StripeChargeId,
+                Amount = (long)(reservation.TotalCost * 100) 
+            };
+            var refundService = new RefundService();
+            var refund = await refundService.CreateAsync(refundOptions);
+
+            if (refund.Status != "succeeded")
+            {
+                Console.WriteLine($"Refund failed. Status: {refund.Status}");
+                return BadRequest($"Refund failed. Refund status: {refund.Status}");
+            }
+
+            room.RoomStatus = availableStatus;
+            reservation.IsDeleted = true;
+
+            _context.Reservations.Update(reservation);
+            _context.Rooms.Update(room);
+            await _context.SaveChangesAsync();
+
+            // Kullanıcıya e-posta gönder
+            var user = await _userManager.FindByEmailAsync(reservation.Email);
+            if (user != null)
+            {
+                string body = $@"
+        <h1>Reservation Rejected</h1>
+        <p>We regret to inform you that your reservation has been rejected.</p>
+        <p>Reservation Details:</p>
+        <ul>
+            <li>Room Number: {reservation.Room.RoomNumber}</li>
+            <li>Check-in Date: {reservation.CheckInDate.ToShortDateString()}</li>
+            <li>Check-out Date: {reservation.CheckOutDate.ToShortDateString()}</li>
+            <li>Total Cost: ${reservation.TotalCost}</li>
+        </ul>
+        <p>The payment of ${reservation.TotalCost} has been refunded to your original payment method.</p>
+        ";
+
+                await _emailService.SendMailAsync(user.Email, "Reservation Rejected", body,true);
+            }
+            else
+            {
+                Console.WriteLine("User not found.");
+            }
+
+            return Ok();
+        }
+
+    }
 }

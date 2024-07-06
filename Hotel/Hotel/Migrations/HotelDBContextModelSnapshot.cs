@@ -432,6 +432,9 @@ namespace Hotel.Migrations
                     b.Property<string>("SelectedExtras")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("StripeChargeId")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Surname")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
