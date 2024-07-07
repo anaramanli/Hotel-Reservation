@@ -2,7 +2,7 @@
 {
     public enum Extras
     {
-        NightView,
+        MountainView,
         OceanView,
         CityView
     }

@@ -186,7 +186,6 @@ namespace Hotel.Controllers
 
             string link = Url.Action("ResetPassword", "Account", new { userId = user.Id, token = token }, Request.Scheme);
 
-            // Send the link via email
             await _emailService.SendMailAsync(user.Email, "Password Reset", $"Reset your password by clicking <a href='{link}'>here</a>.", true);
 
             TempData["SuccessMessage"] = "Password reset link has been sent to your email.";
@@ -204,7 +203,6 @@ namespace Hotel.Controllers
         {
             if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(token))
             {
-                // Error handling
                 return RedirectToAction("Error", "Home");
             }
 

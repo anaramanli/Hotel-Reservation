@@ -35,7 +35,7 @@ namespace Hotel.Controllers
 				.ToListAsync();
 			var viewModel = new UserProfileViewModel
 			{
-				UserName = $"{user.Name} {user.Surname}",
+				UserName = user.Name,
 				UserSurname = user.Surname,
 				UserEmail = user.Email,
 				Reservations = reservations,

@@ -28,7 +28,7 @@ namespace Hotel.Controllers
 
         private static readonly Dictionary<Extras, decimal> ExtrasPrices = new Dictionary<Extras, decimal>
     {
-        { Extras.NightView, 50 },
+        { Extras.MountainView, 50 },
         { Extras.OceanView, 100 },
         { Extras.CityView, 0 }
     };
@@ -127,7 +127,6 @@ namespace Hotel.Controllers
                         CreatedAt = DateTime.Now
                     };
 
-                    // Calculate the total cost
                     reservation.CalculateTotalCost(ExtrasPrices);
 
                     var reservedStatus = await _context.RoomStatuses.FirstOrDefaultAsync(rs => rs.StatusName == "Reserved");
@@ -136,7 +135,6 @@ namespace Hotel.Controllers
                         return BadRequest("Reserved status not found.");
                     }
 
-                    // Stripe
                     var optionCust = new CustomerCreateOptions
                     {
                         Email = stripeEmail,
@@ -164,7 +162,7 @@ namespace Hotel.Controllers
                         return View(viewModel);
                     }
 
-                    reservation.StripeChargeId = charge.Id; // Stripe charge id ekleniyor
+                    reservation.StripeChargeId = charge.Id;
 
                     room.RoomStatus = reservedStatus;
 
@@ -255,7 +253,6 @@ namespace Hotel.Controllers
             _context.Rooms.Update(room);
             await _context.SaveChangesAsync();
 
-            // Kullanıcıya e-posta gönder
             var user = await _userManager.FindByEmailAsync(reservation.Email);
             if (user != null)
             {
